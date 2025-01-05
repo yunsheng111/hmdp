@@ -1,4 +1,4 @@
-package com.hmdp.dto;
+package com.hmdp.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,16 +15,20 @@ public class Result {
     private Object data;
     private Long total;
 
-    public static Result ok(){
+    public static Result success(){
         return new Result(true, null, null, null);
     }
-    public static Result ok(Object data){
+    public static Result success(Object data){
         return new Result(true, null, data, null);
     }
-    public static Result ok(List<?> data, Long total){
+    public static Result success(List<?> data, Long total){
         return new Result(true, null, data, total);
     }
     public static Result fail(String errorMsg){
         return new Result(false, errorMsg, null, null);
+    }
+
+    public String getMessage() {
+        return null;
     }
 }

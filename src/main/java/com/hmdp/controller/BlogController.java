@@ -2,7 +2,7 @@ package com.hmdp.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hmdp.dto.Result;
+import com.hmdp.utils.Result;
 import com.hmdp.dto.UserDTO;
 import com.hmdp.entity.Blog;
 import com.hmdp.entity.User;
@@ -40,7 +40,7 @@ public class BlogController {
         // 保存探店博文
         blogService.save(blog);
         // 返回id
-        return Result.ok(blog.getId());
+        return Result.success(blog.getId());
     }
 
     @PutMapping("/like/{id}")
@@ -48,7 +48,7 @@ public class BlogController {
         // 修改点赞数量
         blogService.update()
                 .setSql("liked = liked + 1").eq("id", id).update();
-        return Result.ok();
+        return Result.success();
     }
 
     @GetMapping("/of/me")
@@ -60,7 +60,7 @@ public class BlogController {
                 .eq("user_id", user.getId()).page(new Page<>(current, SystemConstants.MAX_PAGE_SIZE));
         // 获取当前页数据
         List<Blog> records = page.getRecords();
-        return Result.ok(records);
+        return Result.success(records);
     }
 
     @GetMapping("/hot")
@@ -78,6 +78,6 @@ public class BlogController {
             blog.setName(user.getNickName());
             blog.setIcon(user.getIcon());
         });
-        return Result.ok(records);
+        return Result.success(records);
     }
 }

@@ -2,9 +2,10 @@ package com.hmdp.controller;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
-import com.hmdp.dto.Result;
+import com.hmdp.utils.Result;
 import com.hmdp.utils.SystemConstants;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +29,7 @@ public class UploadController {
             image.transferTo(new File(SystemConstants.IMAGE_UPLOAD_DIR, fileName));
             // 返回结果
             log.debug("文件上传成功，{}", fileName);
-            return Result.ok(fileName);
+            return Result.success(fileName);
         } catch (IOException e) {
             throw new RuntimeException("文件上传失败", e);
         }
@@ -41,7 +42,7 @@ public class UploadController {
             return Result.fail("错误的文件名称");
         }
         FileUtil.del(file);
-        return Result.ok();
+        return Result.success();
     }
 
     private String createNewFileName(String originalFilename) {

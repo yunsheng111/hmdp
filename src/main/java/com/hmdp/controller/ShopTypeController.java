@@ -1,7 +1,7 @@
 package com.hmdp.controller;
 
 
-import com.hmdp.dto.Result;
+import com.hmdp.utils.Result;
 import com.hmdp.entity.ShopType;
 import com.hmdp.service.IShopTypeService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +29,6 @@ public class ShopTypeController {
     public Result queryTypeList() {
         List<ShopType> typeList = typeService
                 .query().orderByAsc("sort").list();
-        return Result.ok(typeList);
+        return Result.success(typeList);
     }
 }
