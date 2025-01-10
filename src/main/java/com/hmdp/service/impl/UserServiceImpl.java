@@ -4,7 +4,6 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmdp.dto.LoginFormDTO;
 import com.hmdp.dto.UserDTO;
@@ -12,13 +11,14 @@ import com.hmdp.entity.User;
 import com.hmdp.mapper.UserMapper;
 import com.hmdp.service.IUserService;
 import com.hmdp.utils.RegexUtils;
-import com.hmdp.utils.Result;
+import com.hmdp.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @Author: yate
      */
     @Override
-    public Result sendCode(String phone, HttpSession session) {
+    public Result sendCode(String phone) {
         //1. 校验手机号码格式
         if (RegexUtils.isPhoneInvalid(phone)) {
             //2. 如果不符合，返回错误信息
@@ -76,7 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @Author: yate
      */
     @Override
-    public Result login(LoginFormDTO loginForm, HttpSession session) {
+    public Result login(LoginFormDTO loginForm) {
         // 1.校验手机号
         String phone = loginForm.getPhone();
         if (RegexUtils.isPhoneInvalid(phone)) {
@@ -120,6 +120,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
 
+
     private User createUserWithPhone(String phone) {
         // 1.创建用户
         User user = new User();
@@ -137,6 +138,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return:
      * @Author: yate
      */
+
+    @Override
+    public Result logout(HttpServletRequest request) {
+        // 1.获取请求中的token
+        String token = request.getHeader("token");
+        // 2.从redis中删除token
+        stringRedisTemplate.delete(LOGIN_USER_KEY + token);
+        // 3.返回成功信息
+        return Result.success("退出登录成功");
+    }
 
 
 

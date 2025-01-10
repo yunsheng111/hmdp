@@ -3,8 +3,9 @@ package com.hmdp.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hmdp.dto.LoginFormDTO;
 import com.hmdp.entity.User;
-import com.hmdp.utils.Result;
+import com.hmdp.common.Result;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -24,7 +25,7 @@ public interface IUserService extends IService<User> {
      *@Author: yate
      */
 
-    Result sendCode(String phone, HttpSession session);
+    Result sendCode(String phone);
 
     /**
      * 登录
@@ -33,7 +34,10 @@ public interface IUserService extends IService<User> {
      *@Author: yate
      */
 
-    Result login(LoginFormDTO loginForm, HttpSession session);
+    Result login(LoginFormDTO loginForm);
+
+
+
 
     /**
      * 退出登录
@@ -41,6 +45,6 @@ public interface IUserService extends IService<User> {
      *@return:  Result
      *@Author: yate
      */
-
+    Result logout(HttpServletRequest request);
 
 }

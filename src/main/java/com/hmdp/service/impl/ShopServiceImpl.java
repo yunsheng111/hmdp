@@ -1,5 +1,6 @@
 package com.hmdp.service.impl;
 
+import com.hmdp.common.Result;
 import com.hmdp.entity.Shop;
 import com.hmdp.mapper.ShopMapper;
 import com.hmdp.service.IShopService;
@@ -17,4 +18,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IShopService {
 
+    /**
+     * 根据id查询商铺信息
+     * @param id 商铺id
+     * @return 商铺详情数据
+     */
+    @Override
+    public Result queryById(Long id) {
+        return null;
+    }
 }
