@@ -1,14 +1,20 @@
 package com.hmdp.utils;
 
 public class RedisConstants {
+    //登录验证码的key，手机号码作为key，验证码作为value，手机号码的前缀
     public static final String LOGIN_CODE_KEY = "login:code:";
+    //验证码的有效期,2秒钟
     public static final Long LOGIN_CODE_TTL = 2L;
+    //登录用户的key，token作为key，用户信息作为value，token的前缀
     public static final String LOGIN_USER_KEY = "login:token:";
+    //登录用户的过期时间，单位为秒。其值为 36000，即表示登录用户的有效期是 10 小时（36000 秒）
     public static final Long LOGIN_USER_TTL = 36000L;
 
     public static final Long CACHE_NULL_TTL = 2L;
 
     public static final Long CACHE_SHOP_TTL = 30L;
+
+    // 缓存商铺的key，id作为key，商铺信息作为value，id的前缀
     public static final String CACHE_SHOP_KEY = "cache:shop:";
 
     public static final String LOCK_SHOP_KEY = "lock:shop:";
