@@ -8,8 +8,10 @@ import com.hmdp.entity.Shop;
 import com.hmdp.mapper.ShopMapper;
 import com.hmdp.service.IShopService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -27,6 +29,7 @@ import static com.hmdp.utils.RedisConstants.CACHE_SHOP_TTL;
  * @since 2021-12-22
  */
 @Service
+@Slf4j
 public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IShopService {
 
     @Resource
@@ -58,5 +61,29 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         stringRedisTemplate.opsForValue().set(CACHE_SHOP_KEY + id, userJson,CACHE_SHOP_TTL, TimeUnit.MINUTES);
         //6.返回商铺详情数据
         return Result.success(shop);
+    }
+
+    /**
+     * @description: 更新商铺信息
+     * @author: yate
+     * @date: 2025/1/11 0011 20:16
+     * @param: [shop]
+     * @return: com.hmdp.common.Result
+     **/
+    @Override
+    @Transactional
+    public Result update(Shop shop) {
+        Long id = shop.getId();
+        if (id != null) {
+            return Result.fail("店铺不存在");
+        }
+        // 1.更新数据库
+        updateById(shop);
+        log.info("更新商铺信息成功，id={}", id);
+        // 2.删除缓存
+        stringRedisTemplate.delete(CACHE_SHOP_KEY + id);
+        log.info("删除缓存成功，id={}", id);
+        // 3.返回成功信息
+        return Result.success("更新成功");
     }
 }

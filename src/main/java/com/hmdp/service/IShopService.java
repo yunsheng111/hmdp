@@ -20,4 +20,13 @@ public interface IShopService extends IService<Shop> {
      * @return 商铺详情数据
      */
     Result queryById(Long id);
+
+    /**
+     * @description: 更新商铺信息
+     * @author: yate
+     * @date: 2025/1/11 0011 20:16
+     * @param: [shop]
+     * @return: com.hmdp.common.Result
+     **/
+    Result update(Shop shop);
 }
