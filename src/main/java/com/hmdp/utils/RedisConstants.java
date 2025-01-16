@@ -10,14 +10,18 @@ public class RedisConstants {
     //登录用户的过期时间，单位为秒。其值为 36000，即表示登录用户的有效期是 10 小时（36000 秒）
     public static final Long LOGIN_USER_TTL = 36000L;
 
+    //缓存店铺空值的有效期，单位为秒。其值为 2，即表示缓存空值的有效期是 2 秒
     public static final Long CACHE_NULL_TTL = 2L;
 
+    //缓存店铺的非空值的有效期，单位为秒。其值为 30，即表示缓存非空值的有效期是 30 秒
     public static final Long CACHE_SHOP_TTL = 30L;
 
     // 缓存商铺的key，id作为key，商铺信息作为value，id的前缀
     public static final String CACHE_SHOP_KEY = "cache:shop:";
 
+    //互斥锁的key，id作为key，互斥锁作为value，id的前缀
     public static final String LOCK_SHOP_KEY = "lock:shop:";
+    //互斥锁的过期时间，单位为秒。其值为 10，即表示互斥锁的有效期是 10 秒
     public static final Long LOCK_SHOP_TTL = 10L;
 
     public static final String SECKILL_STOCK_KEY = "seckill:stock:";

@@ -18,10 +18,16 @@ spring:
         max-idle: 10
         min-idle: 1
         time-between-eviction-runs: 10s
+
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
 mybatis-plus:
   type-aliases-package: com.hmdp.entity # 别名扫描包
-logging:
-  level:
-    com.hmdp: debug
+  # xml映射文件路径
+  mapper-locations: classpath:mapper/*.xml
+
+knife4:
+  enable: true # 开启knife4j接口文档
+  doc-expansion: list
+  deepLinking: true
+  path: /doc.html  # 确保路径正确
