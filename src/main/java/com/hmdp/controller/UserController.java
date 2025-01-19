@@ -65,6 +65,13 @@ public class UserController {
         return userService.logout(request);
     }
 
+    /**
+     * @description: 获取当前登录的用户信息
+     * @author: yate
+     * @date: 2025/1/18 0018 20:49
+     * @param: []
+     * @return: com.hmdp.common.Result
+     **/
     @GetMapping("/me")
     public Result me(){
         // TODO 获取当前登录的用户并返回
@@ -72,6 +79,13 @@ public class UserController {
         return Result.success(user);
     }
 
+    /**
+     * @description: 获取用户详情
+     * @author: yate
+     * @date: 2025/1/18 0018 20:50
+     * @param: [id]
+     * @return: com.hmdp.common.Result
+     **/
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Long userId){
         // 查询详情
