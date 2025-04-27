@@ -6,6 +6,10 @@ package com.hmdp.utils;
 public abstract class RegexPatterns {
     /**
      * 手机号正则
+     * 手机号以数字1开头。
+     * 第二位数字限定为3、4、5、6、7、8、9。
+     * 根据第二位数字的不同，第三位数字有特定范围。
+     * 后续8位为任意数字。
      */
     public static final String PHONE_REGEX = "^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\\d{8}$";
     /**

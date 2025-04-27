@@ -696,3 +696,308 @@ Error starting ApplicationContext. To display the conditions report re-run your 
 2025-01-20 03:15:15,246 INFO [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
 2025-01-20 03:15:23,099 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
 2025-01-20 03:15:23,101 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-01-31 14:39:19,587 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 16216 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-01-31 14:39:19,592 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-01-31 14:39:20,573 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-31 14:39:20,575 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-01-31 14:39:20,623 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
+2025-01-31 14:39:21,158 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-01-31 14:39:21,297 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1654 ms
+2025-01-31 14:39:21,964 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 8404 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-01-31 14:39:21,967 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-01-31 14:39:22,717 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-31 14:39:22,719 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-01-31 14:39:22,746 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+2025-01-31 14:39:23,241 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8082 (http)
+2025-01-31 14:39:23,363 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1353 ms
+2025-01-31 14:39:23,603 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-01-31 14:39:23,773 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.633 seconds (JVM running for 5.766)
+2025-01-31 14:39:25,519 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8082 (http) with context path ''
+2025-01-31 14:39:25,677 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.067 seconds (JVM running for 5.185)
+2025-01-31 15:40:46,303 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 2204 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-01-31 15:40:46,307 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-01-31 15:40:47,091 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-31 15:40:47,094 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-01-31 15:40:47,133 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 18 ms. Found 0 Redis repository interfaces.
+2025-01-31 15:40:47,669 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-01-31 15:40:47,802 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1457 ms
+2025-01-31 15:40:48,626 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 6480 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-01-31 15:40:48,629 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-01-31 15:40:49,314 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-31 15:40:49,317 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-01-31 15:40:49,348 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
+2025-01-31 15:40:49,776 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8082 (http)
+2025-01-31 15:40:49,916 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1246 ms
+2025-01-31 15:40:50,003 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-01-31 15:40:50,168 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.174 seconds (JVM running for 5.184)
+2025-01-31 15:40:51,654 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8082 (http) with context path ''
+2025-01-31 15:40:51,797 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 3.495 seconds (JVM running for 4.585)
+2025-01-31 16:00:05,622 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-01-31 16:00:05,623 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-01-31 16:00:05,673 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 59] 手机号码：13322223333
+2025-01-31 16:00:20,790 INFO [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-01-31 16:00:20,792 INFO [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 2 ms
+2025-01-31 16:03:35,592 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 5700 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-01-31 16:03:35,599 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-01-31 16:03:36,527 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-31 16:03:36,530 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-01-31 16:03:36,563 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2025-01-31 16:03:37,168 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8082 (http)
+2025-01-31 16:03:37,323 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1677 ms
+2025-01-31 16:03:38,209 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 13828 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-01-31 16:03:38,214 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-01-31 16:03:38,861 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-31 16:03:38,863 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-01-31 16:03:38,887 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+2025-01-31 16:03:39,290 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-01-31 16:03:39,382 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8082 (http) with context path ''
+2025-01-31 16:03:39,413 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1161 ms
+2025-01-31 16:03:39,583 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.359 seconds (JVM running for 5.39)
+2025-01-31 16:03:41,207 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-01-31 16:03:41,360 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 3.49 seconds (JVM running for 4.617)
+2025-01-31 16:04:32,681 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 9388 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-01-31 16:04:32,686 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-01-31 16:04:33,499 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-31 16:04:33,501 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-01-31 16:04:33,530 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+2025-01-31 16:04:34,076 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-01-31 16:04:34,080 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 21124 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-01-31 16:04:34,084 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-01-31 16:04:34,226 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1490 ms
+2025-01-31 16:04:34,838 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-01-31 16:04:34,840 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-01-31 16:04:34,866 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-01-31 16:04:35,306 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8082 (http)
+2025-01-31 16:04:35,432 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1306 ms
+2025-01-31 16:04:36,351 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-01-31 16:04:36,500 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.191 seconds (JVM running for 5.732)
+2025-01-31 16:04:37,388 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8082 (http) with context path ''
+2025-01-31 16:04:37,535 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 3.839 seconds (JVM running for 4.994)
+2025-01-31 16:05:32,883 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-01-31 16:05:32,885 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-01-31 16:05:39,464 INFO [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-01-31 16:05:39,466 INFO [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-02-01 19:20:39,217 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 22444 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-01 19:20:39,221 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-01 19:20:40,348 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-01 19:20:40,352 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-01 19:20:40,387 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2025-02-01 19:20:41,060 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-02-01 19:20:41,276 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1996 ms
+2025-02-01 19:20:41,296 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 25296 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-01 19:20:41,302 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-01 19:20:42,162 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-01 19:20:42,164 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-01 19:20:42,199 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 18 ms. Found 0 Redis repository interfaces.
+2025-02-01 19:20:42,753 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8082 (http)
+2025-02-01 19:20:42,938 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1582 ms
+2025-02-01 19:20:43,867 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-02-01 19:20:44,018 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 5.229 seconds (JVM running for 6.948)
+2025-02-01 19:20:45,355 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8082 (http) with context path ''
+2025-02-01 19:20:45,547 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.725 seconds (JVM running for 6.117)
+2025-02-01 19:23:12,472 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-02-01 19:23:12,474 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 2 ms
+2025-02-01 19:23:18,502 INFO [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-02-01 19:23:18,504 INFO [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-02-01 19:23:47,116 INFO [http-nio-8081-exec-1] com.hmdp.utils.SimleRedisLock [SimleRedisLock.java : 36] 尝试获取锁，线程ID：fac7dae6c5c94c36991ab92db2ebe624-38，锁名称：order1024
+2025-02-01 19:24:38,912 INFO [http-nio-8082-exec-1] com.hmdp.utils.SimleRedisLock [SimleRedisLock.java : 36] 尝试获取锁，线程ID：781161b842244581844e6e6759423fb5-37，锁名称：order1024
+2025-02-01 19:24:54,376 INFO [http-nio-8081-exec-1] com.hmdp.utils.SimleRedisLock [SimleRedisLock.java : 48] 释放锁，线程ID：fac7dae6c5c94c36991ab92db2ebe624-38，锁名称：order1024
+2025-02-01 19:27:32,372 INFO [http-nio-8082-exec-1] com.hmdp.utils.SimleRedisLock [SimleRedisLock.java : 48] 释放锁，线程ID：781161b842244581844e6e6759423fb5-37，锁名称：order1024
+2025-02-17 00:56:03,441 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 16968 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-17 00:56:03,446 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-17 00:56:04,405 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-17 00:56:04,408 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-17 00:56:04,447 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 20 ms. Found 0 Redis repository interfaces.
+2025-02-17 00:56:04,939 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-02-17 00:56:05,080 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1576 ms
+2025-02-17 00:56:05,825 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 12268 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-17 00:56:05,828 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-17 00:56:06,513 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-17 00:56:06,514 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-17 00:56:06,540 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+2025-02-17 00:56:06,983 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8082 (http)
+2025-02-17 00:56:07,104 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1236 ms
+2025-02-17 00:56:07,314 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-02-17 00:56:07,453 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.516 seconds (JVM running for 5.784)
+2025-02-17 00:56:09,178 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8082 (http) with context path ''
+2025-02-17 00:56:09,327 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 3.854 seconds (JVM running for 4.921)
+2025-02-17 00:57:42,709 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 8572 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-17 00:57:42,714 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-17 00:57:43,666 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-17 00:57:43,670 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-17 00:57:43,701 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2025-02-17 00:57:44,298 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-02-17 00:57:44,491 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1728 ms
+2025-02-17 00:57:44,721 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 20564 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-17 00:57:44,727 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-17 00:57:45,572 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-17 00:57:45,574 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-17 00:57:45,602 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
+2025-02-17 00:57:46,100 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8082 (http)
+2025-02-17 00:57:46,239 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1461 ms
+2025-02-17 00:57:46,979 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-02-17 00:57:47,133 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.815 seconds (JVM running for 6.346)
+2025-02-17 00:57:48,703 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8082 (http) with context path ''
+2025-02-17 00:57:48,868 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.603 seconds (JVM running for 5.816)
+2025-02-17 00:58:01,408 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-02-17 00:58:01,409 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-02-17 00:58:08,065 INFO [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-02-17 00:58:08,068 INFO [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-02-17 00:58:35,709 INFO [http-nio-8082-exec-1] com.hmdp.utils.SimleRedisLock [SimleRedisLock.java : 51] 尝试获取锁，线程ID：5952af2261da4153bf80e2e5032e1123-36，锁名称：order1024
+2025-02-17 00:59:09,124 INFO [http-nio-8081-exec-1] com.hmdp.utils.SimleRedisLock [SimleRedisLock.java : 51] 尝试获取锁，线程ID：633f9f40afca42a2b0471bf748dfaf3b-36，锁名称：order1024
+2025-02-17 01:03:39,395 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 6584 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-17 01:03:39,398 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-17 01:03:40,076 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-17 01:03:40,078 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-17 01:03:40,103 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+2025-02-17 01:03:40,540 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-02-17 01:03:40,658 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1221 ms
+2025-02-17 01:03:42,491 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-02-17 01:03:42,638 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 3.578 seconds (JVM running for 4.63)
+2025-02-17 01:03:50,566 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 21076 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-17 01:03:50,568 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-17 01:03:51,150 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-17 01:03:51,151 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-17 01:03:51,175 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-02-17 01:03:51,535 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8082 (http)
+2025-02-17 01:03:51,644 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1039 ms
+2025-02-17 01:03:53,317 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8082 (http) with context path ''
+2025-02-17 01:03:53,455 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 3.175 seconds (JVM running for 4.164)
+2025-02-17 01:04:00,935 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 17428 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-17 01:04:00,937 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-17 01:04:01,595 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-17 01:04:01,597 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-17 01:04:01,621 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2025-02-17 01:04:02,033 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8082 (http)
+2025-02-17 01:04:02,149 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1174 ms
+2025-02-17 01:04:03,982 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8082 (http) with context path ''
+2025-02-17 01:04:04,122 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 3.518 seconds (JVM running for 4.587)
+2025-02-17 01:04:58,241 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-02-17 01:04:58,242 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-02-17 01:05:02,901 INFO [http-nio-8082-exec-3] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-02-17 01:05:02,903 INFO [http-nio-8082-exec-3] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-02-17 01:05:27,015 INFO [http-nio-8081-exec-1] com.hmdp.utils.SimleRedisLock [SimleRedisLock.java : 51] 尝试获取锁，线程ID：d0a15b8e523e4232b9cbcbfe5d2bd970-34，锁名称：order1024
+2025-02-17 01:06:31,965 INFO [http-nio-8082-exec-3] com.hmdp.utils.SimleRedisLock [SimleRedisLock.java : 51] 尝试获取锁，线程ID：ed20f1b55b1e4ea09d61ef7f3dc4a11a-36，锁名称：order1024
+2025-02-18 18:37:06,052 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 19916 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-18 18:37:06,056 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-18 18:37:06,903 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-18 18:37:06,906 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-18 18:37:06,939 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2025-02-18 18:37:07,383 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-02-18 18:37:07,529 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1431 ms
+2025-02-18 18:37:09,573 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-02-18 18:37:09,727 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.054 seconds (JVM running for 5.108)
+2025-02-20 04:03:53,438 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 18672 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-20 04:03:53,442 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-20 04:03:54,155 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-20 04:03:54,157 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-20 04:03:54,184 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-02-20 04:03:54,631 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-02-20 04:03:54,763 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1278 ms
+2025-02-20 04:03:57,268 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-02-20 04:03:57,442 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.399 seconds (JVM running for 5.504)
+2025-02-20 04:04:13,805 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-02-20 04:04:13,808 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 3 ms
+2025-02-21 01:07:58,766 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 15792 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-02-21 01:07:58,771 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-02-21 01:07:59,474 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-21 01:07:59,476 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-21 01:07:59,502 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-02-21 01:08:00,043 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-02-21 01:08:00,210 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1393 ms
+2025-02-21 01:08:03,371 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-02-21 01:08:03,576 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 5.137 seconds (JVM running for 6.206)
+2025-04-23 18:24:51,314 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 17864 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-04-23 18:24:51,321 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-04-23 18:24:52,057 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-04-23 18:24:52,073 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-04-23 18:24:52,104 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2025-04-23 18:24:53,376 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-04-23 18:24:53,497 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2128 ms
+2025-04-23 18:24:57,044 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-04-23 18:24:57,268 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 6.298 seconds (JVM running for 6.666)
+2025-04-23 18:29:53,064 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 9448 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-04-23 18:29:53,071 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-04-23 18:29:54,459 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-04-23 18:29:54,465 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-04-23 18:29:54,518 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 29 ms. Found 0 Redis repository interfaces.
+2025-04-23 18:29:56,120 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-04-23 18:29:56,272 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 3126 ms
+2025-04-23 18:30:00,733 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-04-23 18:30:00,997 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 8.615 seconds (JVM running for 8.999)
+2025-04-23 18:30:19,284 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-04-23 18:30:19,286 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-04-23 18:34:45,969 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 59] 手机号码：13022223333
+2025-04-23 18:44:38,766 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 4608 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-04-23 18:44:38,772 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-04-23 18:44:40,859 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-04-23 18:44:40,870 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-04-23 18:44:40,963 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 49 ms. Found 0 Redis repository interfaces.
+2025-04-23 18:44:42,175 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-04-23 18:44:42,594 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 3735 ms
+2025-04-23 18:44:50,684 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-04-23 18:44:51,008 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 12.742 seconds (JVM running for 14.422)
+2025-04-23 18:45:16,608 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-04-23 18:45:16,610 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-04-23 18:45:16,661 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 60] 手机号码：13011112222
+2025-04-23 21:48:00,116 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 21652 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-04-23 21:48:00,116 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-04-23 21:48:00,882 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-04-23 21:48:00,900 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-04-23 21:48:00,935 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 22 ms. Found 0 Redis repository interfaces.
+2025-04-23 21:48:02,030 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-04-23 21:48:02,142 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1975 ms
+2025-04-23 21:48:05,335 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-04-23 21:48:05,539 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 5.775 seconds (JVM running for 6.129)
+2025-04-23 21:48:25,821 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-04-23 21:48:25,824 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-04-23 21:50:17,719 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 60] 手机号码：13011112222
+2025-04-23 22:02:20,965 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 752 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-04-23 22:02:20,970 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-04-23 22:02:21,723 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-04-23 22:02:21,726 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-04-23 22:02:21,756 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2025-04-23 22:02:22,987 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-04-23 22:02:23,096 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2070 ms
+2025-04-23 22:02:26,649 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-04-23 22:02:26,880 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 6.277 seconds (JVM running for 6.669)
+2025-04-23 22:03:42,614 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-04-23 22:03:42,617 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-04-23 22:03:42,710 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 60] 手机号码：13011112222
+2025-04-23 22:14:15,532 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 11412 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-04-23 22:14:15,537 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-04-23 22:14:16,295 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-04-23 22:14:16,299 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-04-23 22:14:16,329 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2025-04-23 22:14:17,779 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-04-23 22:14:17,896 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2302 ms
+2025-04-23 22:14:21,334 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-04-23 22:14:21,547 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 6.368 seconds (JVM running for 6.748)
+2025-04-23 22:14:57,567 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-04-23 22:14:57,569 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-04-23 22:14:57,648 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 60] 手机号码：13011112222
+2025-04-23 22:17:01,652 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 2808 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-04-23 22:17:01,654 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-04-23 22:17:02,326 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-04-23 22:17:02,328 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-04-23 22:17:02,356 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-04-23 22:17:02,769 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-04-23 22:17:02,890 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1202 ms
+2025-04-23 22:17:05,648 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-04-23 22:17:05,836 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 4.523 seconds (JVM running for 5.659)
+2025-04-23 22:18:04,137 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-04-23 22:18:04,140 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 2 ms
+2025-04-23 22:18:04,184 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 60] 手机号码：13011112222
+2025-04-24 08:24:36,560 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 9712 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-04-24 08:24:36,569 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-04-24 08:24:38,631 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-04-24 08:24:38,635 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-04-24 08:24:38,694 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+2025-04-24 08:24:39,495 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-04-24 08:24:39,699 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2955 ms
+2025-04-24 08:24:44,764 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-04-24 08:24:45,009 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 9.17 seconds (JVM running for 11.277)
+2025-04-24 08:25:07,527 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-04-24 08:25:07,533 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 5 ms
+2025-04-24 08:26:32,700 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 53] 手机号码：13011112222
+2025-04-24 11:05:56,904 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 53] 手机号码：13011112222

@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -27,14 +28,7 @@ import java.util.concurrent.TimeUnit;
 import static com.hmdp.utils.RedisConstants.*;
 import static com.hmdp.utils.SystemConstants.USER_NICK_NAME_PREFIX;
 
-/**
- * <p>
- * 服务实现类
- * </p>
- *
- * @author 虎哥
- * @since 2021-12-22
- */
+
 @Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
@@ -62,10 +56,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String code = RandomUtil.randomNumbers(6);
         //4.保存验证码到Redis中,LOGIN_CODE_KEY + phone作为key,验证码作为value,设置过期时间为RedisConstants.LOGIN_CODE_TTL分钟,TimeUnit.MINUTES指定单位为分钟
         stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY + phone, code, LOGIN_CODE_TTL, TimeUnit.MINUTES);
-        //5.发送验证码到用户手机
-        log.debug("发送短信验证码成功，验证码：{}", code);
-        //6.返回成功信息
-        return Result.success("验证码发送成功");
+        //5.发送验证码到用户手机 - 确保使用UTF-8编码
+        String successMsg = "发送短信验证码成功，验证码：" + code;
+        byte[] msgBytes = successMsg.getBytes(StandardCharsets.UTF_8);
+        String encodedMsg = new String(msgBytes, StandardCharsets.UTF_8);
+        log.debug(encodedMsg);
+        //6.返回成功信息 - 确保使用UTF-8编码
+        String returnMsg = "验证码发送成功";
+        byte[] returnMsgBytes = returnMsg.getBytes(StandardCharsets.UTF_8);
+        String encodedReturnMsg = new String(returnMsgBytes, StandardCharsets.UTF_8);
+        return Result.success(encodedReturnMsg);
     }
 
     /**

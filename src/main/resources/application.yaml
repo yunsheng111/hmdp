@@ -1,13 +1,20 @@
 server:
   port: 8081
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
 spring:
   application:
     name: hmdp
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/hmdp?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/hmdp?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
     username: root
     password: root
+    hikari:
+      connection-init-sql: SET NAMES utf8mb4
   redis:
     host: 127.0.0.1
     port: 6379

@@ -6,9 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * @ Tool：IntelliJ IDEA
@@ -48,4 +53,14 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
     }
 
+    /**
+     * 配置消息转换器
+     * @param converters
+     */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // 使用UTF-8字符集，解决中文乱码问题
+        StringHttpMessageConverter converter = new StringHttpMessageConverter(StandardCharsets.UTF_8);
+        converters.add(0, converter);
+    }
 }
