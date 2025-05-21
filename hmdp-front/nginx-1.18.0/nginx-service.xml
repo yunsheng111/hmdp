@@ -1,0 +1,10 @@
+<service>
+    <id>nginx</id>
+    <name>nginx</name>
+    <description>nginx</description>
+    <logpath>D:\workspace\hmdp-front\nginx-1.18.0</logpath>
+    <logmode>roll</logmode>
+    <depend></depend>
+    <executable>D:\workspace\hmdp-front\nginx-1.18.0\nginx.exe</executable>
+    <stopexecutable>D:\workspace\hmdp-front\nginx-1.18.0\nginx.exe -s stop</stopexecutable>
+</service>
