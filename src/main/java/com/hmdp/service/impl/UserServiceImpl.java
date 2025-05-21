@@ -58,6 +58,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY + phone, code, LOGIN_CODE_TTL, TimeUnit.MINUTES);
         //5.发送验证码到用户手机 - 确保使用UTF-8编码
         String successMsg = "发送短信验证码成功，验证码：" + code;
+        log.info("code:{}",code);
         byte[] msgBytes = successMsg.getBytes(StandardCharsets.UTF_8);
         String encodedMsg = new String(msgBytes, StandardCharsets.UTF_8);
         log.debug(encodedMsg);
