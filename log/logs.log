@@ -1262,3 +1262,144 @@ Error starting ApplicationContext. To display the conditions report re-run your 
 2025-05-22 13:27:25,387 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 2 ms
 2025-05-22 13:27:41,492 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 53] 手机号码：13011112222
 2025-05-22 13:27:41,506 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 61] code:930326
+2025-05-22 13:37:59,644 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 19748 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-05-22 13:37:59,647 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-05-22 13:38:00,461 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-05-22 13:38:00,464 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-05-22 13:38:00,511 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 28 ms. Found 0 Redis repository interfaces.
+2025-05-22 13:38:01,136 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-05-22 13:38:01,339 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1650 ms
+2025-05-22 13:38:04,230 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-05-22 13:38:04,489 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 5.142 seconds (JVM running for 6.124)
+2025-05-22 13:38:15,864 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-05-22 13:38:15,867 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 2 ms
+2025-05-22 13:38:16,318 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 53] 手机号码：13011112222
+2025-05-22 13:38:16,328 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 61] code:389449
+2025-05-22 13:48:43,369 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 1060 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-05-22 13:48:43,372 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-05-22 13:48:44,522 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-05-22 13:48:44,526 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-05-22 13:48:44,585 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 31 ms. Found 0 Redis repository interfaces.
+2025-05-22 13:48:45,863 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-05-22 13:48:45,998 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2566 ms
+2025-05-22 13:48:49,107 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-05-22 13:48:49,372 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 6.399 seconds (JVM running for 6.796)
+2025-05-22 13:49:24,473 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-05-22 13:49:24,478 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 3 ms
+2025-05-22 13:49:58,793 INFO [http-nio-8081-exec-7] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：71ba54b85d56f2d9d4a86f10fb36d2a.jpg
+2025-05-22 13:49:58,797 INFO [http-nio-8081-exec-7] com.hmdp.controller.UploadController [UploadController.java : 55] 开始保存文件到：D:\lesson\nginx-1.18.0\html\hmdp\imgs\blogs\14\6\0e04c013-6cef-4847-b26b-9197bf807075.jpg
+2025-05-22 13:49:58,801 INFO [http-nio-8081-exec-7] com.hmdp.controller.UploadController [UploadController.java : 59] 文件上传成功，路径：/blogs/14/6/0e04c013-6cef-4847-b26b-9197bf807075.jpg
+2025-05-22 13:54:36,217 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 21620 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-05-22 13:54:36,222 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-05-22 13:54:37,446 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-05-22 13:54:37,451 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-05-22 13:54:37,508 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 29 ms. Found 0 Redis repository interfaces.
+2025-05-22 13:54:38,838 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-05-22 13:54:38,985 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2690 ms
+2025-05-22 13:54:43,121 INFO [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener [ConditionEvaluationReportLoggingListener.java : 136] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2025-05-22 13:54:52,921 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 21696 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-05-22 13:54:52,927 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-05-22 13:54:54,123 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-05-22 13:54:54,126 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-05-22 13:54:54,190 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 35 ms. Found 0 Redis repository interfaces.
+2025-05-22 13:54:55,633 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-05-22 13:54:55,805 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2792 ms
+2025-05-22 13:54:59,254 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-05-22 13:54:59,492 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 7.157 seconds (JVM running for 7.71)
+2025-05-22 13:55:15,693 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-05-22 13:55:15,696 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 2 ms
+2025-05-22 13:55:22,482 INFO [http-nio-8081-exec-3] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：71ba54b85d56f2d9d4a86f10fb36d2a.jpg
+2025-05-22 13:55:22,484 INFO [http-nio-8081-exec-3] com.hmdp.controller.UploadController [UploadController.java : 30] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 13:55:22,488 INFO [http-nio-8081-exec-3] com.hmdp.controller.UploadController [UploadController.java : 50] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\0\8, 是否存在: true
+2025-05-22 13:55:22,488 INFO [http-nio-8081-exec-3] com.hmdp.controller.UploadController [UploadController.java : 64] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\0\8\90110dd9-610e-429d-bd37-3299b3e57d00.jpg
+2025-05-22 13:55:22,503 INFO [http-nio-8081-exec-3] com.hmdp.controller.UploadController [UploadController.java : 74] 文件上传成功，路径：/blogs/0/8/90110dd9-610e-429d-bd37-3299b3e57d00.jpg
+2025-05-22 14:00:48,727 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 4572 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-05-22 14:00:48,732 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-05-22 14:00:49,650 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-05-22 14:00:49,653 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-05-22 14:00:49,694 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 21 ms. Found 0 Redis repository interfaces.
+2025-05-22 14:00:50,922 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-05-22 14:00:51,112 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2321 ms
+2025-05-22 14:00:55,325 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-05-22 14:00:55,772 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 7.445 seconds (JVM running for 7.955)
+2025-05-22 14:01:05,818 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-05-22 14:01:05,829 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 5 ms
+2025-05-22 14:01:25,710 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：34d7a29da3a41d99145055c168d08bf.png
+2025-05-22 14:01:25,712 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:01:25,715 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\6\0, 是否存在: true
+2025-05-22 14:01:25,717 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\6\0\fe70f5f1-847f-4b26-995d-b6868d9ab448.png
+2025-05-22 14:01:25,720 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/6/0/fe70f5f1-847f-4b26-995d-b6868d9ab448.png
+2025-05-22 14:03:41,464 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：71ba54b85d56f2d9d4a86f10fb36d2a.jpg
+2025-05-22 14:03:41,465 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:03:41,466 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\2\6, 是否存在: true
+2025-05-22 14:03:41,467 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\2\6\e7ceab2c-b05d-4fa0-a813-d0597ea0b97d.jpg
+2025-05-22 14:03:41,470 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/2/6/e7ceab2c-b05d-4fa0-a813-d0597ea0b97d.jpg
+2025-05-22 14:04:23,140 INFO [http-nio-8081-exec-4] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：8056897319c359a73df36a2c044404a.png
+2025-05-22 14:04:23,141 INFO [http-nio-8081-exec-4] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:04:23,152 INFO [http-nio-8081-exec-4] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\6\10, 是否存在: true
+2025-05-22 14:04:23,154 INFO [http-nio-8081-exec-4] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\6\10\faaa7e58-1027-4d0c-b8f8-e7ba989657a5.png
+2025-05-22 14:04:23,156 INFO [http-nio-8081-exec-4] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/6/10/faaa7e58-1027-4d0c-b8f8-e7ba989657a5.png
+2025-05-22 14:04:36,591 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：屏幕截图 2024-10-11 073203.png
+2025-05-22 14:04:36,592 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:04:36,593 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\10\5, 是否存在: true
+2025-05-22 14:04:36,594 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\10\5\415ae2d4-bf43-46a6-b96a-1a95a3012aa5.png
+2025-05-22 14:04:36,608 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/10/5/415ae2d4-bf43-46a6-b96a-1a95a3012aa5.png
+2025-05-22 14:04:48,290 INFO [http-nio-8081-exec-6] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：71ba54b85d56f2d9d4a86f10fb36d2a.jpg
+2025-05-22 14:04:48,302 INFO [http-nio-8081-exec-6] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:04:48,305 INFO [http-nio-8081-exec-6] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\4\4, 是否存在: true
+2025-05-22 14:04:48,305 INFO [http-nio-8081-exec-6] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\4\4\a9c9d489-813e-49c2-88aa-156b02d4e29f.jpg
+2025-05-22 14:04:48,308 INFO [http-nio-8081-exec-6] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/4/4/a9c9d489-813e-49c2-88aa-156b02d4e29f.jpg
+2025-05-22 14:05:38,026 INFO [http-nio-8081-exec-9] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：屏幕截图 2025-01-16 171521.png
+2025-05-22 14:05:38,027 INFO [http-nio-8081-exec-9] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:05:38,028 INFO [http-nio-8081-exec-9] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\11\2, 是否存在: true
+2025-05-22 14:05:38,030 INFO [http-nio-8081-exec-9] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\11\2\9ef18dc9-5ada-4b37-8b11-3d05457c88e5.png
+2025-05-22 14:05:38,033 INFO [http-nio-8081-exec-9] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/11/2/9ef18dc9-5ada-4b37-8b11-3d05457c88e5.png
+2025-05-22 14:06:03,383 INFO [http-nio-8081-exec-2] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：71ba54b85d56f2d9d4a86f10fb36d2a.jpg
+2025-05-22 14:06:03,385 INFO [http-nio-8081-exec-2] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:06:03,388 INFO [http-nio-8081-exec-2] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\3\13, 是否存在: true
+2025-05-22 14:06:03,388 INFO [http-nio-8081-exec-2] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\3\13\6921c9cb-5f3f-4cc2-9d93-244620baafef.jpg
+2025-05-22 14:06:03,392 INFO [http-nio-8081-exec-2] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/3/13/6921c9cb-5f3f-4cc2-9d93-244620baafef.jpg
+2025-05-22 14:11:57,698 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：71ba54b85d56f2d9d4a86f10fb36d2a.jpg
+2025-05-22 14:11:57,699 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:11:57,701 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\4\3, 是否存在: true
+2025-05-22 14:11:57,702 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\4\3\118e7bac-cbe0-48df-8a00-b6fa936e810f.jpg
+2025-05-22 14:11:57,705 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/4/3/118e7bac-cbe0-48df-8a00-b6fa936e810f.jpg
+2025-05-22 14:18:58,482 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 16388 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-05-22 14:18:58,487 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-05-22 14:18:59,585 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-05-22 14:18:59,588 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-05-22 14:18:59,637 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
+2025-05-22 14:19:00,739 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-05-22 14:19:00,890 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2348 ms
+2025-05-22 14:19:03,982 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-05-22 14:19:04,238 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 6.221 seconds (JVM running for 6.662)
+2025-05-22 14:19:17,093 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-05-22 14:19:17,098 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 3 ms
+2025-05-22 14:19:29,163 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：d545fd0ba85ce72ddeb32a46cc6ead5.png
+2025-05-22 14:19:29,165 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:19:29,168 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\10\2, 是否存在: true
+2025-05-22 14:19:29,169 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\10\2\df515830-983e-486b-8750-2fef848a4cec.png
+2025-05-22 14:19:29,174 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/10/2/df515830-983e-486b-8750-2fef848a4cec.png
+2025-05-22 14:21:03,699 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：屏幕截图 2024-11-20 135958.png
+2025-05-22 14:21:03,700 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:21:03,702 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\6\1, 是否存在: true
+2025-05-22 14:21:03,702 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\6\1\78e60588-bddb-4a27-9498-d87537af831b.png
+2025-05-22 14:21:03,708 INFO [http-nio-8081-exec-1] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/6/1/78e60588-bddb-4a27-9498-d87537af831b.png
+2025-05-22 14:30:36,366 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 2008 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-05-22 14:30:36,372 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-05-22 14:30:37,564 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-05-22 14:30:37,571 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-05-22 14:30:37,624 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 25 ms. Found 0 Redis repository interfaces.
+2025-05-22 14:30:38,766 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-05-22 14:30:38,897 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2465 ms
+2025-05-22 14:30:41,885 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-05-22 14:30:42,124 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 6.149 seconds (JVM running for 6.599)
+2025-05-22 14:31:00,964 INFO [http-nio-8081-exec-4] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-05-22 14:31:00,966 INFO [http-nio-8081-exec-4] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 1 ms
+2025-05-22 14:31:12,056 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 26] 开始上传文件，原始文件名：屏幕截图 2024-10-11 073203.png
+2025-05-22 14:31:12,060 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 44] 上传目录路径: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs, 是否存在: true, 是否可写: true
+2025-05-22 14:31:12,064 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 64] 目标文件目录: D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\13\13, 是否存在: true
+2025-05-22 14:31:12,066 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 78] 开始保存文件到：D:\workspace\hmdp\hmdp-front\nginx-1.18.0\html\hmdp\imgs\blogs\13\13\21364e98-8bdc-4873-9c8e-89414ff493b5.png
+2025-05-22 14:31:12,071 INFO [http-nio-8081-exec-5] com.hmdp.controller.UploadController [UploadController.java : 88] 文件上传成功，路径：/blogs/13/13/21364e98-8bdc-4873-9c8e-89414ff493b5.png
