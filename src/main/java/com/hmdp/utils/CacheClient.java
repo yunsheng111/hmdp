@@ -98,12 +98,14 @@ public class CacheClient {
         if (r == null) {
             //将空字符串缓存到Redis，避免频繁访问数据库
             stringRedisTemplate.opsForValue().set(key, "", CACHE_NULL_TTL, TimeUnit.MINUTES);
+            log.debug("缓存空值，key={}, TTL={}分钟", key, CACHE_NULL_TTL);
             //返回错误信息
             return null;
         }
         //5.存在，将数据缓存到Redis
-        // 使用Fastjson手动序列化User对象为JSON字符串
+        // 使用Fastjson手动序列化对象为JSON字符串
         this.set(key, r, time, unit);
+        log.debug("缓存数据，key={}, TTL={}分钟", key, time);
         //6.返回商铺详情数据
         return r;
     }
@@ -169,17 +171,33 @@ public class CacheClient {
     }
 
     /**
-     * @description: 尝试获取分布式锁
+     * @description: 尝试获取分布式锁，增加重试机制
      * @author: yate
      * @date: 2025/1/13 0013 20:30
      * @param: [key]
      * @return: boolean
      **/
     private boolean trylock(String key) {
-        Boolean flag = stringRedisTemplate.opsForValue().setIfAbsent(key, "1", 10, TimeUnit.SECONDS);
-        //因为因为`setIfAbsent`方法的返回值是一个包装类`Boolean`，
-        // 而不是基本数据类型`boolean`，所以需要使用BooleanUtil工具类进行拆箱，不然会出现空指针异常
-        return BooleanUtil.isTrue(flag);
+        // 尝试获取锁，最多重试3次
+        for (int i = 0; i < 3; i++) {
+            Boolean flag = stringRedisTemplate.opsForValue().setIfAbsent(key, "1", 10, TimeUnit.SECONDS);
+            //因为`setIfAbsent`方法的返回值是一个包装类`Boolean`，
+            // 而不是基本数据类型`boolean`，所以需要使用BooleanUtil工具类进行拆箱，不然会出现空指针异常
+            if (BooleanUtil.isTrue(flag)) {
+                log.debug("获取锁成功，key={}", key);
+                return true;
+            }
+
+            try {
+                // 获取锁失败，等待100ms后重试
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                log.error("获取锁等待被中断", e);
+                Thread.currentThread().interrupt();
+            }
+        }
+        log.debug("获取锁失败，key={}", key);
+        return false;
     }
 
     /**
