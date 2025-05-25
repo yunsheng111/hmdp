@@ -1452,3 +1452,5 @@ Error starting ApplicationContext. To display the conditions report re-run your 
 2025-05-25 18:51:27,546 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 5.231 seconds (JVM running for 5.609)
 2025-05-25 18:51:32,744 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
 2025-05-25 18:51:32,749 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 2 ms
+2025-05-25 19:10:28,607 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 53] 手机号码：13311112222
+2025-05-25 19:10:28,618 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 61] code:983657
