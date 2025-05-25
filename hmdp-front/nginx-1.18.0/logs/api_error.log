@@ -1,3 +1,5 @@
 2025/05/25 18:47:09 [info] 8604#24644: *37 client 127.0.0.1 closed keepalive connection
 2025/05/25 18:47:09 [info] 8604#24644: *38 client 127.0.0.1 closed keepalive connection
 2025/05/25 20:26:12 [info] 8604#24644: *319 client prematurely closed connection, so upstream connection is closed too while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/user/me HTTP/1.1", upstream: "http://127.0.0.1:8081/user/me", host: "localhost:8080", referrer: "http://localhost:8080/info.html"
+2025/05/25 22:38:59 [info] 8604#24644: *590 client 127.0.0.1 closed keepalive connection
+2025/05/25 22:39:09 [info] 8604#24644: *597 client 127.0.0.1 closed keepalive connection
