@@ -99,4 +99,17 @@ public class UserController {
         // 返回
         return Result.success(info);
     }
+    
+    /**
+     * @description: 根据id获取用户基本信息
+     * @author: yate
+     * @date: 2025/5/25 11:17
+     * @param: [id]
+     * @return: com.hmdp.common.Result
+     **/
+    @GetMapping("/{id}")
+    public Result getUserById(@PathVariable("id") Long userId){
+        // 查询用户
+        return userService.getUserById(userId);
+    }
 }

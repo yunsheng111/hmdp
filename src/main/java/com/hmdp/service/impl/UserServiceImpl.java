@@ -142,14 +142,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public Result logout(HttpServletRequest request) {
-        // 1.获取请求中的token
-        String token = request.getHeader("token");
-        // 2.从redis中删除token
+        String token = request.getHeader("authorization");
+        if (token == null) {
+            return Result.fail("未登录");
+        }
+        // 从 Redis 中删除 token
         stringRedisTemplate.delete(LOGIN_USER_KEY + token);
-        // 3.返回成功信息
-        return Result.success("退出登录成功");
+        return Result.success("退出成功");
     }
 
-
+    /**
+     * 根据id获取用户
+     *
+     * @param userId 用户id
+     * @return Result
+     */
+    @Override
+    public Result getUserById(Long userId) {
+        // 查询用户
+        User user = getById(userId);
+        if (user == null) {
+            return Result.fail("用户不存在");
+        }
+        // 将User对象转为UserDTO对象
+        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
+        // 返回
+        return Result.success(userDTO);
+    }
 
 }

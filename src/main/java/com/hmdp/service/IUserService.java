@@ -46,5 +46,12 @@ public interface IUserService extends IService<User> {
      *@Author: yate
      */
     Result logout(HttpServletRequest request);
-
+    
+    /**
+     * 根据id获取用户
+     *@param: userId
+     *@return: Result
+     *@Author: yate
+     */
+    Result getUserById(Long userId);
 }
