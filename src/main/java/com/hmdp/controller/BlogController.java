@@ -32,6 +32,7 @@ public class BlogController {
     @Resource
     private IUserService userService; 
 
+    //  发布博客
     @PostMapping
     public Result saveBlog(@RequestBody Blog blog) {
         // 获取登录用户
@@ -44,15 +45,13 @@ public class BlogController {
         return Result.success(blog.getId());
     }
 
+    // 点赞博客
     @PutMapping("/like/{id}")
     public Result likeBlog(@PathVariable("id") Long id) {
-        // 修改点赞数量，针对指定ID的博客点赞数加1
-        blogService.update()
-                .setSql("liked = liked + 1").eq("id", id).update();
-        // 返回成功结果
-        return Result.success();
+        return blogService.likeBlog(id);
     }
 
+    //获取登录用户的博客列表
     @GetMapping("/of/me")
     public Result queryMyBlog(@RequestParam(value = "current", defaultValue = "1") Integer current) {
         // 获取登录用户
@@ -65,7 +64,8 @@ public class BlogController {
         // 返回查询到的博客列表
         return Result.success(records);
     }
-    
+
+    // 根据用户ID查询该用户的博客列表，分页展示
     @GetMapping("/of/user")
     public Result queryUserBlog(
             @RequestParam("id") Long userId, // 用户ID作为查询参数
@@ -86,33 +86,22 @@ public class BlogController {
         return Result.success(page);
     }
 
+    // 根据点赞数量降序查询热门博客列表，分页展示
     @GetMapping("/hot")
     public Result queryHotBlog(@RequestParam(value = "current", defaultValue = "1") Integer current) {
-        // 根据点赞数量降序查询热门博客列表，分页展示
-        Page<Blog> page = blogService.query()
-                .orderByDesc("liked")
-                .page(new Page<>(current, SystemConstants.MAX_PAGE_SIZE));
-        // 获取当前页的数据
-        List<Blog> records = page.getRecords();
-        // 遍历每个热门博客，查询对应的用户信息，并将用户昵称和头像设置到博客对象中
-        records.forEach(blog ->{
-            Long userId = blog.getUserId();
-            User user = userService.getById(userId);
-            blog.setName(user.getNickName());
-            blog.setIcon(user.getIcon());
-        });
-        // 返回热门博客列表
-        return Result.success(records);
+        return blogService.queryHotBlog(current);
     }
+
     /*
-     * 根据id查询博客详情
-     */
+     * @description: 根据博客id查询博客详情
+     * @author: yate
+     * @date: 2025/5/26 下午2:57
+     * @param: [id]
+     * @return: com.hmdp.common.Result
+     **/
     @GetMapping("/{id}")
     public Result queryBlogById(@PathVariable("id") Long id){
-        // 查询博客
-        Blog blog = blogService.getById(id);
-        // 返回博客
-        return Result.success(blog);
+        return blogService.queryBlogById(id);
     }
 
     /**
