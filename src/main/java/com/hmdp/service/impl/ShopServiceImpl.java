@@ -17,9 +17,11 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -44,6 +46,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
      */
     @Override
     public Result queryById(Long id) {
+        log.info("开始查询商铺信息，id={}", id);
         //缓存穿透问题
         //Shop shop = cacheClient.queryWithPassThrough(CACHE_SHOP_KEY, id, Shop.class, this::getById, CACHE_SHOP_TTL, TimeUnit.MINUTES);
         //互斥锁解决缓存击穿问题
@@ -53,8 +56,17 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         //Shop shop = queryWithLogicalExpire(id);
         Shop shop = cacheClient.queryWithLogicalExpire(CACHE_SHOP_KEY, id, Shop.class, this::getById, 20L, TimeUnit.SECONDS);
         if (shop == null) {
+            log.warn("商铺不存在，id={}", id);
             return Result.fail("商铺不存在");
         }
+        
+        // 确保images字段不为null，避免前端处理错误
+        if (shop.getImages() == null) {
+            shop.setImages("");
+            log.info("商铺images字段为null，已设置为空字符串，id={}", id);
+        }
+        
+        log.info("查询商铺成功，id={}，name={}, images={}", id, shop.getName(), shop.getImages());
         //6.返回商铺详情数据
         return Result.success(shop);
     }
@@ -289,5 +301,94 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         log.info("删除缓存成功，id={}", id);
         // 3.返回成功信息
         return Result.success("更新成功");
+    }
+
+    /**
+     * 预热所有商铺的缓存
+     * @return 预热结果
+     */
+    public Result preloadAllShopCache() {
+        try {
+            // 查询所有商铺
+            List<Shop> shops = list();
+            if (shops == null || shops.isEmpty()) {
+                return Result.fail("没有商铺数据需要预热");
+            }
+            
+            // 将所有商铺信息写入缓存，使用逻辑过期策略
+            for (Shop shop : shops) {
+                try {
+                    // 设置不同的过期时间，避免缓存同时过期
+                    long expireSeconds = 20L + (long)(Math.random() * 10);
+                    saveShop2Redis(shop.getId(), expireSeconds);
+                    log.info("商铺缓存预热成功，id={}, 过期时间={}秒", shop.getId(), expireSeconds);
+                } catch (Exception e) {
+                    log.error("商铺缓存预热失败，id={}", shop.getId(), e);
+                }
+            }
+            
+            return Result.success("所有商铺缓存预热成功");
+        } catch (Exception e) {
+            log.error("商铺缓存预热失败", e);
+            return Result.fail("商铺缓存预热失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 系统启动时预热热点数据缓存
+     */
+    @PostConstruct
+    public void init() {
+        // 使用异步线程进行缓存预热，避免影响系统启动
+        CACHE_REBUILD_EXECUTOR.submit(() -> {
+            try {
+                log.info("开始预热热点商铺缓存...");
+                // 方式一：预热所有商铺缓存
+                preloadAllShopCache();
+                
+                // 方式二：只预热热门商铺缓存（推荐）
+                //preloadHotShopCache();
+                
+                log.info("热点商铺缓存预热完成");
+            } catch (Exception e) {
+                log.error("热点商铺缓存预热失败", e);
+            }
+        });
+    }
+
+    /**
+     * 预热热门商铺的缓存
+     * @return 预热结果
+     */
+    public Result preloadHotShopCache() {
+        try {
+            // 查询热门商铺（这里可以根据实际业务定义热门商铺的标准）
+            // 例如：根据点击量、评分、销量等指标筛选
+            List<Shop> hotShops = query()
+                    .orderByDesc("comments")  // 按评论数降序
+                    .last("LIMIT 100")  // 取前100个热门商铺
+                    .list();
+                    
+            if (hotShops == null || hotShops.isEmpty()) {
+                return Result.fail("没有热门商铺数据需要预热");
+            }
+            
+            // 将热门商铺信息写入缓存，使用逻辑过期策略
+            for (Shop shop : hotShops) {
+                try {
+                    // 设置不同的过期时间，避免缓存同时过期
+                    long expireSeconds = 20L * 60 + (long)(Math.random() * 300);  // 20分钟到25分钟之间的随机时间
+                    saveShop2Redis(shop.getId(), expireSeconds);
+                    log.info("热门商铺缓存预热成功，id={}, 过期时间={}秒", shop.getId(), expireSeconds);
+                } catch (Exception e) {
+                    log.error("热门商铺缓存预热失败，id={}", shop.getId(), e);
+                }
+            }
+            
+            return Result.success("热门商铺缓存预热成功，共预热" + hotShops.size() + "个商铺");
+        } catch (Exception e) {
+            log.error("热门商铺缓存预热失败", e);
+            return Result.fail("热门商铺缓存预热失败：" + e.getMessage());
+        }
     }
 }

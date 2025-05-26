@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hmdp.common.Result;
 import com.hmdp.entity.Shop;
 import com.hmdp.service.IShopService;
+import com.hmdp.service.impl.ShopServiceImpl;
 import com.hmdp.utils.SystemConstants;
 
 import io.swagger.annotations.Api;
@@ -105,5 +106,15 @@ public class ShopController {
                 .page(new Page<>(current, SystemConstants.MAX_PAGE_SIZE));
         // 返回数据
         return Result.success(page.getRecords());
+    }
+
+    /**
+     * 预热所有商铺的缓存
+     * @return 预热结果
+     */
+    @PostMapping("/preload-cache")
+    @ApiOperation("预热所有商铺的缓存")
+    public Result preloadAllShopCache() {
+        return shopService.preloadAllShopCache();
     }
 }

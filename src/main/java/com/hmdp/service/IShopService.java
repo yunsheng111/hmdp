@@ -29,4 +29,10 @@ public interface IShopService extends IService<Shop> {
      * @return: com.hmdp.common.Result
      **/
     Result update(Shop shop);
+    
+    /**
+     * 预热所有商铺的缓存
+     * @return 预热结果
+     */
+    Result preloadAllShopCache();
 }

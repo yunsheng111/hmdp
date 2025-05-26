@@ -40,4 +40,12 @@ public interface IBlogService extends IService<Blog> {
     Result likeBlog(Long id);
 
 
+    /*
+     * @description: 博客点赞排行榜
+     * @author: yate
+     * @date: 2025/5/26 下午6:49
+     * @param: [id]
+     * @return: com.hmdp.common.Result
+     **/
+    Result queryBlogLikes(Long id);
 }

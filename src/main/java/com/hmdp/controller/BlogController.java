@@ -104,6 +104,18 @@ public class BlogController {
         return blogService.queryBlogById(id);
     }
 
+    /*
+     * @description: 博客点赞排行榜
+     * @author: yate
+     * @date: 2025/5/26 下午6:48
+     * @param: [id]
+     * @return: com.hmdp.common.Result
+     **/
+    @GetMapping("/likes/{id}")
+    public Result queryBlogLikes(@PathVariable("id") Long id){
+        return blogService.queryBlogLikes(id);
+    }
+
     /**
      * 删除博客
      * @param id 博客id
