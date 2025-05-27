@@ -48,4 +48,22 @@ public interface IBlogService extends IService<Blog> {
      * @return: com.hmdp.common.Result
      **/
     Result queryBlogLikes(Long id);
+
+    /*
+     * @description: 添加博客
+     * @author: yate
+     * @date: 2025/5/27 19:02
+     * @param: [blog]
+     * @return: com.hmdp.common.Result
+     **/
+    Result saveBlog(Blog blog);
+
+    /**
+     *  查询收件箱中博客的列表
+     *
+     * @param max 查询的最大时间戳
+     * @param offset 偏移量，用于分页
+     * @return 查询结果
+     */
+    Result queryBlogOfFollow(Long max, Integer offset);
 }

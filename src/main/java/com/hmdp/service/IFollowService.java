@@ -29,4 +29,6 @@ public interface IFollowService extends IService<Follow> {
      * @return 如果当前用户关注了指定用户，则返回true；否则返回false
      */
     Result isFollow(Long followUserId);
+
+    Result followCommons(Long id);
 }

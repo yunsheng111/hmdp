@@ -35,14 +35,7 @@ public class BlogController {
     //  发布博客
     @PostMapping
     public Result saveBlog(@RequestBody Blog blog) {
-        // 获取登录用户
-        UserDTO user = UserHolder.getUser();
-        // 设置博客的用户ID为登录用户的ID
-        blog.setUserId(user.getId());
-        // 保存探店博文
-        blogService.save(blog);
-        // 返回博客的ID
-        return Result.success(blog.getId());
+        return blogService.saveBlog(blog);
     }
 
     // 点赞博客
@@ -145,4 +138,19 @@ public class BlogController {
         
         return success ? Result.success() : Result.fail("删除失败");
     }
+
+    /**
+     * 收件箱博客的分页查询
+     *
+     * @param max 最后一条博客的时间戳，用于分页查询
+     * @param offset 偏移量，默认为0
+     * @return 查询结果
+     */
+    @GetMapping("/of/follow")
+    public Result queryBlogOfFollow(
+            @RequestParam("lastId") Long max,
+            @RequestParam(value = "offset", defaultValue = "0") Integer offset){
+        return blogService.queryBlogOfFollow(max,offset);
+    }
+
 }

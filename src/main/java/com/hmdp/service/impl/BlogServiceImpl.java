@@ -5,11 +5,14 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmdp.common.Result;
+import com.hmdp.dto.ScrollResult;
 import com.hmdp.dto.UserDTO;
 import com.hmdp.entity.Blog;
+import com.hmdp.entity.Follow;
 import com.hmdp.entity.User;
 import com.hmdp.mapper.BlogMapper;
 import com.hmdp.service.IBlogService;
+import com.hmdp.service.IFollowService;
 import com.hmdp.service.IUserService;
 import com.hmdp.utils.RedisConstants;
 import com.hmdp.utils.SystemConstants;
@@ -17,13 +20,17 @@ import com.hmdp.utils.UserHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.hmdp.utils.RedisConstants.FEED_KEY;
 
 /**
  * <p>
@@ -39,6 +46,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Resource
     private IUserService userService;
+
+    @Resource
+    private IFollowService followService;
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
@@ -178,4 +188,87 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         return Result.success(userDTOS);
     }
 
+    /**
+     * 保存博客
+     *
+     * @param blog 要保存的博客对象
+     * @return 保存结果
+     */
+    @Override
+    public Result saveBlog(Blog blog) {
+        // 1.获取登录用户
+        UserDTO user = UserHolder.getUser();
+        // 2.设置博客的用户ID为登录用户的ID
+        blog.setUserId(user.getId());
+        // 3.保存探店博文
+        save(blog);
+        // 4.查询笔记作者的所有粉丝 select * from follow where follow_user_id = ?
+        List<Follow> follows = followService.query().eq("follow_user_id", user.getId()).list();
+        // 5.推送笔记id给所有粉丝
+        for (Follow follow : follows) {
+            // 5.1获取粉丝id
+            Long userId = follow.getUserId();
+            // 5.2推送
+            String key = FEED_KEY + userId;
+            stringRedisTemplate.opsForZSet().add(key, blog.getId().toString(), System.currentTimeMillis());
+        }
+        // 返回博客的ID
+        return Result.success(blog.getId());
+    }
+
+    /**
+     * 查询收件箱中博客的列表
+     *
+     * @param max 查询的最大时间戳，用于分页
+     * @param offset 偏移量，用于分页
+     * @return 查询结果
+     */
+    @Override
+    public Result queryBlogOfFollow(Long max, Integer offset) {
+        // 1.获取当前用户
+        Long userId = UserHolder.getUser().getId();
+        // 2.查询收件箱 ZREVRANGEBYSCORE key Max Min LIMIT offset count
+        String key = FEED_KEY + userId;
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = stringRedisTemplate.opsForZSet()
+                .reverseRangeByScoreWithScores(key, 0, max, offset, 2);
+        // 3.非空判断
+        if (typedTuples == null || typedTuples.isEmpty()) {
+            return Result.success();
+        }
+        // 4.解析数据：blogId、minTime（时间戳）、offset
+        List<Long> ids = new ArrayList<>(typedTuples.size());
+        long minTime = 0; // 2
+        int os = 1; // 2
+        for (ZSetOperations.TypedTuple<String> tuple : typedTuples) { // 5 4 4 2 2
+            // 4.1.获取id
+            ids.add(Long.valueOf(tuple.getValue()));
+            // 4.2.获取分数(时间戳）
+            long time = tuple.getScore().longValue();
+            if(time == minTime){
+                os++;
+            }else{
+                minTime = time;
+                os = 1;
+            }
+        }
+        os = minTime == max ? os : os + offset;
+        // 5.根据id查询blog
+        String idStr = StrUtil.join(",", ids);
+        List<Blog> blogs = query().in("id", ids).last("ORDER BY FIELD(id," + idStr + ")").list();
+
+        for (Blog blog : blogs) {
+            // 5.1.查询blog有关的用户
+            queryBlogUser(blog);
+            // 5.2.查询blog是否被点赞
+            isBlogLike(blog);
+        }
+
+        // 6.封装并返回
+        ScrollResult r = new ScrollResult();
+        r.setList(blogs);
+        r.setOffset(os);
+        r.setMinTime(minTime);
+
+        return Result.success(r);
+    }
 }
