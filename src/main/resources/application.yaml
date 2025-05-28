@@ -8,6 +8,9 @@ server:
 spring:
   application:
     name: hmdp
+  # 允许Bean定义覆盖
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/hmdp?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
@@ -29,10 +32,31 @@ spring:
 
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  
+  # 使用最新的配置格式
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+      
 mybatis-plus:
   type-aliases-package: com.hmdp.entity # 别名扫描包
   # xml映射文件路径
   mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # 这将确保MyBatis日志输出使用UTF-8编码
+    default-scripting-language: org.apache.ibatis.scripting.xmltags.XMLLanguageDriver
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+logging:
+  charset:
+    console: UTF-8
+    file: UTF-8
 
 knife4:
   enable: true # 开启knife4j接口文档

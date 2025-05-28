@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @author binge
+ * @author 
  * @Description CORS跨域配置类
  * @date 2024年11月06日 上午 10:46
  */

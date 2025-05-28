@@ -62,6 +62,16 @@ public class Voucher implements Serializable {
      * 抵扣金额
      */
     private Long actualValue;
+    
+    /**
+     * 最低消费金额
+     */
+    private Long minAmount;
+    
+    /**
+     * 有效天数
+     */
+    private Integer validDays;
 
     /**
      * 优惠券类型
@@ -69,7 +79,7 @@ public class Voucher implements Serializable {
     private Integer type;
 
     /**
-     * 优惠券类型
+     * 优惠券状态
      */
     private Integer status;
     /**

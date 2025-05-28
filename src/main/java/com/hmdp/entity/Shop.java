@@ -34,6 +34,11 @@ public class Shop implements Serializable {
     private Long id;
 
     /**
+     * 商家ID
+     */
+    private Long merchantId;
+
+    /**
      * 商铺名称
      */
     private String name;
@@ -92,6 +97,11 @@ public class Shop implements Serializable {
      * 营业时间，例如 10:00-22:00
      */
     private String openHours;
+
+    /**
+     * 营业状态，0-休息，1-营业
+     */
+    private Integer status;
 
     /**
      * 创建时间
