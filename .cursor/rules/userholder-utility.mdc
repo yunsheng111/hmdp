@@ -1,0 +1,25 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# UserHolder Utility
+
+**File:** [`UserHolder.java`](mdc:src/main/java/com/hmdp/utils/UserHolder.java)
+
+`UserHolder` is a utility class responsible for managing the current user's information within the context of a single request thread. It leverages `ThreadLocal` to store and retrieve user data, ensuring thread safety.
+
+## Purpose:
+
+*   **Store User DTO:** After a user is authenticated (typically by an interceptor like `LoginInterceptor` or `RefreshTokenInterceptor`), their `UserDTO` object is stored in `UserHolder`.
+*   **Access User Information:** Throughout the request processing lifecycle (e.g., in service layers or controllers), other parts of the application can easily access the current user's information via `UserHolder.getUser()` without needing to pass the user object as a parameter through multiple method calls.
+*   **Clean Up:** It's crucial that `UserHolder.removeUser()` is called at the end of each request (e.g., in an `afterCompletion` method of an interceptor) to prevent memory leaks and ensure that user data from one request does not bleed into another.
+
+## Usage with Interceptors:
+
+1.  **Authentication:** Interceptors like [`LoginInterceptor.java`](mdc:src/main/java/com/hmdp/utils/LoginInterceptor.java) and [`RefreshTokenInterceptor.java`](mdc:src/main/java/com/hmdp/utils/RefreshTokenInterceptor.java) will typically validate a user's token (e.g., from a request header).
+2.  **Storing User:** If authentication is successful, the interceptor retrieves or creates a `UserDTO` and stores it using `UserHolder.saveUser(userDTO)`.
+3.  **Accessing User:** Controllers and services can then call `UserHolder.getUser()` to get the authenticated user's details.
+4.  **Removing User:** The interceptor's `afterCompletion` method should ensure `UserHolder.removeUser()` is called to clear the `ThreadLocal` variable.
+
+This utility is fundamental for managing user context in a stateless web application environment.

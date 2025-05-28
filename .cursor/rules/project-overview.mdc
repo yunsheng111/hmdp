@@ -1,0 +1,30 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Project Overview
+
+This project, "hmdp" (presumably "黑马点评" - HeiMa DianPing), is a full-stack application.
+
+## Key Directories:
+
+*   `src/`: Contains the Java backend source code.
+    *   See [backend-structure.mdc](mdc:.cursor/rules/backend-structure.mdc) for more details.
+*   `hmdp-front/`: Contains the frontend assets, likely served by Nginx.
+    *   See [frontend-structure.mdc](mdc:.cursor/rules/frontend-structure.mdc) for more details.
+*   `pom.xml`: The [pom.xml](mdc:pom.xml) file is the Project Object Model for Maven, defining project dependencies, plugins, and build configurations for the Java backend.
+*   `.doc/`: Likely contains project documentation.
+*   `log/`: Likely contains application logs for the backend.
+
+## Database:
+
+*   Database schema and migration scripts might be located within `src/main/resources/db/`.
+*   MyBatis mappers are located in `src/main/resources/mapper/`.
+
+## Configuration:
+
+*   Nginx configuration can be found in `hmdp-front/nginx-1.18.0/conf/`.
+*   Spring Boot application properties are typically in `src/main/resources/application.yml` or `application.properties` (not explicitly listed but common).
+
+This overview should help in navigating the primary components of the hmdp project.

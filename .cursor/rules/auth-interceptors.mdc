@@ -1,0 +1,45 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Authentication Interceptors
+
+This project uses Spring MVC Interceptors to handle authentication and token refresh logic.
+
+## Key Interceptors:
+
+*   **[`LoginInterceptor.java`](mdc:src/main/java/com/hmdp/utils/LoginInterceptor.java)**
+    *   **Purpose:** This interceptor is responsible for protecting routes that require an authenticated user. It typically runs *after* `RefreshTokenInterceptor` for most protected routes.
+    *   **Logic:**
+        1.  Checks if a user is present in [`UserHolder`](mdc:.cursor/rules/userholder-utility.mdc) (which might have been populated by `RefreshTokenInterceptor`).
+        2.  If no user is found in `UserHolder`, it means the user is not authenticated (or their token has expired and wasn't refreshable), so access is denied (e.g., by returning a 401 Unauthorized status).
+        3.  If a user exists, the request is allowed to proceed to the controller.
+    *   **Configuration:** Registered in `MvcConfig.java` and configured with path patterns for routes that require login.
+
+*   **[`RefreshTokenInterceptor.java`](mdc:src/main/java/com/hmdp/utils/RefreshTokenInterceptor.java)**
+    *   **Purpose:** This interceptor handles the refresh of JWT access tokens. It aims to provide a seamless user experience by automatically refreshing tokens before they expire. It generally runs *before* `LoginInterceptor`.
+    *   **Logic:**
+        1.  Extracts the authentication token (likely a JWT) from the request (e.g., from the `Authorization` header).
+        2.  Validates the token. If the token is valid and not close to expiring, it might deserialize the user information from the token and store it in [`UserHolder`](mdc:.cursor/rules/userholder-utility.mdc).
+        3.  If the token is valid but about to expire (or has just expired but is within a refresh window), it attempts to refresh the token (e.g., using a refresh token stored in Redis or another secure mechanism).
+        4.  If token refresh is successful, the new token is typically sent back to the client (e.g., in a response header), and the user information from the new token is stored in `UserHolder`.
+        5.  If the token is invalid or cannot be refreshed, `UserHolder` remains empty (or is cleared).
+        6.  This interceptor usually allows the request to proceed regardless of token status, as its primary role is token management, not strict access control. The subsequent `LoginInterceptor` handles the access control.
+    *   **Configuration:** Registered in `MvcConfig.java` and usually configured with a broader path pattern (e.g., `/**`) but with exclusions for public routes (like login, register). It has a higher order (runs earlier) than `LoginInterceptor`.
+
+## Flow:
+
+1.  A request comes in.
+2.  `RefreshTokenInterceptor` executes:
+    *   Tries to find a token.
+    *   Validates/refreshes the token.
+    *   If successful, populates [`UserHolder`](mdc:.cursor/rules/userholder-utility.mdc).
+3.  `LoginInterceptor` executes (for protected routes):
+    *   Checks [`UserHolder`](mdc:.cursor/rules/userholder-utility.mdc).
+    *   If no user, denies access.
+    *   If user exists, allows access.
+4.  Controller processes the request.
+5.  Both interceptors' `afterCompletion` methods are called, where `UserHolder.removeUser()` is critical to clean up the `ThreadLocal`.
+
+Understanding these interceptors and their interaction with `UserHolder` is key to comprehending the authentication and session management flow in the application.

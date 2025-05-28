@@ -1,0 +1,29 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Backend Code Structure (Java - Spring Boot)
+
+All backend Java code resides in the `src/main/java/com/hmdp/` directory.
+
+## Key Packages:
+
+*   `com.hmdp.common/`: Utility classes, constants, or common configurations used across the application. Examples might include global exception handlers or common enums.
+*   `com.hmdp.config/`: Spring Boot configuration classes. This could include security configurations, MVC configurations, MyBatis Plus configurations, Redis configurations, etc.
+    *   For example, [MvcConfig.java](mdc:src/main/java/com/hmdp/config/MvcConfig.java) and [RedisConfig.java](mdc:src/main/java/com/hmdp/config/RedisConfig.java) would be here.
+*   `com.hmdp.controller/`: Spring MVC controllers that handle incoming HTTP requests, process them, and return responses. Each controller typically corresponds to a specific domain or feature.
+*   `com.hmdp.dto/`: Data Transfer Objects (DTOs). These are simple objects used to transfer data between layers, especially between the service layer and the controller layer, or for API request/response payloads.
+*   `com.hmdp.entity/`: JPA/MyBatis Plus entities representing database tables. These objects are mapped to database records.
+*   `com.hmdp.mapper/`: MyBatis Plus Mapper interfaces. These define database operations (CRUD) for the corresponding entities.
+The actual XML mapping files are located in `src/main/resources/mapper/`.
+*   `com.hmdp.service/`: Business logic layer. This package contains interfaces for services.
+    *   `com.hmdp.service.impl/`: Concrete implementations of the service interfaces defined in `com.hmdp.service/`.
+*   `com.hmdp.utils/`: Utility classes providing various helper functions. This could include token generation/validation (e.g., `JwtUtil`), caching helpers, date utilities, string manipulation, etc.
+    *   Key files like [LoginInterceptor.java](mdc:src/main/java/com/hmdp/utils/LoginInterceptor.java), [RefreshTokenInterceptor.java](mdc:src/main/java/com/hmdp/utils/RefreshTokenInterceptor.java), and [UserHolder.java](mdc:src/main/java/com/hmdp/utils/UserHolder.java) are typically found or referenced here.
+
+## Build and Dependencies:
+
+*   Managed by [pom.xml](mdc:pom.xml), which defines project dependencies (Spring Boot starters, MyBatis Plus, Redis client, etc.) and build configurations.
+
+This structure follows a typical layered architecture pattern common in Spring Boot applications.
