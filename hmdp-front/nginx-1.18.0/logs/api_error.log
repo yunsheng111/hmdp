@@ -36,3 +36,9 @@
 2025/05/28 11:57:23 [info] 25532#22948: *121 client 127.0.0.1 closed keepalive connection
 2025/05/28 11:57:58 [info] 25532#22948: *127 client 127.0.0.1 closed keepalive connection
 2025/05/28 11:57:58 [info] 25532#22948: *128 client 127.0.0.1 closed keepalive connection
+2025/05/29 18:26:37 [info] 2120#6240: *43 client prematurely closed connection, so upstream connection is closed too while sending request to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/shop/of/name?name= HTTP/1.1", upstream: "http://127.0.0.1:8081/shop/of/name?name=", host: "localhost:8080", referrer: "http://localhost:8080/user-blog-edit.html"
+2025/05/29 18:26:42 [info] 2120#6240: *44 client prematurely closed connection, so upstream connection is closed too while sending request to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/shop/of/name?name= HTTP/1.1", upstream: "http://127.0.0.1:8081/shop/of/name?name=", host: "localhost:8080", referrer: "http://localhost:8080/user-blog-edit.html"
+2025/05/29 19:11:47 [info] 2120#6240: *87 client 127.0.0.1 closed keepalive connection
+2025/05/29 19:12:12 [info] 2120#6240: *89 client 127.0.0.1 closed keepalive connection
+2025/05/29 22:06:33 [info] 5868#20420: *9 client 127.0.0.1 closed keepalive connection
+2025/05/30 07:58:48 [info] 12096#12480: *12 client prematurely closed connection, so upstream connection is closed too while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/admin/login HTTP/1.1", upstream: "http://127.0.0.1:8081/admin/login", host: "localhost:8080", referrer: "http://localhost:8080/admin-login.html"

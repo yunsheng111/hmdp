@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmdp.mapper.AdminMapper">
+    <!-- 基础的CRUD操作由MyBatis Plus提供，暂无需自定义SQL -->
+    
+    <!-- 根据管理员ID查询角色列表 -->
+    <select id="findRolesByAdminId" resultType="java.lang.String">
+        SELECT r.code
+        FROM tb_admin_user_role aur
+        JOIN tb_admin_role r ON aur.role_id = r.id
+        WHERE aur.admin_id = #{adminId}
+        AND r.deleted = 0
+        AND r.status = 0
+    </select>
+</mapper> 

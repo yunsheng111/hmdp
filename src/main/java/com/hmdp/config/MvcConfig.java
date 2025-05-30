@@ -1,6 +1,9 @@
 package com.hmdp.config;
 
+import com.hmdp.common.AdminLoginInterceptor;
 import com.hmdp.common.LoginInterceptor;
+import com.hmdp.common.MerchantLoginInterceptor;
+import com.hmdp.common.MerchantRefreshTokenInterceptor;
 import com.hmdp.common.RefreshTokenInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,10 +43,30 @@ public class MvcConfig implements WebMvcConfigurer {
                         "/shop-type/**",
                         "/upload/**",
                         "/voucher/**",
+                        "/merchant/code",
+                        "/merchant/login",
+                        "/merchant/register",
+                        "/admin/login",
                         "/doc.html/**"
                 ).order(1);
+        // 注册商家登录拦截器
+        registry.addInterceptor(new MerchantLoginInterceptor())
+                .addPathPatterns("/merchant/**")
+                .excludePathPatterns(
+                        "/merchant/code",
+                        "/merchant/login",
+                        "/merchant/register"
+                ).order(2);
+        // 注册管理员登录拦截器
+        registry.addInterceptor(new AdminLoginInterceptor())
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns(
+                        "/admin/login"
+                ).order(3);
         // 注册刷新拦截器
         registry.addInterceptor(new RefreshTokenInterceptor(redisTemplate)).addPathPatterns("/**").order(0);
+        // 注册商家Token刷新拦截器
+        registry.addInterceptor(new MerchantRefreshTokenInterceptor(redisTemplate)).addPathPatterns("/**").order(-1);
     }
     /**
      * 设置静态资源映射

@@ -10,6 +10,13 @@ public class RedisConstants {
     //登录用户的过期时间，单位为秒。其值为 36000，即表示登录用户的有效期是 10 小时（36000 秒）
     public static final Long LOGIN_USER_TTL = 36000L;
 
+    // 商家登录验证码的key前缀
+    public static final String MERCHANT_LOGIN_CODE_KEY = "merchant:login:code:";
+    // 商家登录token的key前缀
+    public static final String MERCHANT_LOGIN_TOKEN_KEY = "merchant:login:token:";
+    // 商家登录token的过期时间，单位为分钟
+    public static final Long MERCHANT_LOGIN_TOKEN_TTL = 1440L; // 24小时
+
     //缓存店铺空值的有效期，单位为分钟。其值为 5，即表示缓存空值的有效期是 5 分钟
     public static final Long CACHE_NULL_TTL = 5L;
 

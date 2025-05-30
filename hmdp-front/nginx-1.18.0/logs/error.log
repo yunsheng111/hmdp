@@ -4408,3 +4408,4 @@
 2025/05/28 11:53:23 [error] 24936#15172: *22 CreateFile() "D:\workspace\hmdp\hmdp-front\nginx-1.18.0/html/hmdp/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
 2025/05/28 11:53:23 [error] 24936#15172: *23 CreateFile() "D:\workspace\hmdp\hmdp-front\nginx-1.18.0/html/hmdp/js/axios.min.map" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /js/axios.min.map HTTP/1.1", host: "localhost:8080"
 2025/05/28 12:04:26 [notice] 9272#6816: signal process started
+2025/05/30 07:51:38 [notice] 17512#12812: signal process started
