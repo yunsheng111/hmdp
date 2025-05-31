@@ -25,7 +25,7 @@ public class AdminUserRole {
     /**
      * 管理员ID
      */
-    @TableField("user_id")
+    @TableField("admin_user_id")
     private Long adminId;
 
     /**

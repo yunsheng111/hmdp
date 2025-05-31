@@ -101,6 +101,11 @@
             <artifactId>sa-token-spring-boot-starter</artifactId>
             <version>1.37.0</version>
         </dependency>
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-redis-jackson</artifactId>
+            <version>1.37.0</version>
+        </dependency>
         <!-- Spring Security Core 用于密码哈希 -->
         <dependency>
             <groupId>org.springframework.security</groupId>

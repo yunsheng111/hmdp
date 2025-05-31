@@ -36,4 +36,31 @@ public class RedisConstants {
     public static final String FEED_KEY = "feed:";
     public static final String SHOP_GEO_KEY = "shop:geo:";
     public static final String USER_SIGN_KEY = "sign:";
+    
+    // 博客已读标记的key前缀
+    public static final String BLOG_READ_KEY = "blog:read:";
+    
+    // 新增：博客基本信息key前缀
+    public static final String BLOG_INFO_KEY = "blog:info:";
+    
+    // 新增：用户已读博客集合key前缀
+    public static final String USER_READ_BLOGS_KEY = "user:read:";
+    
+    // 新增：作者博客集合key前缀
+    public static final String AUTHOR_BLOGS_KEY = "author:blogs:";
+    
+    // 新增：用户对特定作者的未读博客key前缀
+    public static final String USER_UNREAD_BLOGS_KEY = "user:unread:";
+    
+    // 新增：用户未读计数key前缀（Hash结构）
+    public static final String USER_UNREAD_COUNT_KEY = "user:unread:count:";
+    
+    // 新增：博客信息缓存过期时间，单位为天
+    public static final Long BLOG_INFO_TTL = 7L;
+    
+    // 新增：用户已读博客过期时间，单位为天
+    public static final Long USER_READ_TTL = 30L;
+    
+    // 新增：用户未读博客过期时间，单位为天
+    public static final Long USER_UNREAD_TTL = 30L;
 }

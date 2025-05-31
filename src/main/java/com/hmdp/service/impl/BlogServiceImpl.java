@@ -31,6 +31,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.hmdp.utils.RedisConstants.FEED_KEY;
+import static com.hmdp.utils.RedisConstants.USER_UNREAD_COUNT_KEY;
+import static com.hmdp.utils.RedisConstants.BLOG_READ_KEY;
 
 /**
  * <p>
@@ -43,6 +45,9 @@ import static com.hmdp.utils.RedisConstants.FEED_KEY;
 @Service
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IBlogService {
     private static final Logger log = LoggerFactory.getLogger(BlogServiceImpl.class);
+
+    // 查询放大因子，用于查询未读博客时放大查询范围
+    private static final int AMPLIFICATION_FACTOR = 3;
 
     @Resource
     private IUserService userService;
@@ -202,8 +207,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         blog.setUserId(user.getId());
         // 3.保存探店博文
         save(blog);
+        log.info("博客保存成功，id={}, userId={}", blog.getId(), user.getId());
+        
         // 4.查询笔记作者的所有粉丝 select * from follow where follow_user_id = ?
         List<Follow> follows = followService.query().eq("follow_user_id", user.getId()).list();
+        log.info("博客作者粉丝数量: {}", follows.size());
+        
         // 5.推送笔记id给所有粉丝
         for (Follow follow : follows) {
             // 5.1获取粉丝id
@@ -211,6 +220,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             // 5.2推送
             String key = FEED_KEY + userId;
             stringRedisTemplate.opsForZSet().add(key, blog.getId().toString(), System.currentTimeMillis());
+            log.info("推送博客到粉丝收件箱，粉丝id={}，博客id={}", userId, blog.getId());
         }
         // 返回博客的ID
         return Result.success(blog.getId());
@@ -230,7 +240,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         // 2.查询收件箱 ZREVRANGEBYSCORE key Max Min LIMIT offset count
         String key = FEED_KEY + userId;
         Set<ZSetOperations.TypedTuple<String>> typedTuples = stringRedisTemplate.opsForZSet()
-                .reverseRangeByScoreWithScores(key, 0, max, offset, 2);
+                .reverseRangeByScoreWithScores(key, 0, max, offset, SystemConstants.MAX_PAGE_SIZE);
         // 3.非空判断
         if (typedTuples == null || typedTuples.isEmpty()) {
             return Result.success();
@@ -256,19 +266,140 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         String idStr = StrUtil.join(",", ids);
         List<Blog> blogs = query().in("id", ids).last("ORDER BY FIELD(id," + idStr + ")").list();
 
+        // 6.查询用户的已读博客列表
+        String readKey = BLOG_READ_KEY + userId;
+        Set<String> readBlogIds = stringRedisTemplate.opsForZSet().range(readKey, 0, -1);
+
         for (Blog blog : blogs) {
-            // 5.1.查询blog有关的用户
+            // 6.1.查询blog有关的用户
             queryBlogUser(blog);
-            // 5.2.查询blog是否被点赞
+            // 6.2.查询blog是否被点赞
             isBlogLike(blog);
+            // 6.3.设置博客的已读状态，默认为未读
+            blog.setIsRead(false);
+            // 6.4.如果博客ID在已读列表中，则设置为已读
+            if (readBlogIds != null && readBlogIds.contains(blog.getId().toString())) {
+                blog.setIsRead(true);
+            }
         }
 
-        // 6.封装并返回
+        // 7.封装并返回
         ScrollResult r = new ScrollResult();
         r.setList(blogs);
         r.setOffset(os);
         r.setMinTime(minTime);
+        
+        // 8.不再重置未读计数，而是返回列表中的博客数量作为未读数量
+        String unreadKey = USER_UNREAD_COUNT_KEY + userId;
+        stringRedisTemplate.opsForValue().set(unreadKey, String.valueOf(blogs.size()));
+        log.info("更新用户未读计数，userId={}，未读计数={}", userId, blogs.size());
 
         return Result.success(r);
+    }
+    
+   
+
+    /**
+     * 标记博客为已读
+     *
+     * @param id 博客id
+     * @return 操作结果
+     */
+    @Override
+    public Result markBlogAsRead(Long id) {
+        // 1.获取当前用户
+        UserDTO user = UserHolder.getUser();
+        if (user == null) {
+            return Result.fail("用户未登录");
+        }
+        
+        // 2.将博客添加到已读列表
+        String readKey = BLOG_READ_KEY + user.getId();
+        stringRedisTemplate.opsForZSet().add(readKey, id.toString(), System.currentTimeMillis());
+        log.info("将博客添加到已读列表，userId={}，blogId={}", user.getId(), id);
+        
+        // 3.从收件箱中移除该博客
+        String key = FEED_KEY + user.getId();
+        stringRedisTemplate.opsForZSet().remove(key, id.toString());
+        log.info("将博客从收件箱移除，userId={}，blogId={}", user.getId(), id);
+        
+        // 4.返回收件箱中的博客总数
+        Long size = stringRedisTemplate.opsForZSet().size(key);
+        int count = size == null ? 0 : size.intValue();
+        log.info("更新收件箱博客总数，userId={}，总数={}", user.getId(), count);
+        
+        return Result.success(count);
+    }
+    
+    /**
+     * 根据用户ID和阅读状态查询该用户的博客列表
+     *
+     * @param userId 用户ID
+     * @param current 当前页码
+     * @param size 每页大小
+     * @param readStatus 阅读状态，可选值为 "ALL"(所有) 或 "UNREAD"(未读)
+     * @return 查询结果，包含分页信息
+     */
+    @Override
+    public Result queryUserBlogByReadStatus(Long userId, Integer current, Integer size, String readStatus) {
+        log.info("开始查询用户博客，userId={}，current={}，size={}，readStatus={}", userId, current, size, readStatus);
+        
+        // 获取当前登录用户
+        UserDTO currentUser = UserHolder.getUser();
+        if (currentUser == null) {
+            return Result.fail("用户未登录");
+        }
+        
+        // 查询当前登录用户的已读博客ID集合
+        String readKey = BLOG_READ_KEY + currentUser.getId();
+        Set<String> readBlogIds = stringRedisTemplate.opsForZSet().range(readKey, 0, -1);
+        
+        // 判断是否需要过滤未读博客
+        boolean filterUnread = "UNREAD".equals(readStatus);
+        
+        // 如果需要过滤未读博客，查询更大批量的数据
+        int querySize = filterUnread ? size * AMPLIFICATION_FACTOR : size;
+        
+        // 查询指定用户的博客列表
+        Page<Blog> page = this.query()
+                .eq("user_id", userId)
+                .orderByDesc("create_time")
+                .page(new Page<>(current, querySize));
+        
+        // 获取查询结果
+        List<Blog> records = page.getRecords();
+        List<Blog> filteredRecords = records;
+        
+        // 如果需要过滤未读博客，在内存中过滤
+        if (filterUnread && readBlogIds != null && !readBlogIds.isEmpty()) {
+            filteredRecords = records.stream()
+                    .filter(blog -> !readBlogIds.contains(blog.getId().toString()))
+                    .collect(Collectors.toList());
+            
+            // 限制结果数量为请求的size
+            if (filteredRecords.size() > size) {
+                filteredRecords = filteredRecords.subList(0, size);
+            }
+            
+            log.info("过滤后的博客数量: {}", filteredRecords.size());
+        }
+        
+        // 设置博客的用户信息和已读状态
+        for (Blog blog : filteredRecords) {
+            // 设置博客用户信息
+            queryBlogUser(blog);
+            // 设置博客点赞状态
+            isBlogLike(blog);
+            // 设置博客已读状态
+            blog.setIsRead(readBlogIds != null && readBlogIds.contains(blog.getId().toString()));
+        }
+        
+        // 创建新的Page对象返回过滤后的结果
+        Page<Blog> resultPage = new Page<>(current, size, page.getTotal());
+        resultPage.setRecords(filteredRecords);
+        
+        log.info("查询用户博客完成，userId={}，结果数量={}", userId, filteredRecords.size());
+        
+        return Result.success(resultPage);
     }
 }

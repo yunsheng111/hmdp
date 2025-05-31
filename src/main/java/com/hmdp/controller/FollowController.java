@@ -1,9 +1,12 @@
 package com.hmdp.controller;
 
-
 import com.hmdp.common.Result;
 import com.hmdp.service.IFollowService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -20,6 +23,17 @@ import javax.annotation.Resource;
 public class FollowController {
     @Resource
     private IFollowService followService;
+
+    @GetMapping("/followees/{userId}")
+    public Result getFollowees(@PathVariable("userId") Long userId) {
+        return followService.queryFollowees(userId);
+    }
+
+    @GetMapping("/count/{userId}")
+    public Result getFollowCount(@PathVariable("userId") Long userId) {
+        return followService.queryFollowCount(userId);
+    }
+
     /**
      * 关注或取消关注
      * @param followUserId

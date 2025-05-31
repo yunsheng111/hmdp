@@ -30,10 +30,9 @@ public class Admin {
     private String username;
 
     /**
-     * 密码（存储的是密码的哈希值）
+     * 密码
      */
     private String password;
-
 
 
     /**

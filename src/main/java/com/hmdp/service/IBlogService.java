@@ -1,5 +1,6 @@
 package com.hmdp.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hmdp.common.Result;
 import com.hmdp.entity.Blog;
@@ -66,4 +67,23 @@ public interface IBlogService extends IService<Blog> {
      * @return 查询结果
      */
     Result queryBlogOfFollow(Long max, Integer offset);
+    
+    /**
+     * 标记博客为已读
+     *
+     * @param id 博客id
+     * @return 操作结果
+     */
+    Result markBlogAsRead(Long id);
+    
+    /**
+     * 根据用户ID和阅读状态查询该用户的博客列表
+     *
+     * @param userId 用户ID
+     * @param current 当前页码
+     * @param size 每页大小
+     * @param readStatus 阅读状态，可选值为 "ALL"(所有) 或 "UNREAD"(未读)
+     * @return 查询结果，包含分页信息
+     */
+    Result queryUserBlogByReadStatus(Long userId, Integer current, Integer size, String readStatus);
 }

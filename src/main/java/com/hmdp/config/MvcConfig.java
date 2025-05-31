@@ -1,16 +1,16 @@
 package com.hmdp.config;
-
-import com.hmdp.common.AdminLoginInterceptor;
-import com.hmdp.common.LoginInterceptor;
 import com.hmdp.common.MerchantLoginInterceptor;
 import com.hmdp.common.MerchantRefreshTokenInterceptor;
 import com.hmdp.common.RefreshTokenInterceptor;
+import com.hmdp.common.LoginInterceptor;
+import com.hmdp.common.AdminLoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -32,7 +32,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Qualifier("stringRedisTemplate")
     private StringRedisTemplate redisTemplate;
     @Override
-    public void addInterceptors(InterceptorRegistry registry){
+    public void addInterceptors(@NonNull InterceptorRegistry registry){
         // 注册登录拦截器
         registry.addInterceptor(new LoginInterceptor())
                 .excludePathPatterns(
@@ -46,7 +46,8 @@ public class MvcConfig implements WebMvcConfigurer {
                         "/merchant/code",
                         "/merchant/login",
                         "/merchant/register",
-                        "/admin/login",
+                        "/admin/auth/login",
+                        "/admin/auth/logout",
                         "/doc.html/**"
                 ).order(1);
         // 注册商家登录拦截器
@@ -61,7 +62,8 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new AdminLoginInterceptor())
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns(
-                        "/admin/login"
+                        "/admin/auth/login",
+                        "/admin/auth/logout"
                 ).order(3);
         // 注册刷新拦截器
         registry.addInterceptor(new RefreshTokenInterceptor(redisTemplate)).addPathPatterns("/**").order(0);
@@ -72,7 +74,7 @@ public class MvcConfig implements WebMvcConfigurer {
      * 设置静态资源映射
      * @param registry
      */
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(@NonNull ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
     }
 
@@ -81,7 +83,7 @@ public class MvcConfig implements WebMvcConfigurer {
      * @param converters
      */
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    public void configureMessageConverters(@NonNull List<HttpMessageConverter<?>> converters) {
         // 使用UTF-8字符集，解决中文乱码问题
         StringHttpMessageConverter converter = new StringHttpMessageConverter(StandardCharsets.UTF_8);
         converters.add(0, converter);

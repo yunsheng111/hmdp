@@ -1,75 +1,72 @@
 package com.hmdp.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.hmdp.common.Result;
+import com.hmdp.dto.AdminDTO;
 import com.hmdp.dto.AdminLoginDTO;
 import com.hmdp.service.IAdminService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
- * 管理员控制器
+ * 管理员认证控制器
  * </p>
  *
- * @author yate
- * @since 2024-12-22
+ * @author Qitian Dasheng
+ * @since 2024-07-31
  */
 @Slf4j
+@Api(tags = "管理员认证接口")
 @RestController
 @RequestMapping("/admin")
+@Validated // 开启方法参数校验
 public class AdminController {
 
-    @Resource
+    @Autowired
     private IAdminService adminService;
 
-    /**
-     * 管理员登录
-     * @param loginDTO 登录表单
-     * @return Result
-     */
-    @PostMapping("/login")
+    @ApiOperation("管理员登录")
+    @PostMapping("/auth/login")
     public Result login(@Valid @RequestBody AdminLoginDTO loginDTO) {
-        return adminService.login(loginDTO);
-    }
-
-    /**
-     * 管理员退出登录
-     * @param request 请求
-     * @return Result
-     */
-    @PostMapping("/logout")
-    public Result logout(HttpServletRequest request) {
-        return adminService.logout(request);
-    }
-
-    /**
-     * 获取当前登录管理员信息
-     * @return Result
-     */
-    @GetMapping("/info")
-    public Result getCurrentAdmin() {
-        return adminService.getCurrentAdmin();
+        log.info("Admin login attempt for username: {}", loginDTO.getUsername());
+        try {
+            AdminDTO adminDTO = adminService.login(loginDTO);
+            return Result.success(adminDTO);
+        } catch (RuntimeException e) {
+            log.error("Admin login failed for username: {}", loginDTO.getUsername(), e);
+            return Result.fail(e.getMessage());
+        }
     }
     
-    /**
-     * 获取系统统计数据
-     * @return Result
-     */
-    @GetMapping("/stats/summary")
-    public Result getStatsSummary() {
-        // 这里返回模拟数据，真实环境下应该从服务层获取
-        Map<String, Object> stats = new HashMap<>();
-        stats.put("userCount", 1258);
-        stats.put("merchantCount", 356);
-        stats.put("todayOrders", 89);
-        stats.put("pendingReports", 12);
-        
-        return Result.success(stats);
+    @ApiOperation("管理员登出")
+    @PostMapping("/auth/logout")
+    public Result logout() {
+        StpUtil.logout(); // 当前会话登出
+        // 如果需要指定账户ID登出： StpUtil.logout(loginId);
+        // 如果需要指定Token登出： StpUtil.logoutByTokenValue(tokenValue);
+        return Result.success("登出成功");
+    }
+    
+    @ApiOperation("获取当前管理员信息")
+    @GetMapping("/info")
+    public Result info() {
+        log.info("获取管理员信息，ID: {}", StpUtil.getLoginIdAsString());
+        try {
+            // 获取当前登录的管理员ID
+            Object loginId = StpUtil.getLoginId();
+            // 调用服务获取管理员详细信息
+            AdminDTO adminInfo = adminService.getAdminInfo(loginId);
+            return Result.success(adminInfo);
+        } catch (Exception e) {
+            log.error("获取管理员信息失败", e);
+            return Result.fail("获取管理员信息失败");
+        }
     }
 } 

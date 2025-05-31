@@ -58,14 +58,17 @@ public class BlogController {
         return Result.success(records);
     }
 
-    // 根据用户ID查询该用户的博客列表，分页展示
+    // 根据用户ID查询该用户的博客列表，分页展示（保留原方法保持兼容性）
     @GetMapping("/of/user")
     public Result queryUserBlog(
             @RequestParam("id") Long userId, // 用户ID作为查询参数
-            @RequestParam(value = "current", defaultValue = "1") Integer current) { // 当前页码，默认为1
+            @RequestParam(value = "current", defaultValue = "1") Integer current, // 当前页码，默认为1
+            @RequestParam(value = "size", defaultValue = "10") Integer size) { // 每页大小，默认为10
         // 根据用户ID查询该用户的博客列表，分页展示
+        // 使用传入的size参数，但不超过MAX_PAGE_SIZE
+        int pageSize = size; // 直接使用前端请求的size
         Page<Blog> page = blogService.query()
-                .eq("user_id", userId).page(new Page<>(current, SystemConstants.MAX_PAGE_SIZE));
+                .eq("user_id", userId).page(new Page<>(current, pageSize));
         // 获取当前页的数据
         List<Blog> records = page.getRecords();
         // 遍历每个博客，查询对应的用户信息，并将用户昵称和头像设置到博客对象中
@@ -77,6 +80,31 @@ public class BlogController {
         });
         // 返回包含用户信息的博客列表
         return Result.success(page);
+    }
+    
+    /**
+     * 根据用户ID和阅读状态查询该用户的博客列表，分页展示
+     * 
+     * @param userId 用户ID作为查询参数
+     * @param current 当前页码，默认为1
+     * @param size 每页大小，默认为10
+     * @param readStatus 阅读状态，可选值为 "ALL"(所有) 或 "UNREAD"(未读)，默认为"ALL"
+     * @return 查询结果，包含分页信息
+     */
+    @GetMapping("/of/user/status")
+    public Result queryUserBlogByReadStatus(
+            @RequestParam("id") Long userId, // 用户ID作为查询参数
+            @RequestParam(value = "current", defaultValue = "1") Integer current, // 当前页码，默认为1
+            @RequestParam(value = "size", defaultValue = "10") Integer size, // 每页大小，默认为10
+            @RequestParam(value = "readStatus", defaultValue = "ALL") String readStatus) { // 阅读状态，默认为查询所有
+        
+        // 参数校验
+        if (!"ALL".equals(readStatus) && !"UNREAD".equals(readStatus)) {
+            return Result.fail("无效的阅读状态参数");
+        }
+        
+        // 调用服务层方法查询博客
+        return blogService.queryUserBlogByReadStatus(userId, current, size, readStatus);
     }
 
     // 根据点赞数量降序查询热门博客列表，分页展示
@@ -152,5 +180,14 @@ public class BlogController {
             @RequestParam(value = "offset", defaultValue = "0") Integer offset){
         return blogService.queryBlogOfFollow(max,offset);
     }
-
+    /**
+     * 标记博客为已读
+     * 
+     * @param id 博客id
+     * @return 操作结果
+     */
+    @PostMapping("/read/{id}")
+    public Result markBlogAsRead(@PathVariable("id") Long id) {
+        return blogService.markBlogAsRead(id);
+    }
 }

@@ -22,6 +22,8 @@ spring:
     host: 127.0.0.1
     port: 6379
     password: 123456
+    database: 0
+    timeout: 5000ms
     lettuce:
       pool:
         max-active: 50
@@ -29,6 +31,7 @@ spring:
         min-idle: 5
         time-between-eviction-runs: 10s
         max-wait: 2000ms
+      shutdown-timeout: 100ms
 
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
@@ -63,3 +66,56 @@ knife4:
   doc-expansion: list
   deepLinking: true
   path: /doc.html  # 确保路径正确
+
+sa-token:
+  # token名称 (SameSite=Strict模式指定SameSite=Strict)
+  token-name: satoken
+  # token有效期，单位s 默认30天, -1代表永不过期
+  timeout: 7200
+  # token临时有效期 (指定时间内无操作就视为token过期) 单位s, 默认-1 代表不限制 F
+  active-timeout: 259200
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: true
+  # token风格
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: true
+  # 是否打开自动续签 (如果此值为true, 则在每次定时续签时都会触发全局侦听器的 `renew` 事件)
+  auto-renew: true
+  # token前缀, 格式如: Bearer satoken, M 最后一位空格不能省略
+  token-prefix: null
+  # 是否在每次创建 token 时的 StpUtil.login() 快捷方法创建token-session 
+  is-create-token-session: true
+  # 是否在校验token时自动检查 token-session 是否存在
+  token-session-check-login: false
+  # 配置 Sa-Token 持久层实现为 Redis (Jackson序列化版)
+  # sa-token-dao-redis-jackson 会自动使用spring.redis的配置, 此处可省略或按需覆盖
+  # dao-redis-jackson:
+    # spring:
+      # redis:
+        # host: ${spring.redis.host}
+        # port: ${spring.redis.port}
+        # password: ${spring.redis.password}
+        # database: 0 # Sa-Token data will be stored in Redis db 0
+  # Redis中Key前缀
+  data-key-prefix: "hmdp:satoken:"
+  # --- 安全相关配置 ---
+  # 是否从 Cookie 中读取 token
+  is-read-cookie: true # 保持默认，但主要依赖Header
+  # 是否从 Header 中读取 token
+  is-read-header: true # 确保从Header读取
+  # 是否在登录后将 Token 写入到 Cookie 中
+  is-write-cookie: true # 保持默认，但主要依赖Header返回
+  cookie:
+    # Cookie的作用域 (默认 "/")
+    path: /
+    # Cookie的有效时间（单位：秒）, 默认-1代表跟随token有效期
+    # timeout: -1
+    # 是否在 Cookie 中添加 HttpOnly 属性 (防止脚本获取)
+    is-http-only: true
+    # 是否在 Cookie 中添加 SameSite=Strict 属性 (防止CSRF跨站攻击) (需要 Sa-Token v1.28.0 以上版本)
+    same-site: Lax #  先使用Lax，如有需要再调整为Strict
+    # 是否在 Cookie 中添加 Secure 属性 (表示此Cookie仅可用于HTTPS中)
+    is-secure: false # 本地开发环境可能没有HTTPS，生产环境应为true

@@ -15,6 +15,7 @@ import com.hmdp.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import cn.dev33.satoken.stp.StpUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -100,6 +101,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             // 6.不存在，创建新用户并保存
             user = createUserWithPhone(phone);
         }
+
+        // Sa-Token V Начало: Интеграция создания сеанса Sa-Token
+        StpUtil.login(user.getId());
+        log.info("Sa-Token session created for user: {}", user.getId());
+        // Sa-Token V Конец: Интеграция создания сеанса Sa-Token
 
         // 7.保存用户信息到 redis中
         // 7.1.随机生成token，作为登录令牌
