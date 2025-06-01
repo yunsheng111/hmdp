@@ -40,6 +40,19 @@ public class RedisConstants {
     // 博客已读标记的key前缀
     public static final String BLOG_READ_KEY = "blog:read:";
     
+    // 新增：方案1所需的Redis Key前缀
+    // 用户总未读数计数器key前缀
+    public static final String TOTAL_UNREAD_COUNT_KEY_PREFIX = "total_unread:";
+    
+    // 用户对特定作者的未读数计数器key前缀
+    public static final String AUTHOR_UNREAD_COUNT_KEY_PREFIX = "author_unread:";
+    
+    // 博客作者映射key前缀
+    public static final String BLOG_AUTHOR_MAP_KEY_PREFIX = "blog_author:";
+    
+    // 已删除博客集合key
+    public static final String DELETED_BLOG_HINTS_KEY = "deleted_blogs";
+    
     // 新增：博客基本信息key前缀
     public static final String BLOG_INFO_KEY = "blog:info:";
     

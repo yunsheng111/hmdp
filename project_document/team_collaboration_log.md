@@ -1,52 +1,28 @@
-# 团队协作日志
-
-## 会议记录
+# Team Collaboration Log
 
 ---
-**会议记录**
-
-* **日期 & 时间:** [2023-06-13 19:30:00 +08:00]
-* **会议类型:** 需求分析与架构评估
-* **主持人:** PM
-* **记录员:** DW
-* **参与者:** PM, PDM, AR, LD, TE, SE, UI/UX
-* **议程概述:** 
-  1. 大V博客阅读状态管理优化需求分析
-  2. 当前实现的问题分析
-  3. Redis优化方案讨论
-  4. 下一步计划
-
-* **讨论要点:**
-  * **PDM:** "现有的未读博客查询效率低下，特别是大V的粉丝量大时，查询变得很慢。我们需要优化这个功能，以提升用户体验。"
-  
-  * **LD:** "当前实现中，每次查询未读博客都需要先从数据库获取大量记录，然后在内存中进行过滤，这种方式效率确实不高。"
-  
-  * **AR:** "我分析了当前代码，发现使用了放大因子(AMPLIFICATION_FACTOR=3)来提高未读博客的命中率，但这种方式不够精确，可能导致分页问题。建议重新设计Redis存储结构，更好地支持阅读状态查询。"
-  
-  * **UI/UX:** "从用户体验角度看，希望能支持按照不同大V筛选未读博客，并显示每个大V的未读数量，这样用户可以更有针对性地阅读内容。"
-  
-  * **SE:** "需要注意数据安全性，确保用户只能查看自己有权限的内容。"
-  
-  * **TE:** "我们需要考虑高并发场景下的性能表现，特别是当大V发布博客时，可能同时有大量粉丝查询未读博客。"
-  
-  * **AR:** "基于以上讨论，我提议使用Redis的Set结构存储用户与大V之间的未读博客关系，使用Hash结构存储未读计数。这样可以直接查询特定大V的未读博客，避免不必要的过滤操作。详细设计我会记录在架构文档中。"
-  
-  * **LD:** "这个方案看起来可行，但需要注意Redis内存占用和数据一致性问题。"
-  
-  * **PM:** "同意AR的方案。为了确保平稳过渡，建议先进行详细设计和测试，再逐步实施。"
-
-* **决策事项:**
-  1. 采用AR提出的Redis优化方案，重新设计博客阅读状态的存储结构
-  2. AR负责完成详细架构设计文档
-  3. LD与TE协作评估性能影响
-  4. UI/UX考虑未读计数展示的界面优化
-
-* **后续行动:**
-  1. AR在3天内完成架构设计文档
-  2. LD在架构文档完成后1周内提交实现方案
-  3. TE设计性能测试方案
-  4. 2周后进行方案评审
-
-* **DW确认:** 会议记录完整并符合标准。
-
+**Meeting Record**
+* **Date & Time:** [2024-05-29 10:00:00 +08:00]
+* **Meeting Type:** Task Kickoff & Initial Analysis (Simulated)
+* **Chair:** PM
+* **Recorder:** DW
+* **Attendees:** PM, PDM, AR, LD, TE, DW
+* **Agenda Overview:** 
+    1. Define task scope: Fan inbox read/unread feature design.
+    2. Analyze existing code (`BlogServiceImpl.java`) for current implementation.
+    3. Identify potential issues and areas for improvement.
+    4. Discuss core requirements and user expectations for the feature.
+* **Discussion Points:**
+    * PDM: Highlighted that current unread count logic (`USER_UNREAD_COUNT_KEY` update in `queryBlogOfFollow`) is likely incorrect and not user-friendly. Stressed the need for accurate total unread count.
+    * AR: Pointed out potential data inconsistency in `markBlogAsRead` if Redis operations are not atomic. Raised concerns about performance of fetching all read blog IDs for users with extensive read history. Suggested exploring alternative approaches for managing read status to optimize performance. Questioned the current design of `FEED_KEY` potentially mixing read/unread items before `markBlogAsRead` is called.
+    * LD: Discussed the ambiguity of "read" trigger – explicit vs. implicit (e.g., opening blog detail). Noted the complexity in `queryBlogOfFollow`'s offset calculation. Emphasized need for robust unread count maintenance (atomic operations).
+    * TE: Outlined test scenarios including concurrency, data accuracy under various operations (new post, mark read, blog deletion by author), and boundary conditions. Specifically mentioned the need to test how blog deletion by the author affects follower inboxes and unread counts.
+    * PM: Summarized that the current Redis-based approach has foundational elements but requires significant refinement for accuracy, consistency, and performance. Tasked the team with further investigation into these areas.
+    * DW: Confirmed all points recorded and will update `FanInboxReadUnreadDesign.md` with the analysis.
+* **Action Items/Decisions:**
+    1. All team members to review `BlogServiceImpl.java` focusing on `FEED_KEY`, `BLOG_READ_KEY`, `USER_UNREAD_COUNT_KEY` interactions.
+    2. AR and LD to investigate alternative Redis data structures or strategies for managing read status and unread counts more efficiently and accurately.
+    3. PDM to define clear requirements for "read" event triggers and unread count display.
+    4. DW to update the 'Analysis' section of `FanInboxReadUnreadDesign.md` with findings.
+* **DW Confirmation:** [Minutes complete and compliant with standards. [2024-05-29 10:05:00 +08:00]]
 ---

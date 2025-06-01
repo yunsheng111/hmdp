@@ -59,6 +59,12 @@ public class Blog implements Serializable {
     private Boolean isRead;
 
     /**
+     * 是否已被删除
+     */
+    @TableField(exist = false)
+    private Boolean isDeleted;
+
+    /**
      * 标题
      */
     private String title;

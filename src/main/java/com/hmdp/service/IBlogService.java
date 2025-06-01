@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hmdp.common.Result;
 import com.hmdp.entity.Blog;
 
+import java.util.Map;
+
 /**
  * <p>
  *  服务类
@@ -86,4 +88,11 @@ public interface IBlogService extends IService<Blog> {
      * @return 查询结果，包含分页信息
      */
     Result queryUserBlogByReadStatus(Long userId, Integer current, Integer size, String readStatus);
+
+    /**
+     * 获取用户的未读计数
+     * 
+     * @return 包含总未读数和按作者未读数的结果
+     */
+    Result getUnreadCounts();
 }

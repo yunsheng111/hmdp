@@ -7518,3 +7518,191 @@ Error starting ApplicationContext. To display the conditions report re-run your 
 2025-06-01 06:56:21,854 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 401] 查询用户博客完成，userId=2，结果数量=1
 2025-06-01 06:56:23,691 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 345] 开始查询用户博客，userId=2，current=1，size=10，readStatus=ALL
 2025-06-01 06:56:23,745 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 401] 查询用户博客完成，userId=2，结果数量=5
+2025-06-01 19:50:37,191 INFO [background-preinit] o.h.validator.internal.util.Version [Version.java : 21] HV000001: Hibernate Validator 6.2.5.Final
+2025-06-01 19:50:37,221 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 20164 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-06-01 19:50:37,224 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-06-01 19:50:38,241 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-01 19:50:38,244 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-06-01 19:50:38,280 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 20 ms. Found 0 Redis repository interfaces.
+2025-06-01 19:50:39,422 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-06-01 19:50:39,431 INFO [main] o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java : 173] Initializing ProtocolHandler ["http-nio-8081"]
+2025-06-01 19:50:39,434 INFO [main] o.a.catalina.core.StandardService [DirectJDKLog.java : 173] Starting service [Tomcat]
+2025-06-01 19:50:39,435 INFO [main] o.a.catalina.core.StandardEngine [DirectJDKLog.java : 173] Starting Servlet engine: [Apache Tomcat/9.0.79]
+2025-06-01 19:50:39,559 INFO [main] o.a.c.c.C.[Tomcat].[localhost].[/] [DirectJDKLog.java : 173] Initializing Spring embedded WebApplicationContext
+2025-06-01 19:50:39,560 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2267 ms
+2025-06-01 19:50:41,701 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 345] 开始预热热点商铺缓存...
+2025-06-01 19:50:41,774 INFO [pool-3-thread-1] com.zaxxer.hikari.HikariDataSource [HikariDataSource.java : 110] HikariPool-1 - Starting...
+2025-06-01 19:50:41,918 INFO [main] org.redisson.Version [Version.java : 41] Redisson 3.13.6
+2025-06-01 19:50:42,195 INFO [pool-3-thread-1] com.zaxxer.hikari.HikariDataSource [HikariDataSource.java : 123] HikariPool-1 - Start completed.
+2025-06-01 19:50:42,359 INFO [redisson-netty-4-23] o.r.c.p.MasterPubSubConnectionPool [ConnectionPool.java : 167] 1 connections initialized for /127.0.0.1:6379
+2025-06-01 19:50:42,374 INFO [redisson-netty-4-20] o.r.c.pool.MasterConnectionPool [ConnectionPool.java : 167] 24 connections initialized for /127.0.0.1:6379
+2025-06-01 19:50:42,873 INFO [main] s.d.s.w.WebMvcPropertySourcedRequestMappingHandlerMapping [WebMvcPropertySourcedRequestMappingHandlerMapping.java : 69] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
+2025-06-01 19:50:42,928 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=1, 过期时间=28秒
+2025-06-01 19:50:43,141 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=2, 过期时间=20秒
+2025-06-01 19:50:43,358 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=3, 过期时间=29秒
+2025-06-01 19:50:43,457 INFO [main] o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java : 173] Starting ProtocolHandler ["http-nio-8081"]
+2025-06-01 19:50:43,471 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-06-01 19:50:43,474 INFO [main] s.d.s.w.p.DocumentationPluginsBootstrapper [DocumentationPluginsBootstrapper.java : 93] Documentation plugins bootstrapped
+2025-06-01 19:50:43,478 INFO [main] s.d.s.w.p.DocumentationPluginsBootstrapper [AbstractDocumentationPluginsBootstrapper.java : 79] Found 1 custom documentation plugin(s)
+2025-06-01 19:50:43,533 INFO [main] s.d.s.w.s.ApiListingReferenceScanner [ApiListingReferenceScanner.java : 44] Scanning for api listing references
+2025-06-01 19:50:43,574 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=4, 过期时间=23秒
+2025-06-01 19:50:43,738 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: loginUsingPOST_1
+2025-06-01 19:50:43,741 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: logoutUsingPOST_1
+2025-06-01 19:50:43,785 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: infoUsingGET_1
+2025-06-01 19:50:43,790 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=5, 过期时间=29秒
+2025-06-01 19:50:43,792 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: loginUsingPOST_2
+2025-06-01 19:50:43,796 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: logoutUsingPOST_2
+2025-06-01 19:50:43,802 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: sendCodeUsingPOST_1
+2025-06-01 19:50:43,843 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 7.02 seconds (JVM running for 7.428)
+2025-06-01 19:50:44,005 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=6, 过期时间=26秒
+2025-06-01 19:50:44,225 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=7, 过期时间=22秒
+2025-06-01 19:50:44,443 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=8, 过期时间=27秒
+2025-06-01 19:50:44,663 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=9, 过期时间=21秒
+2025-06-01 19:50:44,878 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=10, 过期时间=28秒
+2025-06-01 19:50:45,095 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=11, 过期时间=24秒
+2025-06-01 19:50:45,311 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=12, 过期时间=21秒
+2025-06-01 19:50:45,527 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=13, 过期时间=28秒
+2025-06-01 19:50:45,744 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=14, 过期时间=27秒
+2025-06-01 19:50:45,745 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 352] 热点商铺缓存预热完成
+2025-06-01 19:51:45,004 INFO [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] [DirectJDKLog.java : 173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-01 19:51:45,005 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-06-01 19:51:45,009 INFO [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 2 ms
+2025-06-01 19:52:02,697 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 54] 手机号码：13011112222
+2025-06-01 19:52:02,706 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 62] code:233134
+2025-06-01 19:52:12,471 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 107] Sa-Token session created for user: 1023
+2025-06-01 19:52:23,894 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 295] 更新用户未读计数，userId=1023，未读计数=0
+2025-06-01 19:52:25,599 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 345] 开始查询用户博客，userId=2，current=1，size=10，readStatus=UNREAD
+2025-06-01 19:52:25,632 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 384] 过滤后的博客数量: 2
+2025-06-01 19:52:25,651 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 401] 查询用户博客完成，userId=2，结果数量=2
+2025-06-01 19:52:33,045 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 345] 开始查询用户博客，userId=2，current=1，size=10，readStatus=ALL
+2025-06-01 19:52:33,106 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 401] 查询用户博客完成，userId=2，结果数量=5
+2025-06-01 19:53:11,477 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 295] 更新用户未读计数，userId=1023，未读计数=0
+2025-06-01 21:22:01,138 INFO [background-preinit] o.h.validator.internal.util.Version [Version.java : 21] HV000001: Hibernate Validator 6.2.5.Final
+2025-06-01 21:22:01,169 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 11248 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-06-01 21:22:01,171 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-06-01 21:22:02,027 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-01 21:22:02,030 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-06-01 21:22:02,060 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2025-06-01 21:22:03,161 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-06-01 21:22:03,169 INFO [main] o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java : 173] Initializing ProtocolHandler ["http-nio-8081"]
+2025-06-01 21:22:03,171 INFO [main] o.a.catalina.core.StandardService [DirectJDKLog.java : 173] Starting service [Tomcat]
+2025-06-01 21:22:03,172 INFO [main] o.a.catalina.core.StandardEngine [DirectJDKLog.java : 173] Starting Servlet engine: [Apache Tomcat/9.0.79]
+2025-06-01 21:22:03,273 INFO [main] o.a.c.c.C.[Tomcat].[localhost].[/] [DirectJDKLog.java : 173] Initializing Spring embedded WebApplicationContext
+2025-06-01 21:22:03,274 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2052 ms
+2025-06-01 21:22:05,036 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 345] 开始预热热点商铺缓存...
+2025-06-01 21:22:05,107 INFO [pool-3-thread-1] com.zaxxer.hikari.HikariDataSource [HikariDataSource.java : 110] HikariPool-1 - Starting...
+2025-06-01 21:22:05,230 INFO [main] org.redisson.Version [Version.java : 41] Redisson 3.13.6
+2025-06-01 21:22:05,457 INFO [pool-3-thread-1] com.zaxxer.hikari.HikariDataSource [HikariDataSource.java : 123] HikariPool-1 - Start completed.
+2025-06-01 21:22:05,655 INFO [redisson-netty-4-14] o.r.c.p.MasterPubSubConnectionPool [ConnectionPool.java : 167] 1 connections initialized for /127.0.0.1:6379
+2025-06-01 21:22:05,686 INFO [redisson-netty-4-17] o.r.c.pool.MasterConnectionPool [ConnectionPool.java : 167] 24 connections initialized for /127.0.0.1:6379
+2025-06-01 21:22:06,074 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=1, 过期时间=20秒
+2025-06-01 21:22:06,093 INFO [main] s.d.s.w.WebMvcPropertySourcedRequestMappingHandlerMapping [WebMvcPropertySourcedRequestMappingHandlerMapping.java : 69] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
+2025-06-01 21:22:06,288 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=2, 过期时间=27秒
+2025-06-01 21:22:06,504 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=3, 过期时间=29秒
+2025-06-01 21:22:06,599 INFO [main] o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java : 173] Starting ProtocolHandler ["http-nio-8081"]
+2025-06-01 21:22:06,612 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-06-01 21:22:06,615 INFO [main] s.d.s.w.p.DocumentationPluginsBootstrapper [DocumentationPluginsBootstrapper.java : 93] Documentation plugins bootstrapped
+2025-06-01 21:22:06,621 INFO [main] s.d.s.w.p.DocumentationPluginsBootstrapper [AbstractDocumentationPluginsBootstrapper.java : 79] Found 1 custom documentation plugin(s)
+2025-06-01 21:22:06,670 INFO [main] s.d.s.w.s.ApiListingReferenceScanner [ApiListingReferenceScanner.java : 44] Scanning for api listing references
+2025-06-01 21:22:06,721 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=4, 过期时间=20秒
+2025-06-01 21:22:06,852 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: loginUsingPOST_1
+2025-06-01 21:22:06,855 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: logoutUsingPOST_1
+2025-06-01 21:22:06,894 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: infoUsingGET_1
+2025-06-01 21:22:06,898 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: loginUsingPOST_2
+2025-06-01 21:22:06,901 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: logoutUsingPOST_2
+2025-06-01 21:22:06,906 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: sendCodeUsingPOST_1
+2025-06-01 21:22:06,937 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=5, 过期时间=20秒
+2025-06-01 21:22:06,939 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 6.152 seconds (JVM running for 6.581)
+2025-06-01 21:22:07,153 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=6, 过期时间=20秒
+2025-06-01 21:22:07,370 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=7, 过期时间=22秒
+2025-06-01 21:22:07,585 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=8, 过期时间=23秒
+2025-06-01 21:22:07,803 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=9, 过期时间=26秒
+2025-06-01 21:22:08,022 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=10, 过期时间=22秒
+2025-06-01 21:22:08,239 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=11, 过期时间=20秒
+2025-06-01 21:22:08,458 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=12, 过期时间=23秒
+2025-06-01 21:22:08,675 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=13, 过期时间=22秒
+2025-06-01 21:22:08,890 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 324] 商铺缓存预热成功，id=14, 过期时间=29秒
+2025-06-01 21:22:08,891 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 352] 热点商铺缓存预热完成
+2025-06-01 21:22:32,755 INFO [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] [DirectJDKLog.java : 173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-01 21:22:32,758 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-06-01 21:22:32,766 INFO [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 6 ms
+2025-06-01 21:22:33,058 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:22:36,109 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:22:49,021 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:22:50,608 INFO [http-nio-8081-exec-6] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:23:10,713 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:23:18,524 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:23:49,284 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:24:49,594 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:25:49,280 INFO [http-nio-8081-exec-6] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:26:49,290 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:27:49,312 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:28:49,276 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:30:12,593 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:31:12,289 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:32:12,293 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:33:12,299 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:34:12,308 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:34:33,613 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-01 21:34:40,145 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=UNREAD
+2025-06-01 21:34:40,162 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 2
+2025-06-01 21:34:40,175 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=2
+2025-06-01 21:34:41,965 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=ALL
+2025-06-01 21:34:42,009 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=5
+2025-06-01 21:34:46,520 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=UNREAD
+2025-06-01 21:34:46,534 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 2
+2025-06-01 21:34:46,550 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=2
+2025-06-01 21:34:50,639 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=1，current=1，size=10，readStatus=UNREAD
+2025-06-01 21:34:50,655 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 3
+2025-06-01 21:34:50,676 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=1，结果数量=3
+2025-06-01 21:34:55,237 INFO [http-nio-8081-exec-6] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=1，current=1，size=10，readStatus=ALL
+2025-06-01 21:34:55,274 INFO [http-nio-8081-exec-6] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=1，结果数量=3
+2025-06-01 21:35:15,962 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=UNREAD
+2025-06-01 21:35:15,979 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 2
+2025-06-01 21:35:15,995 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=2
+2025-06-01 21:35:17,591 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=ALL
+2025-06-01 21:35:17,634 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=5
+2025-06-01 22:32:22,633 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=1，current=1，size=10，readStatus=ALL
+2025-06-01 22:32:22,669 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=1，结果数量=3
+2025-06-01 22:32:25,980 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 413] 从数据库获取并缓存博客作者ID，blogId=35，authorId=1
+2025-06-01 22:32:26,099 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 430] 博客已标记为已读，userId=1023，blogId=35，authorId=1，当前未读数=null
+2025-06-01 22:32:26,939 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=35
+2025-06-01 22:32:26,956 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=35，title=mnoaksnaks, images=/imgs/blogs/5/7/3b82da44-634c-45e2-b362-a6a8b68299bb.png
+2025-06-01 22:32:27,197 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 49] 开始查询商铺信息，id=3
+2025-06-01 22:32:27,239 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 69] 查询商铺成功，id=3，name=新白鹿餐厅(运河上街店), images=https://p0.meituan.net/biztone/694233_1619500156517.jpeg,https://img.meituan.net/msmerchant/876ca8983f7395556eda9ceb064e6bc51840883.png,https://img.meituan.net/msmerchant/86a76ed53c28eff709a36099aefe28b51554088.png
+2025-06-01 22:32:40,586 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=1，current=1，size=10，readStatus=UNREAD
+2025-06-01 22:32:40,600 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 2
+2025-06-01 22:32:40,608 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=1，结果数量=2
+2025-06-01 22:32:44,638 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 413] 从数据库获取并缓存博客作者ID，blogId=6，authorId=1
+2025-06-01 22:32:44,643 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 430] 博客已标记为已读，userId=1023，blogId=6，authorId=1，当前未读数=null
+2025-06-01 22:32:45,570 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=6
+2025-06-01 22:32:45,588 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=6，title=杭州周末好去处｜💰50就可以骑马啦🐎, images=/imgs/blogs/blog1.jpg
+2025-06-01 22:32:45,691 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 49] 开始查询商铺信息，id=10
+2025-06-01 22:32:45,699 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 69] 查询商铺成功，id=10，name=开乐迪KTV（运河上街店）, images=https://p0.meituan.net/joymerchant/a575fd4adb0b9099c5c410058148b307-674435191.jpg,https://p0.meituan.net/merchantpic/68f11bf850e25e437c5f67decfd694ab2541634.jpg,https://p0.meituan.net/dpdeal/cb3a12225860ba2875e4ea26c6d14fcc197016.jpg
+2025-06-01 22:32:55,633 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=6
+2025-06-01 22:32:55,647 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=6，title=杭州周末好去处｜💰50就可以骑马啦🐎, images=/imgs/blogs/blog1.jpg
+2025-06-01 22:33:08,263 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=6
+2025-06-01 22:33:08,278 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=6，title=杭州周末好去处｜💰50就可以骑马啦🐎, images=/imgs/blogs/blog1.jpg
+2025-06-01 22:33:08,476 INFO [http-nio-8081-exec-6] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 49] 开始查询商铺信息，id=10
+2025-06-01 22:33:08,484 INFO [http-nio-8081-exec-6] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 69] 查询商铺成功，id=10，name=开乐迪KTV（运河上街店）, images=https://p0.meituan.net/joymerchant/a575fd4adb0b9099c5c410058148b307-674435191.jpg,https://p0.meituan.net/merchantpic/68f11bf850e25e437c5f67decfd694ab2541634.jpg,https://p0.meituan.net/dpdeal/cb3a12225860ba2875e4ea26c6d14fcc197016.jpg
+2025-06-01 23:04:15,445 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=UNREAD
+2025-06-01 23:04:15,475 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 2
+2025-06-01 23:04:15,501 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=2
+2025-06-01 23:04:18,649 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=1，current=1，size=10，readStatus=UNREAD
+2025-06-01 23:04:18,680 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 1
+2025-06-01 23:04:18,694 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=1，结果数量=1
+2025-06-01 23:04:23,884 INFO [http-nio-8081-exec-6] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=UNREAD
+2025-06-01 23:04:23,913 INFO [http-nio-8081-exec-6] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 2
+2025-06-01 23:04:23,936 INFO [http-nio-8081-exec-6] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=2
+2025-06-01 23:04:31,011 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=ALL
+2025-06-01 23:04:31,104 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=5
+2025-06-01 23:04:37,688 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=UNREAD
+2025-06-01 23:04:37,714 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 2
+2025-06-01 23:04:37,737 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=2
+2025-06-01 23:04:56,384 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=1，current=1，size=10，readStatus=UNREAD
+2025-06-01 23:04:56,417 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 489] 过滤后的博客数量: 1
+2025-06-01 23:04:56,431 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=1，结果数量=1
+2025-06-01 23:05:15,756 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=1，current=1，size=10，readStatus=ALL
+2025-06-01 23:05:15,814 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=1，结果数量=3
+2025-06-01 23:05:18,615 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=ALL
+2025-06-01 23:05:18,705 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=5

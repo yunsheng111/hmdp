@@ -8,12 +8,18 @@ import com.hmdp.entity.Blog;
 import com.hmdp.entity.User;
 import com.hmdp.service.IBlogService;
 import com.hmdp.service.IUserService;
+import com.hmdp.utils.RedisConstants;
 import com.hmdp.utils.SystemConstants;
 import com.hmdp.utils.UserHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static com.hmdp.utils.RedisConstants.DELETED_BLOG_HINTS_KEY;
 
 /**
  * <p>
@@ -26,11 +32,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/blog")
 public class BlogController {
+    private static final Logger log = LoggerFactory.getLogger(BlogController.class);
 
     @Resource
     private IBlogService blogService; 
     @Resource
     private IUserService userService; 
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     //  发布博客
     @PostMapping
@@ -161,10 +170,25 @@ public class BlogController {
             return Result.fail("无权限删除他人博客");
         }
         
-        // 删除博客
-        boolean success = blogService.removeById(id);
-        
-        return success ? Result.success() : Result.fail("删除失败");
+        try {
+            // 将博客ID添加到已删除博客提示集合中
+            stringRedisTemplate.opsForSet().add(DELETED_BLOG_HINTS_KEY, id.toString());
+            log.info("博客已添加到已删除提示集合，blogId={}", id);
+            
+            // 删除博客
+            boolean success = blogService.removeById(id);
+            
+            if (success) {
+                log.info("博客删除成功，blogId={}", id);
+                return Result.success();
+            } else {
+                log.error("博客删除失败，blogId={}", id);
+                return Result.fail("删除失败");
+            }
+        } catch (Exception e) {
+            log.error("博客删除过程中发生错误，blogId={}，错误：{}", id, e.getMessage());
+            return Result.fail("删除失败：" + e.getMessage());
+        }
     }
 
     /**
@@ -189,5 +213,15 @@ public class BlogController {
     @PostMapping("/read/{id}")
     public Result markBlogAsRead(@PathVariable("id") Long id) {
         return blogService.markBlogAsRead(id);
+    }
+
+    /**
+     * 获取用户的未读计数
+     * 
+     * @return 包含总未读数和按作者未读数的结果
+     */
+    @GetMapping("/unread/counts")
+    public Result getUnreadCounts() {
+        return blogService.getUnreadCounts();
     }
 }

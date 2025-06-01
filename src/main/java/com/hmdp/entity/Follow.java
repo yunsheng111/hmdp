@@ -38,7 +38,7 @@ public class Follow implements Serializable {
     private Long userId;
 
     /**
-     * 关联的用户id
+     * 关联的用户id（被关注的用户）
      */
     private Long followUserId;
 

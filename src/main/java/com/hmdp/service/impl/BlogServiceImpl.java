@@ -19,20 +19,23 @@ import com.hmdp.utils.SystemConstants;
 import com.hmdp.utils.UserHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.hmdp.utils.RedisConstants.FEED_KEY;
-import static com.hmdp.utils.RedisConstants.USER_UNREAD_COUNT_KEY;
-import static com.hmdp.utils.RedisConstants.BLOG_READ_KEY;
+import static com.hmdp.utils.RedisConstants.*;
 
 /**
  * <p>
@@ -57,6 +60,29 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+    
+    // 添加Lua脚本对象
+    private static final DefaultRedisScript<Long> PUSH_TO_FAN_SCRIPT;
+    private static final DefaultRedisScript<Long> MARK_READ_SCRIPT;
+    private static final DefaultRedisScript<Long> HANDLE_DELETED_UNREAD_SCRIPT;
+    
+    // 静态初始化Lua脚本
+    static {
+        // 初始化推送博客脚本
+        PUSH_TO_FAN_SCRIPT = new DefaultRedisScript<>();
+        PUSH_TO_FAN_SCRIPT.setLocation(new ClassPathResource("lua/push_to_fan.lua"));
+        PUSH_TO_FAN_SCRIPT.setResultType(Long.class);
+        
+        // 初始化标记已读脚本
+        MARK_READ_SCRIPT = new DefaultRedisScript<>();
+        MARK_READ_SCRIPT.setLocation(new ClassPathResource("lua/mark_read.lua"));
+        MARK_READ_SCRIPT.setResultType(Long.class);
+        
+        // 初始化处理已删除未读博客脚本
+        HANDLE_DELETED_UNREAD_SCRIPT = new DefaultRedisScript<>();
+        HANDLE_DELETED_UNREAD_SCRIPT.setLocation(new ClassPathResource("lua/handle_deleted_unread.lua"));
+        HANDLE_DELETED_UNREAD_SCRIPT.setResultType(Long.class);
+    }
 
     /**
      * 根据博客ID查询博客详情
@@ -209,19 +235,39 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         save(blog);
         log.info("博客保存成功，id={}, userId={}", blog.getId(), user.getId());
         
-        // 4.查询笔记作者的所有粉丝 select * from follow where follow_user_id = ?
+        // 4.将博客作者ID存入Redis，用于后续获取作者ID
+        String authorMapKey = BLOG_AUTHOR_MAP_KEY_PREFIX + blog.getId();
+        stringRedisTemplate.opsForValue().set(authorMapKey, user.getId().toString());
+        log.info("博客作者映射已保存，blogId={}，authorId={}", blog.getId(), user.getId());
+        
+        // 5.查询笔记作者的所有粉丝 select * from follow where follow_user_id = ?
         List<Follow> follows = followService.query().eq("follow_user_id", user.getId()).list();
         log.info("博客作者粉丝数量: {}", follows.size());
         
-        // 5.推送笔记id给所有粉丝
+        // 6.推送笔记id给所有粉丝，并更新未读计数
+        long currentTime = System.currentTimeMillis();
         for (Follow follow : follows) {
-            // 5.1获取粉丝id
-            Long userId = follow.getUserId();
-            // 5.2推送
-            String key = FEED_KEY + userId;
-            stringRedisTemplate.opsForZSet().add(key, blog.getId().toString(), System.currentTimeMillis());
-            log.info("推送博客到粉丝收件箱，粉丝id={}，博客id={}", userId, blog.getId());
+            // 6.1获取粉丝id
+            Long fanId = follow.getUserId();
+            
+            // 6.2构建Redis键
+            String feedKey = FEED_KEY + fanId;
+            String totalUnreadKey = TOTAL_UNREAD_COUNT_KEY_PREFIX + fanId;
+            String authorUnreadKey = AUTHOR_UNREAD_COUNT_KEY_PREFIX + fanId + ":" + user.getId();
+            
+            // 6.3执行Lua脚本，推送博客并更新未读计数
+            try {
+                Long result = stringRedisTemplate.execute(
+                    PUSH_TO_FAN_SCRIPT,
+                    Arrays.asList(feedKey, totalUnreadKey, authorUnreadKey),
+                    blog.getId().toString(), String.valueOf(currentTime)
+                );
+                log.info("推送博客到粉丝收件箱成功，粉丝id={}，博客id={}，当前未读数={}", fanId, blog.getId(), result);
+            } catch (Exception e) {
+                log.error("推送博客到粉丝收件箱失败，粉丝id={}，博客id={}，错误：{}", fanId, blog.getId(), e.getMessage());
+            }
         }
+        
         // 返回博客的ID
         return Result.success(blog.getId());
     }
@@ -270,30 +316,66 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         String readKey = BLOG_READ_KEY + userId;
         Set<String> readBlogIds = stringRedisTemplate.opsForZSet().range(readKey, 0, -1);
 
+        // 7.处理每个博客的信息
         for (Blog blog : blogs) {
-            // 6.1.查询blog有关的用户
+            // 7.1.查询blog有关的用户
             queryBlogUser(blog);
-            // 6.2.查询blog是否被点赞
+            // 7.2.查询blog是否被点赞
             isBlogLike(blog);
-            // 6.3.设置博客的已读状态，默认为未读
+            
+            // 7.3.检查博客是否已被删除
+            boolean isDeleted = stringRedisTemplate.opsForSet().isMember(DELETED_BLOG_HINTS_KEY, blog.getId().toString());
+            blog.setIsDeleted(isDeleted);
+            
+            // 7.4.设置博客的已读状态，默认为未读
             blog.setIsRead(false);
-            // 6.4.如果博客ID在已读列表中，则设置为已读
+            
+            // 7.5.如果博客ID在已读列表中，则设置为已读
             if (readBlogIds != null && readBlogIds.contains(blog.getId().toString())) {
                 blog.setIsRead(true);
             }
+            
+            // 7.6.如果博客已删除且之前未读，则调用脚本处理未读计数
+            if (isDeleted && !blog.getIsRead()) {
+                try {
+                    // 获取博客作者ID
+                    String authorMapKey = BLOG_AUTHOR_MAP_KEY_PREFIX + blog.getId();
+                    String authorIdStr = stringRedisTemplate.opsForValue().get(authorMapKey);
+                    Long authorId;
+                    
+                    if (authorIdStr == null) {
+                        // 如果Redis中没有作者ID，则使用博客中的userId
+                        authorId = blog.getUserId();
+                        // 顺便将作者ID存入Redis
+                        stringRedisTemplate.opsForValue().set(authorMapKey, authorId.toString());
+                    } else {
+                        authorId = Long.valueOf(authorIdStr);
+                    }
+                    
+                    // 构建Redis键
+                    String totalUnreadKey = TOTAL_UNREAD_COUNT_KEY_PREFIX + userId;
+                    String authorUnreadKey = AUTHOR_UNREAD_COUNT_KEY_PREFIX + userId + ":" + authorId;
+                    
+                    // 执行Lua脚本，处理已删除的未读博客
+                    Long result = stringRedisTemplate.execute(
+                        HANDLE_DELETED_UNREAD_SCRIPT,
+                        Arrays.asList(readKey, totalUnreadKey, authorUnreadKey),
+                        blog.getId().toString(), String.valueOf(System.currentTimeMillis())
+                    );
+                    
+                    log.info("已处理已删除的未读博客，userId={}，blogId={}，authorId={}，当前未读数={}", userId, blog.getId(), authorId, result);
+                } catch (Exception e) {
+                    log.error("处理已删除的未读博客失败，userId={}，blogId={}，错误：{}", userId, blog.getId(), e.getMessage());
+                }
+            }
         }
 
-        // 7.封装并返回
+        // 8.封装并返回
         ScrollResult r = new ScrollResult();
         r.setList(blogs);
         r.setOffset(os);
         r.setMinTime(minTime);
         
-        // 8.不再重置未读计数，而是返回列表中的博客数量作为未读数量
-        String unreadKey = USER_UNREAD_COUNT_KEY + userId;
-        stringRedisTemplate.opsForValue().set(unreadKey, String.valueOf(blogs.size()));
-        log.info("更新用户未读计数，userId={}，未读计数={}", userId, blogs.size());
-
         return Result.success(r);
     }
     
@@ -313,22 +395,45 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             return Result.fail("用户未登录");
         }
         
-        // 2.将博客添加到已读列表
-        String readKey = BLOG_READ_KEY + user.getId();
-        stringRedisTemplate.opsForZSet().add(readKey, id.toString(), System.currentTimeMillis());
-        log.info("将博客添加到已读列表，userId={}，blogId={}", user.getId(), id);
-        
-        // 3.从收件箱中移除该博客
-        String key = FEED_KEY + user.getId();
-        stringRedisTemplate.opsForZSet().remove(key, id.toString());
-        log.info("将博客从收件箱移除，userId={}，blogId={}", user.getId(), id);
-        
-        // 4.返回收件箱中的博客总数
-        Long size = stringRedisTemplate.opsForZSet().size(key);
-        int count = size == null ? 0 : size.intValue();
-        log.info("更新收件箱博客总数，userId={}，总数={}", user.getId(), count);
-        
-        return Result.success(count);
+        try {
+            // 2.从Redis获取博客作者ID
+            String authorMapKey = BLOG_AUTHOR_MAP_KEY_PREFIX + id;
+            String authorIdStr = stringRedisTemplate.opsForValue().get(authorMapKey);
+            Long authorId;
+            
+            // 如果Redis中没有作者ID，则从数据库查询
+            if (authorIdStr == null) {
+                Blog blog = getById(id);
+                if (blog == null) {
+                    return Result.fail("博客不存在");
+                }
+                authorId = blog.getUserId();
+                // 顺便将作者ID存入Redis
+                stringRedisTemplate.opsForValue().set(authorMapKey, authorId.toString());
+                log.info("从数据库获取并缓存博客作者ID，blogId={}，authorId={}", id, authorId);
+            } else {
+                authorId = Long.valueOf(authorIdStr);
+            }
+            
+            // 3.构建Redis键
+            String readKey = BLOG_READ_KEY + user.getId();
+            String totalUnreadKey = TOTAL_UNREAD_COUNT_KEY_PREFIX + user.getId();
+            String authorUnreadKey = AUTHOR_UNREAD_COUNT_KEY_PREFIX + user.getId() + ":" + authorId;
+            
+            // 4.执行Lua脚本，标记博客为已读并更新未读计数
+            Long result = stringRedisTemplate.execute(
+                MARK_READ_SCRIPT,
+                Arrays.asList(readKey, totalUnreadKey, authorUnreadKey),
+                id.toString(), String.valueOf(System.currentTimeMillis())
+            );
+            
+            log.info("博客已标记为已读，userId={}，blogId={}，authorId={}，当前未读数={}", user.getId(), id, authorId, result);
+            
+            return Result.success(result);
+        } catch (Exception e) {
+            log.error("标记博客为已读失败，userId={}，blogId={}，错误：{}", user.getId(), id, e.getMessage());
+            return Result.fail("操作失败：" + e.getMessage());
+        }
     }
     
     /**
@@ -401,5 +506,64 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         log.info("查询用户博客完成，userId={}，结果数量={}", userId, filteredRecords.size());
         
         return Result.success(resultPage);
+    }
+
+    /**
+     * 获取用户的未读计数
+     * 
+     * @return 包含总未读数和按作者未读数的结果
+     */
+    @Override
+    public Result getUnreadCounts() {
+        // 1.获取当前用户
+        UserDTO user = UserHolder.getUser();
+        if (user == null) {
+            return Result.fail("用户未登录");
+        }
+        
+        try {
+            // 2.获取用户的总未读数
+            String totalUnreadKey = TOTAL_UNREAD_COUNT_KEY_PREFIX + user.getId();
+            String totalUnreadStr = stringRedisTemplate.opsForValue().get(totalUnreadKey);
+            int totalUnread = totalUnreadStr == null ? 0 : Integer.parseInt(totalUnreadStr);
+            
+            // 3.查询用户关注的所有作者
+            List<Follow> follows = followService.query().eq("user_id", user.getId()).list();
+            
+            // 4.创建结果Map
+            Map<String, Object> result = new java.util.HashMap<>();
+            result.put("total", totalUnread);
+            
+            // 5.获取每个作者的未读数
+            Map<String, Integer> authorUnreads = new java.util.HashMap<>();
+            for (Follow follow : follows) {
+                Long authorId = follow.getFollowUserId();
+                String authorUnreadKey = AUTHOR_UNREAD_COUNT_KEY_PREFIX + user.getId() + ":" + authorId;
+                String authorUnreadStr = stringRedisTemplate.opsForValue().get(authorUnreadKey);
+                int authorUnread = authorUnreadStr == null ? 0 : Integer.parseInt(authorUnreadStr);
+                
+                // 只添加有未读消息的作者
+                if (authorUnread > 0) {
+                    // 获取作者信息
+                    User author = userService.getById(authorId);
+                    if (author != null) {
+                        // 使用作者名称作为键
+                        authorUnreads.put(author.getNickName(), authorUnread);
+                    } else {
+                        // 如果作者不存在，使用ID作为键
+                        authorUnreads.put(authorId.toString(), authorUnread);
+                    }
+                }
+            }
+            
+            result.put("authors", authorUnreads);
+            
+            log.info("获取用户未读计数成功，userId={}，总未读数={}，作者未读数={}", user.getId(), totalUnread, authorUnreads);
+            
+            return Result.success(result);
+        } catch (Exception e) {
+            log.error("获取用户未读计数失败，userId={}，错误：{}", user.getId(), e.getMessage());
+            return Result.fail("获取未读计数失败：" + e.getMessage());
+        }
     }
 }
