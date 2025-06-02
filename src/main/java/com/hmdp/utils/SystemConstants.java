@@ -11,6 +11,24 @@ public class SystemConstants {
     //热门博客最大数量
     public static final int MAX_PAGE_SIZE = 10;
     
+    // 商店评论状态常量
+    public static final int COMMENT_STATUS_NORMAL = 0;         // 正常状态
+    public static final int COMMENT_STATUS_HIDDEN_BY_USER = 1;  // 用户隐藏
+    public static final int COMMENT_STATUS_HIDDEN_BY_ADMIN = 2; // 管理员隐藏
+    
+    // 评论举报状态常量
+    public static final int REPORT_STATUS_PENDING = 0;  // 待处理
+    public static final int REPORT_STATUS_RESOLVED = 1; // 已处理
+    
+    // 评论分页和排序常量
+    public static final int COMMENT_PAGE_SIZE = 5;      // 评论默认分页大小
+    public static final String COMMENT_SORT_BY_TIME = "time";     // 按时间排序
+    public static final String COMMENT_SORT_BY_RATING = "rating"; // 按评分排序
+    public static final String COMMENT_SORT_BY_HOT = "hotness";   // 按热度排序
+    
+    // 商店评论图片上传目录（相对于IMAGE_UPLOAD_DIR）
+    public static final String SHOP_COMMENT_IMAGE_DIR = "shop-comments/";
+    
     /**
      * 初始化图片上传目录
      * 如果配置的目录不存在或无权限，则使用临时目录

@@ -7,12 +7,16 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hmdp.common.Result;
 import com.hmdp.entity.Shop;
+import com.hmdp.event.ShopScoreUpdateEvent;
 import com.hmdp.mapper.ShopMapper;
+import com.hmdp.service.IShopCommentService;
 import com.hmdp.service.IShopService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmdp.utils.CacheClient;
 import com.hmdp.utils.RedisData;
+import com.hmdp.utils.SystemConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +41,9 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Resource
     private CacheClient cacheClient;
+
+    @Resource
+    private IShopCommentService shopCommentService;
 
     /**
      * 根据id查询商铺信息
@@ -304,6 +311,81 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     }
 
     /**
+     * 更新商店评分
+     * 
+     * @param shopId 商店ID
+     * @param score 新的评分（已乘以10）
+     * @return 更新结果
+     */
+    @Transactional
+    public Result updateShopScore(Long shopId, Integer score) {
+        if (shopId == null) {
+            return Result.fail("商店ID不能为空");
+        }
+        
+        // 1. 查询商店
+        Shop shop = getById(shopId);
+        if (shop == null) {
+            return Result.fail("商店不存在");
+        }
+        
+        // 2. 更新评分
+        shop.setScore(score);
+        shop.setUpdateTime(LocalDateTime.now());
+        
+        // 3. 更新数据库
+        boolean success = updateById(shop);
+        if (!success) {
+            log.error("更新商店评分失败，shopId={}, score={}", shopId, score);
+            return Result.fail("更新评分失败");
+        }
+        
+        log.info("更新商店评分成功，shopId={}, score={}", shopId, score);
+        
+        // 4. 删除商店缓存
+        stringRedisTemplate.delete(CACHE_SHOP_KEY + shopId);
+        
+        // 5. 删除评分缓存
+        String scoreKey = CACHE_SHOP_SCORE_KEY + shopId;
+        stringRedisTemplate.delete(scoreKey);
+        
+        // 6. 更新商店缓存（异步）
+        CACHE_REBUILD_EXECUTOR.submit(() -> {
+            try {
+                // 避免缓存雪崩，添加随机延迟
+                Thread.sleep((long) (Math.random() * 200));
+                
+                // 重建商店缓存，使用逻辑过期方式
+                Shop updatedShop = getById(shopId);
+                if (updatedShop != null) {
+                    // 设置不同的过期时间，避免缓存同时过期
+                    long expireSeconds = 20L * 60 + (long)(Math.random() * 300);  // 20分钟到25分钟之间的随机时间
+                    try {
+                        saveShop2Redis(shopId, expireSeconds);
+                        log.info("商店评分更新后，异步重建缓存成功，shopId={}, score={}, 过期时间={}秒", shopId, score, expireSeconds);
+                    } catch (Exception e) {
+                        log.error("商店评分更新后，异步重建缓存失败，shopId={}", shopId, e);
+                    }
+                }
+                
+                // 重建评分缓存
+                double averageRating = score / 10.0;  // 转换回1-5分制
+                stringRedisTemplate.opsForValue().set(
+                    scoreKey, 
+                    String.valueOf(averageRating), 
+                    CACHE_SHOP_SCORE_TTL + (long)(Math.random() * 10),  // 添加随机过期时间
+                    TimeUnit.MINUTES
+                );
+                log.info("商店评分更新后，异步重建评分缓存成功，shopId={}, score={}", shopId, averageRating);
+            } catch (Exception e) {
+                log.error("商店评分更新后，异步重建缓存失败，shopId={}", shopId, e);
+            }
+        });
+        
+        return Result.success("更新评分成功");
+    }
+
+    /**
      * 预热所有商铺的缓存
      * @return 预热结果
      */
@@ -349,6 +431,9 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
                 // 方式二：只预热热门商铺缓存（推荐）
                 //preloadHotShopCache();
                 
+                // 方式三：预热热门商铺评论缓存
+                preloadShopCommentsCache(shopCommentService);
+                
                 log.info("热点商铺缓存预热完成");
             } catch (Exception e) {
                 log.error("热点商铺缓存预热失败", e);
@@ -389,6 +474,67 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         } catch (Exception e) {
             log.error("热门商铺缓存预热失败", e);
             return Result.fail("热门商铺缓存预热失败：" + e.getMessage());
+        }
+    }
+    
+    /**
+     * 监听商店评分更新事件
+     * 使用事件监听替代直接依赖，解决循环依赖问题
+     */
+    @EventListener
+    @Transactional
+    public void handleShopScoreUpdate(ShopScoreUpdateEvent event) {
+        updateShopScore(event.getShopId(), event.getScore());
+    }
+    
+    /**
+     * 预热商店评论缓存
+     * 修改为接收IShopCommentService作为参数，而不是直接依赖
+     */
+    public Result preloadShopCommentsCache(IShopCommentService shopCommentService) {
+        try {
+            // 查询热门商铺（按评分排序）
+            List<Shop> hotShops = query()
+                    .orderByDesc("score")  // 按评分降序
+                    .last("LIMIT 50")  // 取前50个高评分商铺
+                    .list();
+                    
+            if (hotShops == null || hotShops.isEmpty()) {
+                return Result.fail("没有热门商铺数据需要预热评论缓存");
+            }
+            
+            log.info("开始预热热门商铺评论缓存，共{}个商铺", hotShops.size());
+            int successCount = 0;
+            
+            // 预热每个热门商铺的第一页评论（按时间、评分和热度排序）
+            for (Shop shop : hotShops) {
+                try {
+                    Long shopId = shop.getId();
+                    
+                    // 预热按时间排序的第一页评论
+                    shopCommentService.queryShopComments(shopId, 1, SystemConstants.COMMENT_SORT_BY_TIME, "desc");
+                    
+                    // 预热按评分排序的第一页评论
+                    shopCommentService.queryShopComments(shopId, 1, SystemConstants.COMMENT_SORT_BY_RATING, "desc");
+                    
+                    // 预热按热度排序的第一页评论
+                    shopCommentService.queryShopComments(shopId, 1, SystemConstants.COMMENT_SORT_BY_HOT, "desc");
+                    
+                    // 预热商铺评分
+                    shopCommentService.calculateShopAverageRating(shopId);
+                    
+                    successCount++;
+                    log.info("商铺评论缓存预热成功，shopId={}", shop.getId());
+                } catch (Exception e) {
+                    log.error("商铺评论缓存预热失败，shopId={}", shop.getId(), e);
+                }
+            }
+            
+            log.info("商铺评论缓存预热完成，成功{}个，失败{}个", successCount, hotShops.size() - successCount);
+            return Result.success();
+        } catch (Exception e) {
+            log.error("商铺评论缓存预热过程中发生错误", e);
+            return Result.fail("商铺评论缓存预热失败：" + e.getMessage());
         }
     }
 }

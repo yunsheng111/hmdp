@@ -76,4 +76,22 @@ public class RedisConstants {
     
     // 新增：用户未读博客过期时间，单位为天
     public static final Long USER_UNREAD_TTL = 30L;
+    
+    // 商店评论列表缓存key前缀
+    public static final String CACHE_SHOP_COMMENTS_KEY = "cache:shop:comments:";
+    // 商店评论列表缓存过期时间，单位为分钟
+    public static final Long CACHE_SHOP_COMMENTS_TTL = 10L;
+    // 商店评分缓存key前缀
+    public static final String CACHE_SHOP_SCORE_KEY = "cache:shop:score:";
+    // 商店评分缓存过期时间，单位为分钟
+    public static final Long CACHE_SHOP_SCORE_TTL = 30L;
+    // 商店热门评论缓存key前缀
+    public static final String CACHE_SHOP_HOT_COMMENTS_KEY = "cache:shop:hot_comments:";
+    // 商店热门评论缓存过期时间，单位为小时
+    public static final Long CACHE_SHOP_HOT_COMMENTS_TTL = 1L;
+    
+    // 商店评论缓存锁key前缀
+    public static final String LOCK_SHOP_COMMENTS_KEY = "lock:shop:comments:";
+    // 商店评论缓存锁过期时间，单位为秒
+    public static final Long LOCK_SHOP_COMMENTS_TTL = 10L;
 }

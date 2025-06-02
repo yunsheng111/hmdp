@@ -7706,3 +7706,219 @@ Error starting ApplicationContext. To display the conditions report re-run your 
 2025-06-01 23:05:15,814 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=1，结果数量=3
 2025-06-01 23:05:18,615 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 450] 开始查询用户博客，userId=2，current=1，size=10，readStatus=ALL
 2025-06-01 23:05:18,705 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 506] 查询用户博客完成，userId=2，结果数量=5
+2025-06-01 23:17:05,414 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 54] 手机号码：13011112222
+2025-06-01 23:17:05,433 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 62] code:789058
+2025-06-01 23:17:15,765 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 107] Sa-Token session created for user: 1023
+2025-06-01 23:22:01,625 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 49] 开始查询商铺信息，id=1
+2025-06-01 23:22:01,646 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 69] 查询商铺成功，id=1，name=103茶餐厅, images=https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg
+2025-06-01 23:23:03,135 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=25
+2025-06-01 23:23:03,161 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=25，title=3333, images=/imgs/blogs/6/0/fe70f5f1-847f-4b26-995d-b6868d9ab448.png
+2025-06-01 23:23:04,094 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=25
+2025-06-01 23:23:04,122 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=25，title=3333, images=/imgs/blogs/6/0/fe70f5f1-847f-4b26-995d-b6868d9ab448.png
+2025-06-01 23:23:05,322 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=6
+2025-06-01 23:23:05,349 INFO [http-nio-8081-exec-1] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=6，title=杭州周末好去处｜💰50就可以骑马啦🐎, images=/imgs/blogs/blog1.jpg
+2025-06-01 23:23:05,959 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=6
+2025-06-01 23:23:05,984 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=6，title=杭州周末好去处｜💰50就可以骑马啦🐎, images=/imgs/blogs/blog1.jpg
+2025-06-01 23:23:09,277 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=35
+2025-06-01 23:23:09,304 INFO [http-nio-8081-exec-2] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=35，title=mnoaksnaks, images=/imgs/blogs/5/7/3b82da44-634c-45e2-b362-a6a8b68299bb.png
+2025-06-01 23:23:09,850 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 95] 开始查询博客信息，id=35
+2025-06-01 23:23:09,875 INFO [http-nio-8081-exec-10] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 115] 查询博客成功，id=35，title=mnoaksnaks, images=/imgs/blogs/5/7/3b82da44-634c-45e2-b362-a6a8b68299bb.png
+2025-06-01 23:23:20,901 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 49] 开始查询商铺信息，id=1
+2025-06-01 23:23:20,917 INFO [http-nio-8081-exec-9] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 69] 查询商铺成功，id=1，name=103茶餐厅, images=https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg
+2025-06-01 23:23:28,711 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 49] 开始查询商铺信息，id=2
+2025-06-01 23:23:28,733 INFO [http-nio-8081-exec-3] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 69] 查询商铺成功，id=2，name=蔡馬洪涛烤肉·老北京铜锅涮羊肉, images=https://p0.meituan.net/bbia/c1870d570e73accbc9fee90b48faca41195272.jpg,http://p0.meituan.net/mogu/397e40c28fc87715b3d5435710a9f88d706914.jpg,https://qcloud.dpfile.com/pc/MZTdRDqCZdbPDUO0Hk6lZENRKzpKRF7kavrkEI99OxqBZTzPfIxa5E33gBfGouhFuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg
+2025-06-02 20:29:38,009 INFO [background-preinit] o.h.validator.internal.util.Version [Version.java : 21] HV000001: Hibernate Validator 6.2.5.Final
+2025-06-02 20:29:38,035 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 9540 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-06-02 20:29:38,037 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-06-02 20:29:38,936 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-02 20:29:38,940 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-06-02 20:29:38,979 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 22 ms. Found 0 Redis repository interfaces.
+2025-06-02 20:29:40,081 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-06-02 20:29:40,090 INFO [main] o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java : 173] Initializing ProtocolHandler ["http-nio-8081"]
+2025-06-02 20:29:40,093 INFO [main] o.a.catalina.core.StandardService [DirectJDKLog.java : 173] Starting service [Tomcat]
+2025-06-02 20:29:40,094 INFO [main] o.a.catalina.core.StandardEngine [DirectJDKLog.java : 173] Starting Servlet engine: [Apache Tomcat/9.0.79]
+2025-06-02 20:29:40,203 INFO [main] o.a.c.c.C.[Tomcat].[localhost].[/] [DirectJDKLog.java : 173] Initializing Spring embedded WebApplicationContext
+2025-06-02 20:29:40,203 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2117 ms
+2025-06-02 20:29:42,036 INFO [main] o.a.catalina.core.StandardService [DirectJDKLog.java : 173] Stopping service [Tomcat]
+2025-06-02 20:29:42,054 INFO [main] o.s.b.a.l.ConditionEvaluationReportLoggingListener [ConditionEvaluationReportLoggingListener.java : 136] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2025-06-02 20:52:30,383 INFO [background-preinit] o.h.validator.internal.util.Version [Version.java : 21] HV000001: Hibernate Validator 6.2.5.Final
+2025-06-02 20:52:30,419 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 23404 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-06-02 20:52:30,422 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-06-02 20:52:31,403 INFO [background-preinit] o.h.validator.internal.util.Version [Version.java : 21] HV000001: Hibernate Validator 6.2.5.Final
+2025-06-02 20:52:31,433 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 19024 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-06-02 20:52:31,435 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-06-02 20:52:31,467 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-02 20:52:31,475 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-06-02 20:52:31,515 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
+2025-06-02 20:52:32,530 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-02 20:52:32,533 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-06-02 20:52:32,577 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 25 ms. Found 0 Redis repository interfaces.
+2025-06-02 20:52:32,891 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-06-02 20:52:32,907 INFO [main] o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java : 173] Initializing ProtocolHandler ["http-nio-8081"]
+2025-06-02 20:52:32,910 INFO [main] o.a.catalina.core.StandardService [DirectJDKLog.java : 173] Starting service [Tomcat]
+2025-06-02 20:52:32,911 INFO [main] o.a.catalina.core.StandardEngine [DirectJDKLog.java : 173] Starting Servlet engine: [Apache Tomcat/9.0.79]
+2025-06-02 20:52:33,040 INFO [main] o.a.c.c.C.[Tomcat].[localhost].[/] [DirectJDKLog.java : 173] Initializing Spring embedded WebApplicationContext
+2025-06-02 20:52:33,042 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 2560 ms
+2025-06-02 20:52:34,979 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 427] 开始预热热点商铺缓存...
+2025-06-02 20:52:35,064 INFO [pool-3-thread-1] com.zaxxer.hikari.HikariDataSource [HikariDataSource.java : 110] HikariPool-1 - Starting...
+2025-06-02 20:52:35,213 INFO [main] org.redisson.Version [Version.java : 41] Redisson 3.13.6
+2025-06-02 20:52:35,488 INFO [pool-3-thread-1] com.zaxxer.hikari.HikariDataSource [HikariDataSource.java : 123] HikariPool-1 - Start completed.
+2025-06-02 20:52:35,635 INFO [redisson-netty-4-16] o.r.c.p.MasterPubSubConnectionPool [ConnectionPool.java : 167] 1 connections initialized for /127.0.0.1:6379
+2025-06-02 20:52:35,648 INFO [redisson-netty-4-19] o.r.c.pool.MasterConnectionPool [ConnectionPool.java : 167] 24 connections initialized for /127.0.0.1:6379
+2025-06-02 20:52:36,084 INFO [main] s.d.s.w.WebMvcPropertySourcedRequestMappingHandlerMapping [WebMvcPropertySourcedRequestMappingHandlerMapping.java : 69] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
+2025-06-02 20:52:36,177 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=1, 过期时间=22秒
+2025-06-02 20:52:36,390 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=2, 过期时间=29秒
+2025-06-02 20:52:36,600 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=3, 过期时间=27秒
+2025-06-02 20:52:36,642 INFO [main] o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java : 173] Starting ProtocolHandler ["http-nio-8081"]
+2025-06-02 20:52:36,656 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-06-02 20:52:36,661 INFO [main] s.d.s.w.p.DocumentationPluginsBootstrapper [DocumentationPluginsBootstrapper.java : 93] Documentation plugins bootstrapped
+2025-06-02 20:52:36,666 INFO [main] s.d.s.w.p.DocumentationPluginsBootstrapper [AbstractDocumentationPluginsBootstrapper.java : 79] Found 1 custom documentation plugin(s)
+2025-06-02 20:52:36,709 INFO [main] s.d.s.w.s.ApiListingReferenceScanner [ApiListingReferenceScanner.java : 44] Scanning for api listing references
+2025-06-02 20:52:36,813 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=4, 过期时间=24秒
+2025-06-02 20:52:36,891 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: loginUsingPOST_1
+2025-06-02 20:52:36,894 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: logoutUsingPOST_1
+2025-06-02 20:52:36,933 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: infoUsingGET_1
+2025-06-02 20:52:36,936 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: loginUsingPOST_2
+2025-06-02 20:52:36,940 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: logoutUsingPOST_2
+2025-06-02 20:52:36,945 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: sendCodeUsingPOST_1
+2025-06-02 20:52:36,987 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 6.945 seconds (JVM running for 7.35)
+2025-06-02 20:52:37,024 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=5, 过期时间=27秒
+2025-06-02 20:52:37,240 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=6, 过期时间=21秒
+2025-06-02 20:52:37,447 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=7, 过期时间=29秒
+2025-06-02 20:52:37,654 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=8, 过期时间=22秒
+2025-06-02 20:52:37,859 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=9, 过期时间=25秒
+2025-06-02 20:52:38,065 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=10, 过期时间=21秒
+2025-06-02 20:52:38,272 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=11, 过期时间=28秒
+2025-06-02 20:52:38,480 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=12, 过期时间=25秒
+2025-06-02 20:52:38,687 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=13, 过期时间=29秒
+2025-06-02 20:52:38,888 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=14, 过期时间=29秒
+2025-06-02 20:52:38,917 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 506] 开始预热热门商铺评论缓存，共14个商铺
+2025-06-02 20:52:39,341 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 533] 商铺评论缓存预热完成，成功0个，失败14个
+2025-06-02 20:52:39,341 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 437] 热点商铺缓存预热完成
+2025-06-02 22:44:45,068 INFO [background-preinit] o.h.validator.internal.util.Version [Version.java : 21] HV000001: Hibernate Validator 6.2.5.Final
+2025-06-02 22:44:45,097 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 55] Starting HmDianPingApplication using Java 1.8.0_202 on WIN-MHT4EA9NTDO with PID 26892 (D:\workspace\hmdp\target\classes started by Administrator in D:\workspace\hmdp)
+2025-06-02 22:44:45,099 INFO [main] com.hmdp.HmDianPingApplication [SpringApplication.java : 631] No active profile set, falling back to 1 default profile: "default"
+2025-06-02 22:44:45,905 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 262] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-02 22:44:45,910 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-06-02 22:44:45,943 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 201] Finished Spring Data repository scanning in 20 ms. Found 0 Redis repository interfaces.
+2025-06-02 22:44:46,931 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 108] Tomcat initialized with port(s): 8081 (http)
+2025-06-02 22:44:46,940 INFO [main] o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java : 173] Initializing ProtocolHandler ["http-nio-8081"]
+2025-06-02 22:44:46,943 INFO [main] o.a.catalina.core.StandardService [DirectJDKLog.java : 173] Starting service [Tomcat]
+2025-06-02 22:44:46,944 INFO [main] o.a.catalina.core.StandardEngine [DirectJDKLog.java : 173] Starting Servlet engine: [Apache Tomcat/9.0.79]
+2025-06-02 22:44:47,047 INFO [main] o.a.c.c.C.[Tomcat].[localhost].[/] [DirectJDKLog.java : 173] Initializing Spring embedded WebApplicationContext
+2025-06-02 22:44:47,048 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java : 292] Root WebApplicationContext: initialization completed in 1899 ms
+2025-06-02 22:44:48,730 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 427] 开始预热热点商铺缓存...
+2025-06-02 22:44:48,796 INFO [pool-3-thread-1] com.zaxxer.hikari.HikariDataSource [HikariDataSource.java : 110] HikariPool-1 - Starting...
+2025-06-02 22:44:48,904 INFO [main] org.redisson.Version [Version.java : 41] Redisson 3.13.6
+2025-06-02 22:44:49,126 INFO [pool-3-thread-1] com.zaxxer.hikari.HikariDataSource [HikariDataSource.java : 123] HikariPool-1 - Start completed.
+2025-06-02 22:44:49,259 INFO [redisson-netty-4-19] o.r.c.p.MasterPubSubConnectionPool [ConnectionPool.java : 167] 1 connections initialized for /127.0.0.1:6379
+2025-06-02 22:44:49,274 INFO [redisson-netty-4-17] o.r.c.pool.MasterConnectionPool [ConnectionPool.java : 167] 24 connections initialized for /127.0.0.1:6379
+2025-06-02 22:44:49,725 INFO [main] s.d.s.w.WebMvcPropertySourcedRequestMappingHandlerMapping [WebMvcPropertySourcedRequestMappingHandlerMapping.java : 69] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
+2025-06-02 22:44:49,789 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=1, 过期时间=22秒
+2025-06-02 22:44:50,000 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=2, 过期时间=20秒
+2025-06-02 22:44:50,210 INFO [main] o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java : 173] Starting ProtocolHandler ["http-nio-8081"]
+2025-06-02 22:44:50,219 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=3, 过期时间=20秒
+2025-06-02 22:44:50,228 INFO [main] o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java : 220] Tomcat started on port(s): 8081 (http) with context path ''
+2025-06-02 22:44:50,230 INFO [main] s.d.s.w.p.DocumentationPluginsBootstrapper [DocumentationPluginsBootstrapper.java : 93] Documentation plugins bootstrapped
+2025-06-02 22:44:50,235 INFO [main] s.d.s.w.p.DocumentationPluginsBootstrapper [AbstractDocumentationPluginsBootstrapper.java : 79] Found 1 custom documentation plugin(s)
+2025-06-02 22:44:50,284 INFO [main] s.d.s.w.s.ApiListingReferenceScanner [ApiListingReferenceScanner.java : 44] Scanning for api listing references
+2025-06-02 22:44:50,434 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=4, 过期时间=20秒
+2025-06-02 22:44:50,465 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: loginUsingPOST_1
+2025-06-02 22:44:50,468 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: logoutUsingPOST_1
+2025-06-02 22:44:50,512 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: infoUsingGET_1
+2025-06-02 22:44:50,514 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: loginUsingPOST_2
+2025-06-02 22:44:50,516 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: logoutUsingPOST_2
+2025-06-02 22:44:50,519 INFO [main] s.d.s.w.r.o.CachingOperationNameGenerator [CachingOperationNameGenerator.java : 41] Generating unique operation named: sendCodeUsingPOST_1
+2025-06-02 22:44:50,544 INFO [main] com.hmdp.HmDianPingApplication [StartupInfoLogger.java : 61] Started HmDianPingApplication in 5.809 seconds (JVM running for 6.185)
+2025-06-02 22:44:50,652 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=5, 过期时间=27秒
+2025-06-02 22:44:50,870 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=6, 过期时间=22秒
+2025-06-02 22:44:51,087 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=7, 过期时间=27秒
+2025-06-02 22:44:51,293 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=8, 过期时间=20秒
+2025-06-02 22:44:51,507 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=9, 过期时间=24秒
+2025-06-02 22:44:51,724 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=10, 过期时间=22秒
+2025-06-02 22:44:51,942 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=11, 过期时间=24秒
+2025-06-02 22:44:52,161 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=12, 过期时间=22秒
+2025-06-02 22:44:52,379 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=13, 过期时间=20秒
+2025-06-02 22:44:52,597 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 406] 商铺缓存预热成功，id=14, 过期时间=26秒
+2025-06-02 22:44:52,612 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 506] 开始预热热门商铺评论缓存，共14个商铺
+2025-06-02 22:44:52,841 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=4, score=0
+2025-06-02 22:44:52,848 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=4
+2025-06-02 22:44:52,916 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=5, score=0
+2025-06-02 22:44:52,923 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=5
+2025-06-02 22:44:52,994 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=3, score=0
+2025-06-02 22:44:52,999 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=3
+2025-06-02 22:44:53,054 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=7, score=0
+2025-06-02 22:44:53,059 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=7
+2025-06-02 22:44:53,112 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=11, score=0
+2025-06-02 22:44:53,116 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=11
+2025-06-02 22:44:53,148 INFO [pool-3-thread-2] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=4, score=0, 过期时间=1340秒
+2025-06-02 22:44:53,150 INFO [pool-3-thread-2] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=4, score=0.0
+2025-06-02 22:44:53,161 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=14, score=0
+2025-06-02 22:44:53,166 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=14
+2025-06-02 22:44:53,208 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=2, score=0
+2025-06-02 22:44:53,211 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=2
+2025-06-02 22:44:53,262 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=6, score=0
+2025-06-02 22:44:53,266 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=6
+2025-06-02 22:44:53,269 INFO [pool-3-thread-3] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=5, score=0, 过期时间=1230秒
+2025-06-02 22:44:53,270 INFO [pool-3-thread-3] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=5, score=0.0
+2025-06-02 22:44:53,305 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=8, score=0
+2025-06-02 22:44:53,308 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=8
+2025-06-02 22:44:53,356 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=12, score=0
+2025-06-02 22:44:53,360 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=12
+2025-06-02 22:44:53,361 INFO [pool-3-thread-5] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=7, score=0, 过期时间=1216秒
+2025-06-02 22:44:53,362 INFO [pool-3-thread-5] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=7, score=0.0
+2025-06-02 22:44:53,375 INFO [pool-3-thread-4] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=3, score=0, 过期时间=1422秒
+2025-06-02 22:44:53,378 INFO [pool-3-thread-4] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=3, score=0.0
+2025-06-02 22:44:53,403 INFO [pool-3-thread-6] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=11, score=0, 过期时间=1234秒
+2025-06-02 22:44:53,405 INFO [pool-3-thread-6] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=11, score=0.0
+2025-06-02 22:44:53,418 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=9, score=0
+2025-06-02 22:44:53,423 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=9
+2025-06-02 22:44:53,465 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=13, score=0
+2025-06-02 22:44:53,469 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=13
+2025-06-02 22:44:53,494 INFO [pool-3-thread-7] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=14, score=0, 过期时间=1336秒
+2025-06-02 22:44:53,495 INFO [pool-3-thread-7] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=14, score=0.0
+2025-06-02 22:44:53,512 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=1, score=0
+2025-06-02 22:44:53,515 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=1
+2025-06-02 22:44:53,535 INFO [pool-3-thread-9] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=6, score=0, 过期时间=1472秒
+2025-06-02 22:44:53,536 INFO [pool-3-thread-9] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=6, score=0.0
+2025-06-02 22:44:53,552 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 343] 更新商店评分成功，shopId=10, score=0
+2025-06-02 22:44:53,555 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 527] 商铺评论缓存预热成功，shopId=10
+2025-06-02 22:44:53,556 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 533] 商铺评论缓存预热完成，成功14个，失败0个
+2025-06-02 22:44:53,556 INFO [pool-3-thread-1] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 437] 热点商铺缓存预热完成
+2025-06-02 22:44:53,561 INFO [pool-3-thread-8] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=2, score=0, 过期时间=1354秒
+2025-06-02 22:44:53,562 INFO [pool-3-thread-8] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=2, score=0.0
+2025-06-02 22:44:53,648 INFO [pool-3-thread-2] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=12, score=0, 过期时间=1257秒
+2025-06-02 22:44:53,649 INFO [pool-3-thread-2] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=12, score=0.0
+2025-06-02 22:44:53,699 INFO [pool-3-thread-10] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=8, score=0, 过期时间=1213秒
+2025-06-02 22:44:53,700 INFO [pool-3-thread-10] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=8, score=0.0
+2025-06-02 22:44:53,710 INFO [pool-3-thread-3] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=9, score=0, 过期时间=1419秒
+2025-06-02 22:44:53,712 INFO [pool-3-thread-3] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=9, score=0.0
+2025-06-02 22:44:53,785 INFO [pool-3-thread-5] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=13, score=0, 过期时间=1333秒
+2025-06-02 22:44:53,787 INFO [pool-3-thread-5] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=13, score=0.0
+2025-06-02 22:44:53,797 INFO [pool-3-thread-4] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=1, score=0, 过期时间=1389秒
+2025-06-02 22:44:53,798 INFO [pool-3-thread-4] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=1, score=0.0
+2025-06-02 22:44:53,892 INFO [pool-3-thread-6] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 365] 商店评分更新后，异步重建缓存成功，shopId=10, score=0, 过期时间=1297秒
+2025-06-02 22:44:53,894 INFO [pool-3-thread-6] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 379] 商店评分更新后，异步重建评分缓存成功，shopId=10, score=0.0
+2025-06-02 23:00:36,723 INFO [http-nio-8081-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/] [DirectJDKLog.java : 173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-02 23:00:36,724 INFO [http-nio-8081-exec-3] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 525] Initializing Servlet 'dispatcherServlet'
+2025-06-02 23:00:36,729 INFO [http-nio-8081-exec-3] o.s.web.servlet.DispatcherServlet [FrameworkServlet.java : 547] Completed initialization in 4 ms
+2025-06-02 23:00:55,068 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 54] 手机号码：13011112222
+2025-06-02 23:00:55,075 INFO [http-nio-8081-exec-7] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 62] code:685332
+2025-06-02 23:01:07,624 INFO [http-nio-8081-exec-8] c.hmdp.service.impl.UserServiceImpl [UserServiceImpl.java : 107] Sa-Token session created for user: 1023
+2025-06-02 23:01:20,961 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 56] 开始查询商铺信息，id=1
+2025-06-02 23:01:21,050 INFO [http-nio-8081-exec-4] c.hmdp.service.impl.ShopServiceImpl [ShopServiceImpl.java : 76] 查询商铺成功，id=1，name=103茶餐厅, images=https://qcloud.dpfile.com/pc/jiclIsCKmOI2arxKN1Uf0Hx3PucIJH8q0QSz-Z8llzcN56-_QiKuOvyio1OOxsRtFoXqu0G3iT2T27qat3WhLVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg,https://qcloud.dpfile.com/pc/IOf6VX3qaBgFXFVgp75w-KKJmWZjFc8GXDU8g9bQC6YGCpAmG00QbfT4vCCBj7njuzFvxlbkWx5uwqY2qcjixFEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vmIU_8ZGOT1OjpJmLxG6urQ.jpg
+2025-06-02 23:03:05,371 INFO [http-nio-8081-exec-5] c.hmdp.service.impl.BlogServiceImpl [BlogServiceImpl.java : 561] 获取用户未读计数成功，userId=1023，总未读数=0，作者未读数={}
+2025-06-02 23:03:25,740 INFO [http-nio-8081-exec-4] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 157] 账号: merchant1
+2025-06-02 23:03:25,742 INFO [http-nio-8081-exec-4] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 158] 输入的原始密码: 123456
+2025-06-02 23:03:25,743 INFO [http-nio-8081-exec-4] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 159] 输入密码加密后: e10adc3949ba59abbe56e057f20f883e
+2025-06-02 23:03:25,746 INFO [http-nio-8081-exec-4] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 160] 数据库中的密码: e10adc3949ba59abbe56e057f20f883e
+2025-06-02 23:04:09,894 INFO [http-nio-8081-exec-6] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 157] 账号: merchant1
+2025-06-02 23:04:09,897 INFO [http-nio-8081-exec-6] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 158] 输入的原始密码: 123456
+2025-06-02 23:04:09,899 INFO [http-nio-8081-exec-6] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 159] 输入密码加密后: e10adc3949ba59abbe56e057f20f883e
+2025-06-02 23:04:09,902 INFO [http-nio-8081-exec-6] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 160] 数据库中的密码: e10adc3949ba59abbe56e057f20f883e
+2025-06-02 23:04:27,024 INFO [http-nio-8081-exec-8] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 157] 账号: merchant1
+2025-06-02 23:04:27,027 INFO [http-nio-8081-exec-8] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 158] 输入的原始密码: 123456
+2025-06-02 23:04:27,028 INFO [http-nio-8081-exec-8] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 159] 输入密码加密后: e10adc3949ba59abbe56e057f20f883e
+2025-06-02 23:04:27,030 INFO [http-nio-8081-exec-8] c.h.service.impl.MerchantServiceImpl [MerchantServiceImpl.java : 160] 数据库中的密码: e10adc3949ba59abbe56e057f20f883e
