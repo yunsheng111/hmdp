@@ -63,7 +63,7 @@ public class ShopCommentController {
         @ApiImplicitParam(name = "sortBy", value = "排序方式：time（时间）、rating（评分）、hotness（热度），默认time", required = false, dataType = "String", paramType = "query"),
         @ApiImplicitParam(name = "order", value = "排序顺序：asc（升序）、desc（降序），默认desc", required = false, dataType = "String", paramType = "query")
     })
-    @GetMapping("/of/shop/{shopId}")
+    @GetMapping("/shop/{shopId}")
     public Result queryShopComments(
             @PathVariable("shopId") Long shopId,
             @RequestParam(value = "current", required = false) Integer current,

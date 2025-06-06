@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hmdp.mapper.ProductSpecMapper">
+    <!-- 
+    {{CHENGQI:
+    Reason: 创建ProductSpecMapper.xml配置，定义商品规格查询SQL
+    Principle_Applied: KISS - 只包含必要的SQL查询，不添加复杂逻辑
+    Principle_Applied: 高内聚 - 所有查询都围绕商品规格实体
+    }}
+    -->
+    
+    <!-- 规格结果映射 -->
+    <resultMap id="ProductSpecMap" type="com.hmdp.entity.ProductSpec">
+        <id column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="name" property="name"/>
+        <result column="values" property="values"/>
+        <result column="required" property="required"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+    
+    <!-- 根据商品ID查询规格列表 -->
+    <select id="findByProductId" resultMap="ProductSpecMap">
+        SELECT
+            id, product_id, name, `values`, required, sort
+        FROM
+            tb_product_spec
+        WHERE
+            product_id = #{productId}
+        ORDER BY
+            sort ASC, id ASC
+    </select>
+
+    <!-- 插入商品规格 -->
+    <insert id="insert" parameterType="com.hmdp.entity.ProductSpec" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_product_spec (
+            product_id,
+            name,
+            `values`,
+            required,
+            sort,
+            create_time,
+            update_time
+        ) VALUES (
+            #{productId},
+            #{name},
+            #{values},
+            #{required},
+            #{sort},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+</mapper>

@@ -181,6 +181,46 @@ INSERT INTO `tb_shop_type` VALUES (9, '轰趴馆', '/types/hpg.png', 9, '2024-12
 INSERT INTO `tb_shop_type` VALUES (10, '美睫·美甲', '/types/mjmj.png', 4, '2024-12-22 20:21:46', '2025-02-23 11:24:31');
 
 -- ----------------------------
+-- Table structure for tb_shop_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_shop_comment`;
+CREATE TABLE `tb_shop_comment`  (
+  `id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `shop_id` bigint(0) UNSIGNED NOT NULL COMMENT '关联的商店ID',
+  `user_id` bigint(0) UNSIGNED NOT NULL COMMENT '评论用户ID',
+  `order_id` bigint(0) UNSIGNED NULL DEFAULT NULL COMMENT '关联的订单ID（确保评论来自已验证的购买）',
+  `rating` int(0) UNSIGNED NOT NULL DEFAULT 5 COMMENT '评分(1-5)',
+  `content` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论内容',
+  `status` tinyint(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态：0=正常，1=用户隐藏，2=管理员隐藏',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_shop_id`(`shop_id`) USING BTREE,
+  INDEX `idx_user_id`(`user_id`) USING BTREE,
+  INDEX `idx_order_id`(`order_id`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商店评论表' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for tb_comment_report
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_comment_report`;
+CREATE TABLE `tb_comment_report`  (
+  `id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `comment_id` bigint(0) UNSIGNED NOT NULL COMMENT '被举报的评论ID',
+  `reporter_id` bigint(0) UNSIGNED NOT NULL COMMENT '举报者ID（商家）',
+  `reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '举报原因',
+  `status` tinyint(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态：0=待处理，1=已处理',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_comment_id`(`comment_id`) USING BTREE,
+  INDEX `idx_reporter_id`(`reporter_id`) USING BTREE,
+  INDEX `idx_status`(`status`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '评论举报表' ROW_FORMAT = Compact;
+
+-- ----------------------------
 -- Table structure for tb_sign
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_sign`;
@@ -606,6 +646,21 @@ INSERT INTO `tb_order_comment` VALUES (3, 1, 2, 100003, 5, '烤肉非常好吃�
 INSERT INTO `tb_order_comment` VALUES (4, 2, 2, 100004, 4, '冷面很爽口，就是有点咸', NULL, '感谢您的反馈，我们会调整口味', '2025-01-10 20:30:00', 1, '2025-01-10 19:50:00', '2025-01-10 20:30:00');
 
 -- ----------------------------
+-- Records of tb_shop_comment
+-- ----------------------------
+INSERT INTO `tb_shop_comment` VALUES (1, 1, 1, 100001, 5, '服务很好，环境不错，菜品也很棒！', 0, '2025-01-10 14:30:00', '2025-01-10 14:30:00');
+INSERT INTO `tb_shop_comment` VALUES (2, 1, 2, 100002, 4, '味道还可以，就是上菜有点慢', 0, '2025-01-10 15:20:00', '2025-01-10 15:20:00');
+INSERT INTO `tb_shop_comment` VALUES (3, 2, 1, 100003, 5, '烤肉非常棒，下次还会再来！', 0, '2025-01-10 20:15:00', '2025-01-10 20:15:00');
+INSERT INTO `tb_shop_comment` VALUES (4, 2, 2, 100004, 3, '价格有点贵，性价比一般', 0, '2025-01-10 21:00:00', '2025-01-10 21:00:00');
+INSERT INTO `tb_shop_comment` VALUES (5, 3, 1023, NULL, 4, '环境很好，适合聚餐', 0, '2025-01-11 12:30:00', '2025-01-11 12:30:00');
+
+-- ----------------------------
+-- Records of tb_comment_report
+-- ----------------------------
+INSERT INTO `tb_comment_report` VALUES (1, 4, 1, '评论内容不实，恶意差评', 0, '2025-01-11 09:00:00', '2025-01-11 09:00:00');
+INSERT INTO `tb_comment_report` VALUES (2, 2, 1, '评论涉嫌恶意诋毁', 1, '2025-01-11 10:30:00', '2025-01-11 15:20:00');
+
+-- ----------------------------
 -- Records of tb_sign
 -- ----------------------------
 INSERT INTO `tb_sign` VALUES (1, 1, 2025, 1, '2025-01-01', 0);
@@ -728,6 +783,64 @@ CREATE TABLE `tb_admin_audit_log`  (
   INDEX `idx_admin_user_id_log`(`admin_user_id`) USING BTREE,
   INDEX `idx_create_time_log`(`create_time`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员操作日志表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- 购物车模块相关表
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_cart
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_cart`;
+CREATE TABLE `tb_cart` (
+  `id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户ID',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='购物车主表';
+
+-- ----------------------------
+-- Table structure for tb_cart_item
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_cart_item`;
+CREATE TABLE `tb_cart_item` (
+  `id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `cart_id` bigint(0) UNSIGNED NOT NULL COMMENT '购物车ID',
+  `product_id` bigint(0) UNSIGNED NOT NULL COMMENT '商品ID',
+  `quantity` int(0) UNSIGNED NOT NULL DEFAULT 1 COMMENT '商品数量',
+  `specifications` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品规格信息JSON',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_cart_product` (`cart_id`, `product_id`),
+  KEY `idx_cart_id` (`cart_id`),
+  KEY `idx_product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='购物车项表';
+
+-- ----------------------------
+-- Records of tb_cart
+-- ----------------------------
+INSERT INTO `tb_cart` VALUES (1, 1010, '2024-12-22 10:00:00', '2024-12-22 10:00:00');
+INSERT INTO `tb_cart` VALUES (2, 1011, '2024-12-22 11:00:00', '2024-12-22 11:00:00');
+INSERT INTO `tb_cart` VALUES (3, 1012, '2024-12-22 12:00:00', '2024-12-22 12:00:00');
+
+-- ----------------------------
+-- Records of tb_cart_item
+-- ----------------------------
+-- 用户1010的购物车项目
+INSERT INTO `tb_cart_item` VALUES (1, 1, 1, 2, NULL, '2024-12-22 10:00:00');
+INSERT INTO `tb_cart_item` VALUES (2, 1, 3, 1, NULL, '2024-12-22 10:05:00');
+INSERT INTO `tb_cart_item` VALUES (3, 1, 4, 3, NULL, '2024-12-22 10:10:00');
+
+-- 用户1011的购物车项目
+INSERT INTO `tb_cart_item` VALUES (4, 2, 2, 1, NULL, '2024-12-22 11:00:00');
+INSERT INTO `tb_cart_item` VALUES (5, 2, 5, 2, NULL, '2024-12-22 11:05:00');
+
+-- 用户1012的购物车项目
+INSERT INTO `tb_cart_item` VALUES (6, 3, 1, 1, NULL, '2024-12-22 12:00:00');
+INSERT INTO `tb_cart_item` VALUES (7, 3, 6, 2, NULL, '2024-12-22 12:05:00');
+INSERT INTO `tb_cart_item` VALUES (8, 3, 7, 1, NULL, '2024-12-22 12:10:00');
 
 SET FOREIGN_KEY_CHECKS = 1;
 

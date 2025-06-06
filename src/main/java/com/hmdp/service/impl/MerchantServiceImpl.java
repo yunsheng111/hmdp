@@ -11,8 +11,10 @@ import com.hmdp.common.Result;
 import com.hmdp.dto.MerchantDTO;
 import com.hmdp.dto.MerchantLoginFormDTO;
 import com.hmdp.entity.Merchant;
+import com.hmdp.entity.Shop;
 import com.hmdp.mapper.MerchantMapper;
 import com.hmdp.service.IMerchantService;
+import com.hmdp.service.IShopService;
 import com.hmdp.utils.MerchantHolder;
 import com.hmdp.utils.RegexUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -44,6 +47,9 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> i
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+
+    @Resource
+    private IShopService shopService;
 
     /**
      * 发送手机验证码
@@ -227,26 +233,35 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> i
     private Result createMerchantToken(Merchant merchant) {
         // 1. 生成token
         String token = UUID.randomUUID().toString(true);
-        
-        // 2. 将商家对象转为HashMap存储
+
+        // 2. 将商家对象转为DTO并设置shopId
         MerchantDTO merchantDTO = BeanUtil.copyProperties(merchant, MerchantDTO.class);
+
+        // 3. 查询商家关联的店铺ID（这里简化处理，实际项目中可能需要查询tb_shop表）
+        // 为了演示，我们给每个商家分配一个默认的shopId
+        if (merchantDTO.getId() != null) {
+            merchantDTO.setShopId(merchantDTO.getId()); // 简化：使用商家ID作为shopId
+        } else {
+            merchantDTO.setShopId(1L); // 默认shopId
+        }
+
         Map<String, Object> merchantMap = BeanUtil.beanToMap(merchantDTO, new HashMap<>(),
                 CopyOptions.create()
                         .setIgnoreNullValue(true)
                         .setFieldValueEditor((fieldName, fieldValue) -> fieldValue.toString()));
-        
-        // 3. 存储到Redis
+
+        // 4. 存储到Redis
         String tokenKey = MERCHANT_LOGIN_TOKEN_KEY + token;
         stringRedisTemplate.opsForHash().putAll(tokenKey, merchantMap);
-        
-        // 4. 设置token有效期
+
+        // 5. 设置token有效期
         stringRedisTemplate.expire(tokenKey, MERCHANT_LOGIN_TOKEN_TTL, TimeUnit.MINUTES);
-        
-        // 5. 返回token和商家信息
+
+        // 6. 返回token和商家信息
         Map<String, Object> result = new HashMap<>();
         result.put("token", token);
         result.put("merchantInfo", merchantDTO);
-        
+
         return Result.success(result);
     }
 
@@ -335,4 +350,207 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> i
         MerchantDTO merchantDTO = BeanUtil.copyProperties(merchant, MerchantDTO.class);
         return Result.success(merchantDTO);
     }
-} 
+
+    // ========== 店铺管理相关方法实现 ==========
+
+    /**
+     * 获取商家主要店铺信息（兼容现有前端）
+     * @return Result
+     */
+    @Override
+    public Result getMerchantShopInfo() {
+        // 从ThreadLocal中获取商家信息
+        MerchantDTO merchant = MerchantHolder.getMerchant();
+        if (merchant == null) {
+            return Result.fail("未登录");
+        }
+
+        // 查询商家的第一个店铺作为主要店铺
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("merchant_id", merchant.getId())
+                   .orderByAsc("id")
+                   .last("LIMIT 1");
+
+        Shop shop = shopService.getOne(queryWrapper);
+        if (shop == null) {
+            log.info("商家 {} 暂无店铺信息", merchant.getId());
+            return Result.fail("暂无店铺信息");
+        }
+
+        log.info("获取商家主要店铺成功，商家ID: {}, 店铺ID: {}, 店铺名称: {}",
+                merchant.getId(), shop.getId(), shop.getName());
+        return Result.success(shop);
+    }
+
+    /**
+     * 获取商家所有店铺列表
+     * @return Result
+     */
+    @Override
+    public Result getMerchantShops() {
+        // 从ThreadLocal中获取商家信息
+        MerchantDTO merchant = MerchantHolder.getMerchant();
+        if (merchant == null) {
+            return Result.fail("未登录");
+        }
+
+        // 查询商家的所有店铺
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("merchant_id", merchant.getId())
+                   .orderByDesc("create_time");
+
+        List<Shop> shops = shopService.list(queryWrapper);
+        log.info("获取商家店铺列表成功，商家ID: {}, 店铺数量: {}", merchant.getId(), shops.size());
+        return Result.success(shops);
+    }
+
+    /**
+     * 根据ID获取商家指定店铺详情
+     * @param shopId 店铺ID
+     * @return Result
+     */
+    @Override
+    public Result getMerchantShopById(Long shopId) {
+        // 从ThreadLocal中获取商家信息
+        MerchantDTO merchant = MerchantHolder.getMerchant();
+        if (merchant == null) {
+            return Result.fail("未登录");
+        }
+
+        if (shopId == null) {
+            return Result.fail("店铺ID不能为空");
+        }
+
+        // 查询指定店铺，并验证归属
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", shopId)
+                   .eq("merchant_id", merchant.getId());
+
+        Shop shop = shopService.getOne(queryWrapper);
+        if (shop == null) {
+            return Result.fail("店铺不存在或无权限访问");
+        }
+
+        log.info("获取商家指定店铺成功，商家ID: {}, 店铺ID: {}, 店铺名称: {}",
+                merchant.getId(), shop.getId(), shop.getName());
+        return Result.success(shop);
+    }
+
+    /**
+     * 创建商家店铺
+     * @param shop 店铺信息
+     * @return Result
+     */
+    @Override
+    public Result createMerchantShop(Shop shop) {
+        // 从ThreadLocal中获取商家信息
+        MerchantDTO merchant = MerchantHolder.getMerchant();
+        if (merchant == null) {
+            return Result.fail("未登录");
+        }
+
+        if (shop == null) {
+            return Result.fail("店铺信息不能为空");
+        }
+
+        // 设置商家ID
+        shop.setMerchantId(merchant.getId());
+        shop.setCreateTime(LocalDateTime.now());
+        shop.setUpdateTime(LocalDateTime.now());
+
+        // 保存店铺
+        boolean success = shopService.save(shop);
+        if (!success) {
+            return Result.fail("创建店铺失败");
+        }
+
+        log.info("创建商家店铺成功，商家ID: {}, 店铺ID: {}, 店铺名称: {}",
+                merchant.getId(), shop.getId(), shop.getName());
+        return Result.success(shop);
+    }
+
+    /**
+     * 更新商家店铺信息
+     * @param shopId 店铺ID
+     * @param shop 店铺信息
+     * @return Result
+     */
+    @Override
+    public Result updateMerchantShop(Long shopId, Shop shop) {
+        // 从ThreadLocal中获取商家信息
+        MerchantDTO merchant = MerchantHolder.getMerchant();
+        if (merchant == null) {
+            return Result.fail("未登录");
+        }
+
+        if (shopId == null) {
+            return Result.fail("店铺ID不能为空");
+        }
+
+        if (shop == null) {
+            return Result.fail("店铺信息不能为空");
+        }
+
+        // 先验证店铺归属
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", shopId)
+                   .eq("merchant_id", merchant.getId());
+
+        Shop existingShop = shopService.getOne(queryWrapper);
+        if (existingShop == null) {
+            return Result.fail("店铺不存在或无权限访问");
+        }
+
+        // 更新店铺信息
+        shop.setId(shopId);
+        shop.setMerchantId(merchant.getId());
+        shop.setUpdateTime(LocalDateTime.now());
+
+        boolean success = shopService.updateById(shop);
+        if (!success) {
+            return Result.fail("更新店铺失败");
+        }
+
+        log.info("更新商家店铺成功，商家ID: {}, 店铺ID: {}, 店铺名称: {}",
+                merchant.getId(), shop.getId(), shop.getName());
+        return Result.success(shop);
+    }
+
+    /**
+     * 删除商家店铺
+     * @param shopId 店铺ID
+     * @return Result
+     */
+    @Override
+    public Result deleteMerchantShop(Long shopId) {
+        // 从ThreadLocal中获取商家信息
+        MerchantDTO merchant = MerchantHolder.getMerchant();
+        if (merchant == null) {
+            return Result.fail("未登录");
+        }
+
+        if (shopId == null) {
+            return Result.fail("店铺ID不能为空");
+        }
+
+        // 先验证店铺归属
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", shopId)
+                   .eq("merchant_id", merchant.getId());
+
+        Shop existingShop = shopService.getOne(queryWrapper);
+        if (existingShop == null) {
+            return Result.fail("店铺不存在或无权限访问");
+        }
+
+        // 删除店铺
+        boolean success = shopService.removeById(shopId);
+        if (!success) {
+            return Result.fail("删除店铺失败");
+        }
+
+        log.info("删除商家店铺成功，商家ID: {}, 店铺ID: {}, 店铺名称: {}",
+                merchant.getId(), shopId, existingShop.getName());
+        return Result.success("删除成功");
+    }
+}

@@ -33,30 +33,23 @@ public class MvcConfig implements WebMvcConfigurer {
     private StringRedisTemplate redisTemplate;
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry){
-        // 注册登录拦截器
+        // 注册登录拦截器 - 只拦截需要普通用户登录的路径
         registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/user/**", "/blog/**", "/follow/**", "/order/**")
                 .excludePathPatterns(
                         "/user/code",
                         "/user/login",
-                        "/blog/hot",
-                        "/shop/**",
-                        "/shop-type/**",
-                        "/upload/**",
-                        "/voucher/**",
-                        "/merchant/code",
-                        "/merchant/login",
-                        "/merchant/register",
-                        "/admin/auth/login",
-                        "/admin/auth/logout",
-                        "/doc.html/**"
+                        "/blog/hot"
                 ).order(1);
         // 注册商家登录拦截器
         registry.addInterceptor(new MerchantLoginInterceptor())
-                .addPathPatterns("/merchant/**")
+                .addPathPatterns("/merchant/**", "/product/**")
                 .excludePathPatterns(
                         "/merchant/code",
                         "/merchant/login",
-                        "/merchant/register"
+                        "/merchant/register",
+                        "/product/categories/**",
+                        "/product/shop/**"
                 ).order(2);
         // 注册管理员登录拦截器
         registry.addInterceptor(new AdminLoginInterceptor())

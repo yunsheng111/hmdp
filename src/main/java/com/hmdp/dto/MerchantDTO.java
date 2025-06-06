@@ -11,4 +11,5 @@ public class MerchantDTO {
     private String avatar;
     private String description;
     private Integer status;
+    private Long shopId; // 商家关联的店铺ID
 } 

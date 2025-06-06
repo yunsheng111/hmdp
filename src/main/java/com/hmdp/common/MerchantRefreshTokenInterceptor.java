@@ -30,12 +30,20 @@ public class MerchantRefreshTokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 1.获取请求头中的token
+        // 1.获取请求头中的token，优先使用merchant-token，如果没有则尝试使用authorization
         String token = request.getHeader("merchant-token");
-        log.debug("merchant-token: {}", token);
+        if (StrUtil.isBlank(token)) {
+            // 尝试从authorization头获取
+            token = request.getHeader("authorization");
+            log.debug("从authorization头获取token: {}", token);
+        } else {
+            log.debug("从merchant-token头获取token: {}", token);
+        }
+        
         if (StrUtil.isBlank(token)) {
             return true;
         }
+        
         // 2.基于TOKEN获取redis中的商家
         String key = MERCHANT_LOGIN_TOKEN_KEY + token;
         Map<Object, Object> merchantMap = stringRedisTemplate.opsForHash().entries(key);

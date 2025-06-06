@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmdp.mapper.ProductMapper">
+    <!-- 
+    {{CHENGQI:
+    Action: Added
+    Timestamp: [2024-07-30 16:25:00 +08:00]
+    Reason: 创建ProductMapper.xml配置文件，遵循P3-LD-002任务
+    Principle_Applied: KISS - 保持简单，当前MVP阶段不需要复杂的自定义SQL
+    Principle_Applied: YAGNI - 仅创建基本结构，不添加当前不需要的复杂查询
+    }}
+    -->
+    
+    <!-- 基本的ResultMap，虽然MyBatis-Plus可以自动映射，但为了清晰和可能的扩展，这里显式定义 -->
+    <resultMap id="BaseResultMap" type="com.hmdp.entity.Product">
+        <id column="id" property="id" />
+        <result column="shop_id" property="shopId" />
+        <result column="category_id" property="categoryId" />
+        <result column="title" property="title" />
+        <result column="description" property="description" />
+        <result column="images" property="images" />
+        <result column="price" property="price" />
+        <result column="stock" property="stock" />
+        <result column="sold" property="sold" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    
+    <!-- 所有列 -->
+    <sql id="Base_Column_List">
+        id, shop_id, category_id, title, description, images, price, stock, sold, status, create_time, update_time
+    </sql>
+    
+    <!-- 
+        MVP阶段暂不需要自定义SQL语句，使用MyBatis-Plus提供的基础方法即可
+        如有特殊查询需求，可在此添加自定义SQL
+    -->
+</mapper> 
