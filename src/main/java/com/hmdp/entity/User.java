@@ -53,6 +53,11 @@ public class User implements Serializable {
     private String icon = "";
 
     /**
+     * 用户状态，0：正常，1：禁用
+     */
+    private Integer status = 0;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;

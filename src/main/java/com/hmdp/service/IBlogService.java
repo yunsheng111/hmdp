@@ -1,11 +1,10 @@
 package com.hmdp.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hmdp.common.Result;
 import com.hmdp.entity.Blog;
 
-import java.util.Map;
+
 
 /**
  * <p>
@@ -62,14 +61,24 @@ public interface IBlogService extends IService<Blog> {
     Result saveBlog(Blog blog);
 
     /**
-     *  查询收件箱中博客的列表
+     *  查询收件箱中博客的列表（未读博客）
      *
      * @param max 查询的最大时间戳
      * @param offset 偏移量，用于分页
      * @return 查询结果
      */
     Result queryBlogOfFollow(Long max, Integer offset);
-    
+
+    /**
+     *  查询收件箱中博客的列表（未读博客）- 支持博主筛选
+     *
+     * @param max 查询的最大时间戳
+     * @param offset 偏移量，用于分页
+     * @param authorId 可选的博主ID，用于筛选特定博主的博客
+     * @return 查询结果
+     */
+    Result queryBlogOfFollow(Long max, Integer offset, Long authorId);
+
     /**
      * 标记博客为已读
      *
@@ -78,21 +87,17 @@ public interface IBlogService extends IService<Blog> {
      */
     Result markBlogAsRead(Long id);
     
-    /**
-     * 根据用户ID和阅读状态查询该用户的博客列表
-     *
-     * @param userId 用户ID
-     * @param current 当前页码
-     * @param size 每页大小
-     * @param readStatus 阅读状态，可选值为 "ALL"(所有) 或 "UNREAD"(未读)
-     * @return 查询结果，包含分页信息
-     */
-    Result queryUserBlogByReadStatus(Long userId, Integer current, Integer size, String readStatus);
-
-    /**
+        /**
      * 获取用户的未读计数
-     * 
+     *
      * @return 包含总未读数和按作者未读数的结果
      */
     Result getUnreadCounts();
+
+    /**
+     * 获取消息页面数据
+     *
+     * @return 包含未读数、作者列表、最近博客的消息页面数据
+     */
+    Result getMessagePageData();
 }

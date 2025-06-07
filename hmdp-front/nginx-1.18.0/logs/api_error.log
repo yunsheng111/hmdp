@@ -100,3 +100,22 @@
 2025/06/06 17:43:35 [info] 6224#14416: *149 client 127.0.0.1 closed keepalive connection
 2025/06/06 17:44:05 [info] 6224#14416: *168 client 127.0.0.1 closed keepalive connection
 2025/06/06 17:44:50 [info] 6224#14416: *179 client 127.0.0.1 closed keepalive connection
+2025/06/07 00:10:18 [info] 15824#19792: *51 client prematurely closed connection, so upstream connection is closed too while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/blog/unread/counts HTTP/1.1", upstream: "http://127.0.0.1:8081/blog/unread/counts", host: "localhost:8080", referrer: "http://localhost:8080/user-info.html"
+2025/06/07 00:12:58 [info] 15824#19792: *79 client 127.0.0.1 closed keepalive connection
+2025/06/07 00:12:58 [info] 15824#19792: *87 client 127.0.0.1 closed keepalive connection
+2025/06/07 00:12:58 [info] 15824#19792: *86 client 127.0.0.1 closed keepalive connection
+2025/06/07 00:42:56 [info] 15824#19792: *130 client 127.0.0.1 closed keepalive connection
+2025/06/07 00:57:32 [info] 15824#19792: *180 client 127.0.0.1 closed keepalive connection
+2025/06/07 01:12:57 [info] 15824#19792: *217 client 127.0.0.1 closed keepalive connection
+2025/06/07 01:14:26 [info] 15824#19792: *271 client prematurely closed connection, so upstream connection is closed too while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/blog/unread/counts HTTP/1.1", upstream: "http://127.0.0.1:8081/blog/unread/counts", host: "localhost:8080", referrer: "http://localhost:8080/user-info.html"
+2025/06/07 01:29:37 [info] 15824#19792: *315 client 127.0.0.1 closed keepalive connection
+2025/06/07 01:39:06 [info] 15824#19792: *326 client 127.0.0.1 closed keepalive connection
+2025/06/07 01:47:47 [info] 15824#19792: *363 client 127.0.0.1 closed keepalive connection
+2025/06/07 15:00:32 [info] 2276#22724: *94 client 127.0.0.1 closed keepalive connection
+2025/06/07 15:30:31 [info] 2276#22724: *251 client 127.0.0.1 closed keepalive connection
+2025/06/07 15:34:04 [info] 2276#22724: *284 client prematurely closed connection, so upstream connection is closed too while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/blog/unread/counts HTTP/1.1", upstream: "http://127.0.0.1:8081/blog/unread/counts", host: "localhost:8080", referrer: "http://localhost:8080/user-info.html"
+2025/06/07 15:34:04 [info] 2276#22724: *282 client prematurely closed connection, so upstream connection is closed too while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/blog/unread/counts HTTP/1.1", upstream: "http://127.0.0.1:8081/blog/unread/counts", host: "localhost:8080", referrer: "http://localhost:8080/user-info.html"
+2025/06/07 16:00:31 [info] 2276#22724: *412 client 127.0.0.1 closed keepalive connection
+2025/06/07 20:14:17 [info] 22780#23464: *257 client 127.0.0.1 closed keepalive connection
+2025/06/07 20:14:17 [info] 22780#23464: *256 client 127.0.0.1 closed keepalive connection
+2025/06/07 21:14:16 [info] 22780#23464: *459 client 127.0.0.1 closed keepalive connection

@@ -91,31 +91,7 @@ public class BlogController {
         return Result.success(page);
     }
     
-    /**
-     * 根据用户ID和阅读状态查询该用户的博客列表，分页展示
-     * 
-     * @param userId 用户ID作为查询参数
-     * @param current 当前页码，默认为1
-     * @param size 每页大小，默认为10
-     * @param readStatus 阅读状态，可选值为 "ALL"(所有) 或 "UNREAD"(未读)，默认为"ALL"
-     * @return 查询结果，包含分页信息
-     */
-    @GetMapping("/of/user/status")
-    public Result queryUserBlogByReadStatus(
-            @RequestParam("id") Long userId, // 用户ID作为查询参数
-            @RequestParam(value = "current", defaultValue = "1") Integer current, // 当前页码，默认为1
-            @RequestParam(value = "size", defaultValue = "10") Integer size, // 每页大小，默认为10
-            @RequestParam(value = "readStatus", defaultValue = "ALL") String readStatus) { // 阅读状态，默认为查询所有
-        
-        // 参数校验
-        if (!"ALL".equals(readStatus) && !"UNREAD".equals(readStatus)) {
-            return Result.fail("无效的阅读状态参数");
-        }
-        
-        // 调用服务层方法查询博客
-        return blogService.queryUserBlogByReadStatus(userId, current, size, readStatus);
-    }
-
+   
     // 根据点赞数量降序查询热门博客列表，分页展示
     @GetMapping("/hot")
     public Result queryHotBlog(@RequestParam(value = "current", defaultValue = "1") Integer current) {
@@ -192,17 +168,19 @@ public class BlogController {
     }
 
     /**
-     * 收件箱博客的分页查询
+     * 收件箱博客的分页查询（未读博客）
      *
      * @param max 最后一条博客的时间戳，用于分页查询
      * @param offset 偏移量，默认为0
+     * @param authorId 可选的博主ID，用于筛选特定博主的博客
      * @return 查询结果
      */
     @GetMapping("/of/follow")
     public Result queryBlogOfFollow(
-            @RequestParam("lastId") Long max,
-            @RequestParam(value = "offset", defaultValue = "0") Integer offset){
-        return blogService.queryBlogOfFollow(max,offset);
+            @RequestParam(value = "lastId", required = false) Long max,
+            @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+            @RequestParam(value = "authorId", required = false) Long authorId){
+        return blogService.queryBlogOfFollow(max, offset, authorId);
     }
     /**
      * 标记博客为已读
@@ -217,11 +195,21 @@ public class BlogController {
 
     /**
      * 获取用户的未读计数
-     * 
+     *
      * @return 包含总未读数和按作者未读数的结果
      */
     @GetMapping("/unread/counts")
     public Result getUnreadCounts() {
         return blogService.getUnreadCounts();
+    }
+
+    /**
+     * 获取消息页面数据
+     *
+     * @return 消息页面初始化数据，包含总未读数、关注作者列表、最近未读博客
+     */
+    @GetMapping("/message/page")
+    public Result getMessagePageData() {
+        return blogService.getMessagePageData();
     }
 }

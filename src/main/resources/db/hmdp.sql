@@ -844,3 +844,70 @@ INSERT INTO `tb_cart_item` VALUES (8, 3, 7, 1, NULL, '2024-12-22 12:10:00');
 
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- ----------------------------
+-- Records of tb_admin_role
+-- ----------------------------
+INSERT INTO `tb_admin_role` VALUES (1, '超级管理员', 'SUPER_ADMIN', '拥有系统所有权限的超级管理员角色', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_role` VALUES (2, '用户管理员', 'USER_MANAGER', '负责用户管理的角色', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_role` VALUES (3, '内容审核员', 'CONTENT_AUDITOR', '负责内容审核的角色', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+
+-- ----------------------------
+-- Records of tb_admin_permission
+-- ----------------------------
+INSERT INTO `tb_admin_permission` VALUES (1, '用户列表查询', 'user:list', '查询用户列表的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_permission` VALUES (2, '用户详情查询', 'user:detail', '查询用户详情的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_permission` VALUES (3, '用户禁用/启用', 'user:status', '禁用或启用用户的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_permission` VALUES (4, '商家审核', 'merchant:audit', '审核商家资质的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_permission` VALUES (5, '商家禁用/启用', 'merchant:status', '禁用或启用商家的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_permission` VALUES (6, '内容审核', 'content:audit', '审核用户发布内容的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_permission` VALUES (7, '内容删除', 'content:delete', '删除用户发布内容的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_permission` VALUES (8, '评论审核', 'comment:audit', '审核用户评论的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_permission` VALUES (9, '评论删除', 'comment:delete', '删除用户评论的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+INSERT INTO `tb_admin_permission` VALUES (10, '系统管理', 'system:manage', '系统管理的权限', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+
+-- ----------------------------
+-- Records of tb_admin_role_permission
+-- ----------------------------
+-- 超级管理员拥有所有权限
+INSERT INTO `tb_admin_role_permission` VALUES (1, 1, 1, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (2, 1, 2, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (3, 1, 3, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (4, 1, 4, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (5, 1, 5, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (6, 1, 6, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (7, 1, 7, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (8, 1, 8, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (9, 1, 9, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (10, 1, 10, '2025-05-28 10:00:00');
+
+-- 用户管理员拥有用户相关权限
+INSERT INTO `tb_admin_role_permission` VALUES (11, 2, 1, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (12, 2, 2, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (13, 2, 3, '2025-05-28 10:00:00');
+
+-- 内容审核员拥有内容相关权限
+INSERT INTO `tb_admin_role_permission` VALUES (14, 3, 6, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (15, 3, 7, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (16, 3, 8, '2025-05-28 10:00:00');
+INSERT INTO `tb_admin_role_permission` VALUES (17, 3, 9, '2025-05-28 10:00:00');
+
+-- ----------------------------
+-- Records of tb_admin_user
+-- ----------------------------
+-- 添加超级管理员测试账号 (密码为123456的MD5加密值)
+INSERT INTO `tb_admin_user` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '/imgs/admin/admin-avatar.png', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+-- 添加用户管理员测试账号
+INSERT INTO `tb_admin_user` VALUES (2, 'user_manager', 'e10adc3949ba59abbe56e057f20f883e', '/imgs/admin/user-manager-avatar.png', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+-- 添加内容审核员测试账号
+INSERT INTO `tb_admin_user` VALUES (3, 'content_auditor', 'e10adc3949ba59abbe56e057f20f883e', '/imgs/admin/content-auditor-avatar.png', 0, '2025-05-28 10:00:00', '2025-05-28 10:00:00', 0);
+
+-- ----------------------------
+-- Records of tb_admin_user_role
+-- ----------------------------
+-- 关联超级管理员角色
+INSERT INTO `tb_admin_user_role` VALUES (1, 1, 1, '2025-05-28 10:00:00');
+-- 关联用户管理员角色
+INSERT INTO `tb_admin_user_role` VALUES (2, 2, 2, '2025-05-28 10:00:00');
+-- 关联内容审核员角色
+INSERT INTO `tb_admin_user_role` VALUES (3, 3, 3, '2025-05-28 10:00:00');
+

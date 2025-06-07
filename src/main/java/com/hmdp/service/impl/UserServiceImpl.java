@@ -85,44 +85,77 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             // 2.如果不符合，返回错误信息
             return Result.fail("手机号格式错误！");
         }
-        // 3.从redis获取验证码并校验
-        String cacheCode = stringRedisTemplate.opsForValue().get(LOGIN_CODE_KEY + phone);
+
+        User user = null;
+
+        // 3.判断登录方式：检查是否为密码登录
+        String password = loginForm.getPassword();
         String code = loginForm.getCode();
-        if (cacheCode == null || !cacheCode.equals(code)) {
-            // 不一致，报错
-            return Result.fail("验证码错误");
+
+        if (password != null && !password.trim().isEmpty()) {
+            // 密码登录模式
+            log.info("用户选择密码登录，手机号：{}", phone);
+
+            // 3.1.根据手机号查询用户
+            user = query().eq("phone", phone).one();
+
+            // 3.2.判断用户是否存在
+            if (user == null) {
+                return Result.fail("用户不存在，请先注册或使用验证码登录");
+            }
+
+            // 3.3.验证密码
+            if (!password.equals(user.getPassword())) {
+                return Result.fail("密码错误");
+            }
+
+        } else if (code != null && !code.trim().isEmpty()) {
+            // 验证码登录模式
+            log.info("用户选择验证码登录，手机号：{}", phone);
+
+            // 3.1.从redis获取验证码并校验
+            String cacheCode = stringRedisTemplate.opsForValue().get(LOGIN_CODE_KEY + phone);
+            if (cacheCode == null || !cacheCode.equals(code)) {
+                // 不一致，报错
+                return Result.fail("验证码错误");
+            }
+
+            // 3.2.根据手机号查询用户
+            user = query().eq("phone", phone).one();
+
+            // 3.3.判断用户是否存在
+            if (user == null) {
+                // 不存在，创建新用户并保存
+                user = createUserWithPhone(phone);
+            }
+
+        } else {
+            // 既没有密码也没有验证码
+            return Result.fail("请输入密码或验证码");
         }
 
-        // 4.一致，根据手机号查询用户 select * from tb_user where phone = ?
-        User user = query().eq("phone", phone).one();
-
-        // 5.判断用户是否存在
-        if (user == null) {
-            // 6.不存在，创建新用户并保存
-            user = createUserWithPhone(phone);
-        }
-
+        // 4.生成登录会话和token
         // Sa-Token V Начало: Интеграция создания сеанса Sa-Token
         StpUtil.login(user.getId());
         log.info("Sa-Token session created for user: {}", user.getId());
         // Sa-Token V Конец: Интеграция создания сеанса Sa-Token
 
-        // 7.保存用户信息到 redis中
-        // 7.1.随机生成token，作为登录令牌
+        // 5.保存用户信息到 redis中
+        // 5.1.随机生成token，作为登录令牌
         String token = UUID.randomUUID().toString(true);
-        // 7.2.将User对象转为HashMap存储
+        // 5.2.将User对象转为HashMap存储
         UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
         Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(),
                 CopyOptions.create()
                         .setIgnoreNullValue(true)
                         .setFieldValueEditor((fieldName, fieldValue) -> fieldValue.toString()));
-        // 7.3.存储
+        // 5.3.存储
         String tokenKey = LOGIN_USER_KEY + token;
         stringRedisTemplate.opsForHash().putAll(tokenKey, userMap);
-        // 7.4.设置token有效期,LOGIN_USER_TTL分钟,TimeUnit.MINUTES指定单位为分钟
+        // 5.4.设置token有效期,LOGIN_USER_TTL分钟,TimeUnit.MINUTES指定单位为分钟
         stringRedisTemplate.expire(tokenKey, LOGIN_USER_TTL, TimeUnit.MINUTES);
 
-        // 8.返回token
+        // 6.返回token
         return Result.success(token);
     }
 

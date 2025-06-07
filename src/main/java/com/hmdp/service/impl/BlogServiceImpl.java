@@ -5,6 +5,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmdp.common.Result;
+import com.hmdp.dto.AuthorOptionDTO;
+import com.hmdp.dto.MessagePageDTO;
 import com.hmdp.dto.ScrollResult;
 import com.hmdp.dto.UserDTO;
 import com.hmdp.entity.Blog;
@@ -25,7 +27,6 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,9 +49,6 @@ import static com.hmdp.utils.RedisConstants.*;
 @Service
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IBlogService {
     private static final Logger log = LoggerFactory.getLogger(BlogServiceImpl.class);
-
-    // 查询放大因子，用于查询未读博客时放大查询范围
-    private static final int AMPLIFICATION_FACTOR = 3;
 
     @Resource
     private IUserService userService;
@@ -167,7 +165,11 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Override
     public Result likeBlog(Long id) {
         //1.获取登录用户
-        Long userId = UserHolder.getUser().getId();
+        UserDTO user = UserHolder.getUser();
+        if (user == null) {
+            return Result.fail("用户未登录");
+        }
+        Long userId = user.getId();
         //2.判断当前用户是否已经点赞
         String key = RedisConstants.BLOG_LIKED_KEY + id;
         Double score = stringRedisTemplate.opsForZSet().score(key, userId.toString());
@@ -182,12 +184,19 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             }
         }else {
             //4.如果已经点赞，则取消点赞
-            //4.1  数据库点赞数-1
-            boolean isFailure = update().setSql("liked = liked - 1").eq("id", id).update();
-            //4.2  redis的set集合中删除当前用户id
-            if (isFailure) {
-                stringRedisTemplate.opsForZSet().remove(key, userId.toString());
+            //4.1 先查询当前博客的点赞数，避免UNSIGNED字段减法导致的约束违反
+            Blog currentBlog = getById(id);
+            if (currentBlog != null && currentBlog.getLiked() != null && currentBlog.getLiked() > 0) {
+                //4.2 只有当点赞数大于0时才执行数据库减法操作
+                boolean isSuccess = update().setSql("liked = liked - 1").eq("id", id).update();
+                if (!isSuccess) {
+                    log.warn("取消点赞时数据库更新失败，blogId={}，userId={}", id, userId);
+                }
+            } else {
+                log.info("博客点赞数已为0，跳过数据库减法操作，blogId={}，userId={}", id, userId);
             }
+            //4.3 无论如何都要从Redis中移除用户点赞记录，保持一致性
+            stringRedisTemplate.opsForZSet().remove(key, userId.toString());
         }
         //5.返回点赞结果
         return Result.success();
@@ -281,105 +290,195 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
      */
     @Override
     public Result queryBlogOfFollow(Long max, Integer offset) {
-        // 1.获取当前用户
-        Long userId = UserHolder.getUser().getId();
-        // 2.查询收件箱 ZREVRANGEBYSCORE key Max Min LIMIT offset count
-        String key = FEED_KEY + userId;
-        Set<ZSetOperations.TypedTuple<String>> typedTuples = stringRedisTemplate.opsForZSet()
-                .reverseRangeByScoreWithScores(key, 0, max, offset, SystemConstants.MAX_PAGE_SIZE);
-        // 3.非空判断
-        if (typedTuples == null || typedTuples.isEmpty()) {
-            return Result.success();
-        }
-        // 4.解析数据：blogId、minTime（时间戳）、offset
-        List<Long> ids = new ArrayList<>(typedTuples.size());
-        long minTime = 0; // 2
-        int os = 1; // 2
-        for (ZSetOperations.TypedTuple<String> tuple : typedTuples) { // 5 4 4 2 2
-            // 4.1.获取id
-            ids.add(Long.valueOf(tuple.getValue()));
-            // 4.2.获取分数(时间戳）
-            long time = tuple.getScore().longValue();
-            if(time == minTime){
-                os++;
-            }else{
-                minTime = time;
-                os = 1;
-            }
-        }
-        os = minTime == max ? os : os + offset;
-        // 5.根据id查询blog
-        String idStr = StrUtil.join(",", ids);
-        List<Blog> blogs = query().in("id", ids).last("ORDER BY FIELD(id," + idStr + ")").list();
+        // 直接调用带authorId参数的方法，传入null表示不筛选特定博主
+        return queryBlogOfFollow(max, offset, null);
+    }
 
-        // 6.查询用户的已读博客列表
-        String readKey = BLOG_READ_KEY + userId;
-        Set<String> readBlogIds = stringRedisTemplate.opsForZSet().range(readKey, 0, -1);
+    /**
+     * 查询收件箱中博客的列表 - 支持博主筛选
+     *
+     * @param max 查询的最大时间戳，用于分页
+     * @param offset 偏移量，用于分页
+     * @param authorId 可选的博主ID，用于筛选特定博主的博客
+     * @return 查询结果
+     */
+    @Override
+    public Result queryBlogOfFollow(Long max, Integer offset, Long authorId) {
+        log.info("开始查询关注博客列表，max={}，offset={}，authorId={}", max, offset, authorId);
 
-        // 7.处理每个博客的信息
-        for (Blog blog : blogs) {
-            // 7.1.查询blog有关的用户
-            queryBlogUser(blog);
-            // 7.2.查询blog是否被点赞
-            isBlogLike(blog);
-            
-            // 7.3.检查博客是否已被删除
-            boolean isDeleted = stringRedisTemplate.opsForSet().isMember(DELETED_BLOG_HINTS_KEY, blog.getId().toString());
-            blog.setIsDeleted(isDeleted);
-            
-            // 7.4.设置博客的已读状态，默认为未读
-            blog.setIsRead(false);
-            
-            // 7.5.如果博客ID在已读列表中，则设置为已读
-            if (readBlogIds != null && readBlogIds.contains(blog.getId().toString())) {
-                blog.setIsRead(true);
+        try {
+            // 1.获取当前用户并验证
+            UserDTO currentUser = UserHolder.getUser();
+            if (currentUser == null) {
+                log.warn("用户未登录，无法查询关注博客列表");
+                return Result.fail("用户未登录");
             }
-            
-            // 7.6.如果博客已删除且之前未读，则调用脚本处理未读计数
-            if (isDeleted && !blog.getIsRead()) {
+            Long userId = currentUser.getId();
+            log.info("当前用户ID: {}", userId);
+
+            // 2.参数验证
+            if (max == null || max < 0) {
+                max = System.currentTimeMillis();
+                log.info("max参数无效，使用当前时间戳: {}", max);
+            }
+            if (offset == null || offset < 0) {
+                offset = 0;
+                log.info("offset参数无效，重置为0");
+            }
+
+            // 3.查询收件箱 ZREVRANGEBYSCORE key Max Min LIMIT offset count
+            String key = FEED_KEY + userId;
+            log.info("查询Redis键: {}", key);
+
+            Set<ZSetOperations.TypedTuple<String>> typedTuples = stringRedisTemplate.opsForZSet()
+                    .reverseRangeByScoreWithScores(key, 0, max, offset, SystemConstants.MAX_PAGE_SIZE);
+
+            // 4.非空判断
+            if (typedTuples == null || typedTuples.isEmpty()) {
+                log.info("用户收件箱为空，userId={}", userId);
+                ScrollResult emptyResult = new ScrollResult();
+                emptyResult.setList(Collections.emptyList());
+                emptyResult.setOffset(offset);
+                emptyResult.setMinTime(max);
+                return Result.success(emptyResult);
+            }
+
+            log.info("从收件箱查询到 {} 条博客记录", typedTuples.size());
+
+            // 5.解析数据：blogId、minTime（时间戳）、offset
+            List<Long> ids = new ArrayList<>(typedTuples.size());
+            long minTime = 0;
+            int os = 1;
+            for (ZSetOperations.TypedTuple<String> tuple : typedTuples) {
                 try {
-                    // 获取博客作者ID
-                    String authorMapKey = BLOG_AUTHOR_MAP_KEY_PREFIX + blog.getId();
-                    String authorIdStr = stringRedisTemplate.opsForValue().get(authorMapKey);
-                    Long authorId;
-                    
-                    if (authorIdStr == null) {
-                        // 如果Redis中没有作者ID，则使用博客中的userId
-                        authorId = blog.getUserId();
-                        // 顺便将作者ID存入Redis
-                        stringRedisTemplate.opsForValue().set(authorMapKey, authorId.toString());
-                    } else {
-                        authorId = Long.valueOf(authorIdStr);
+                    // 5.1.获取id
+                    String value = tuple.getValue();
+                    Double score = tuple.getScore();
+                    if (value == null || score == null) {
+                        log.warn("博客记录数据不完整，跳过该记录: value={}, score={}", value, score);
+                        continue;
                     }
-                    
-                    // 构建Redis键
-                    String totalUnreadKey = TOTAL_UNREAD_COUNT_KEY_PREFIX + userId;
-                    String authorUnreadKey = AUTHOR_UNREAD_COUNT_KEY_PREFIX + userId + ":" + authorId;
-                    
-                    // 执行Lua脚本，处理已删除的未读博客
-                    Long result = stringRedisTemplate.execute(
-                        HANDLE_DELETED_UNREAD_SCRIPT,
-                        Arrays.asList(readKey, totalUnreadKey, authorUnreadKey),
-                        blog.getId().toString(), String.valueOf(System.currentTimeMillis())
-                    );
-                    
-                    log.info("已处理已删除的未读博客，userId={}，blogId={}，authorId={}，当前未读数={}", userId, blog.getId(), authorId, result);
-                } catch (Exception e) {
-                    log.error("处理已删除的未读博客失败，userId={}，blogId={}，错误：{}", userId, blog.getId(), e.getMessage());
+
+                    Long blogId = Long.valueOf(value);
+                    ids.add(blogId);
+                    // 5.2.获取分数(时间戳）
+                    long time = score.longValue();
+                    if(time == minTime){
+                        os++;
+                    }else{
+                        minTime = time;
+                        os = 1;
+                    }
+                } catch (NumberFormatException e) {
+                    log.warn("解析博客ID失败，跳过该记录: {}", tuple.getValue(), e);
                 }
             }
-        }
 
-        // 8.封装并返回
-        ScrollResult r = new ScrollResult();
-        r.setList(blogs);
-        r.setOffset(os);
-        r.setMinTime(minTime);
-        
-        return Result.success(r);
+            if (ids.isEmpty()) {
+                log.warn("解析博客ID后列表为空，userId={}", userId);
+                ScrollResult emptyResult = new ScrollResult();
+                emptyResult.setList(Collections.emptyList());
+                emptyResult.setOffset(offset);
+                emptyResult.setMinTime(max);
+                return Result.success(emptyResult);
+            }
+
+            os = minTime == max ? os : os + offset;
+            log.info("解析得到 {} 个有效博客ID，minTime={}，offset={}", ids.size(), minTime, os);
+
+            // 6.根据id查询blog
+            String idStr = StrUtil.join(",", ids);
+            List<Blog> blogs = query().in("id", ids).last("ORDER BY FIELD(id," + idStr + ")").list();
+            log.info("从数据库查询到 {} 条博客记录", blogs.size());
+
+            // 6.1.如果指定了博主ID，则筛选该博主的博客
+            if (authorId != null) {
+                blogs = blogs.stream()
+                        .filter(blog -> authorId.equals(blog.getUserId()))
+                        .collect(Collectors.toList());
+                log.info("按博主筛选后剩余 {} 条博客记录，博主ID={}", blogs.size(), authorId);
+            }
+
+            // 7.查询用户的已读博客列表
+            String readKey = BLOG_READ_KEY + userId;
+            Set<String> readBlogIds = stringRedisTemplate.opsForZSet().range(readKey, 0, -1);
+            log.info("用户已读博客数量: {}", readBlogIds != null ? readBlogIds.size() : 0);
+
+            // 8.处理每个博客的信息
+            for (Blog blog : blogs) {
+                try {
+                    // 8.1.查询blog有关的用户
+                    queryBlogUser(blog);
+                    // 8.2.查询blog是否被点赞
+                    isBlogLike(blog);
+
+                    // 8.3.检查博客是否已被删除
+                    Boolean isDeletedResult = stringRedisTemplate.opsForSet().isMember(DELETED_BLOG_HINTS_KEY, blog.getId().toString());
+                    boolean isDeleted = isDeletedResult != null && isDeletedResult;
+                    blog.setIsDeleted(isDeleted);
+
+                    // 8.4.设置博客的已读状态，默认为未读
+                    blog.setIsRead(false);
+
+                    // 8.5.如果博客ID在已读列表中，则设置为已读
+                    if (readBlogIds != null && readBlogIds.contains(blog.getId().toString())) {
+                        blog.setIsRead(true);
+                    }
+
+                    // 8.6.如果博客已删除且之前未读，则调用脚本处理未读计数
+                    if (isDeleted && !blog.getIsRead()) {
+                        try {
+                            // 获取博客作者ID
+                            String authorMapKey = BLOG_AUTHOR_MAP_KEY_PREFIX + blog.getId();
+                            String authorIdStr = stringRedisTemplate.opsForValue().get(authorMapKey);
+                            Long blogAuthorId;
+
+                            if (authorIdStr == null) {
+                                // 如果Redis中没有作者ID，则使用博客中的userId
+                                blogAuthorId = blog.getUserId();
+                                // 顺便将作者ID存入Redis
+                                stringRedisTemplate.opsForValue().set(authorMapKey, blogAuthorId.toString());
+                            } else {
+                                blogAuthorId = Long.valueOf(authorIdStr);
+                            }
+
+                            // 构建Redis键
+                            String totalUnreadKey = TOTAL_UNREAD_COUNT_KEY_PREFIX + userId;
+                            String authorUnreadKey = AUTHOR_UNREAD_COUNT_KEY_PREFIX + userId + ":" + blogAuthorId;
+
+                            // 执行Lua脚本，处理已删除的未读博客
+                            Long result = stringRedisTemplate.execute(
+                                HANDLE_DELETED_UNREAD_SCRIPT,
+                                Arrays.asList(readKey, totalUnreadKey, authorUnreadKey),
+                                blog.getId().toString(), String.valueOf(System.currentTimeMillis())
+                            );
+
+                            log.info("已处理已删除的未读博客，userId={}，blogId={}，authorId={}，当前未读数={}", userId, blog.getId(), blogAuthorId, result);
+                        } catch (Exception e) {
+                            log.error("处理已删除的未读博客失败，userId={}，blogId={}，错误：{}", userId, blog.getId(), e.getMessage());
+                        }
+                    }
+                } catch (Exception e) {
+                    log.error("处理博客信息失败，blogId={}，错误：{}", blog.getId(), e.getMessage());
+                    // 继续处理其他博客，不中断整个流程
+                }
+            }
+
+            // 9.封装并返回
+            ScrollResult r = new ScrollResult();
+            r.setList(blogs);
+            r.setOffset(os);
+            r.setMinTime(minTime);
+
+            log.info("查询关注博客列表成功，userId={}，返回博客数量={}，minTime={}，offset={}", userId, blogs.size(), minTime, os);
+            return Result.success(r);
+
+        } catch (Exception e) {
+            log.error("查询关注博客列表失败，max={}，offset={}，错误：{}", max, offset, e.getMessage(), e);
+            return Result.fail("查询关注博客列表失败：" + e.getMessage());
+        }
     }
-    
-   
+
 
     /**
      * 标记博客为已读
@@ -436,77 +535,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         }
     }
     
-    /**
-     * 根据用户ID和阅读状态查询该用户的博客列表
-     *
-     * @param userId 用户ID
-     * @param current 当前页码
-     * @param size 每页大小
-     * @param readStatus 阅读状态，可选值为 "ALL"(所有) 或 "UNREAD"(未读)
-     * @return 查询结果，包含分页信息
-     */
-    @Override
-    public Result queryUserBlogByReadStatus(Long userId, Integer current, Integer size, String readStatus) {
-        log.info("开始查询用户博客，userId={}，current={}，size={}，readStatus={}", userId, current, size, readStatus);
-        
-        // 获取当前登录用户
-        UserDTO currentUser = UserHolder.getUser();
-        if (currentUser == null) {
-            return Result.fail("用户未登录");
-        }
-        
-        // 查询当前登录用户的已读博客ID集合
-        String readKey = BLOG_READ_KEY + currentUser.getId();
-        Set<String> readBlogIds = stringRedisTemplate.opsForZSet().range(readKey, 0, -1);
-        
-        // 判断是否需要过滤未读博客
-        boolean filterUnread = "UNREAD".equals(readStatus);
-        
-        // 如果需要过滤未读博客，查询更大批量的数据
-        int querySize = filterUnread ? size * AMPLIFICATION_FACTOR : size;
-        
-        // 查询指定用户的博客列表
-        Page<Blog> page = this.query()
-                .eq("user_id", userId)
-                .orderByDesc("create_time")
-                .page(new Page<>(current, querySize));
-        
-        // 获取查询结果
-        List<Blog> records = page.getRecords();
-        List<Blog> filteredRecords = records;
-        
-        // 如果需要过滤未读博客，在内存中过滤
-        if (filterUnread && readBlogIds != null && !readBlogIds.isEmpty()) {
-            filteredRecords = records.stream()
-                    .filter(blog -> !readBlogIds.contains(blog.getId().toString()))
-                    .collect(Collectors.toList());
-            
-            // 限制结果数量为请求的size
-            if (filteredRecords.size() > size) {
-                filteredRecords = filteredRecords.subList(0, size);
-            }
-            
-            log.info("过滤后的博客数量: {}", filteredRecords.size());
-        }
-        
-        // 设置博客的用户信息和已读状态
-        for (Blog blog : filteredRecords) {
-            // 设置博客用户信息
-            queryBlogUser(blog);
-            // 设置博客点赞状态
-            isBlogLike(blog);
-            // 设置博客已读状态
-            blog.setIsRead(readBlogIds != null && readBlogIds.contains(blog.getId().toString()));
-        }
-        
-        // 创建新的Page对象返回过滤后的结果
-        Page<Blog> resultPage = new Page<>(current, size, page.getTotal());
-        resultPage.setRecords(filteredRecords);
-        
-        log.info("查询用户博客完成，userId={}，结果数量={}", userId, filteredRecords.size());
-        
-        return Result.success(resultPage);
-    }
 
     /**
      * 获取用户的未读计数
@@ -564,6 +592,65 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         } catch (Exception e) {
             log.error("获取用户未读计数失败，userId={}，错误：{}", user.getId(), e.getMessage());
             return Result.fail("获取未读计数失败：" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Result getMessagePageData() {
+        log.info("开始获取消息页面数据");
+
+        try {
+            // 1. 获取当前登录用户
+            UserDTO currentUser = UserHolder.getUser();
+            if (currentUser == null) {
+                log.warn("用户未登录，无法获取消息页面数据");
+                return Result.fail("用户未登录");
+            }
+            Long userId = currentUser.getId();
+            log.info("当前用户ID: {}", userId);
+
+            // 2. 获取总未读数
+            String totalUnreadKey = TOTAL_UNREAD_COUNT_KEY_PREFIX + userId;
+            String totalUnreadStr = stringRedisTemplate.opsForValue().get(totalUnreadKey);
+            int totalUnreadCount = totalUnreadStr == null ? 0 : Integer.parseInt(totalUnreadStr);
+            log.info("用户{}的总未读数: {}", userId, totalUnreadCount);
+
+            // 3. 获取关注的作者列表及其未读数
+            List<AuthorOptionDTO> authorOptions = followService.getFollowedAuthorsWithUnreadCount(userId);
+            log.info("获取到{}个关注的作者", authorOptions.size());
+
+            // 4. 获取最近的未读博客（前10条）
+            // 使用当前时间+1分钟确保包含最新发布的博客
+            Long maxTime = System.currentTimeMillis() + 60000;
+            Result blogResult = queryBlogOfFollow(maxTime, 0, null);
+            List<Blog> recentUnreadBlogs = Collections.emptyList();
+            if (blogResult.getSuccess() && blogResult.getData() instanceof ScrollResult) {
+                ScrollResult scrollResult = (ScrollResult) blogResult.getData();
+                if (scrollResult.getList() != null) {
+                    List<Blog> allBlogs = (List<Blog>) scrollResult.getList();
+                    // 只取未读博客（isRead=false），然后取前10条
+                    recentUnreadBlogs = allBlogs.stream()
+                            .filter(blog -> blog.getIsRead() != null && !blog.getIsRead())
+                            .limit(10)
+                            .collect(Collectors.toList());
+                }
+            }
+            log.info("获取到{}条最近未读博客，使用的maxTime={}", recentUnreadBlogs.size(), maxTime);
+
+            // 5. 组装返回数据
+            MessagePageDTO messagePageData = new MessagePageDTO();
+            messagePageData.setTotalUnreadCount(totalUnreadCount);
+            messagePageData.setAuthorOptions(authorOptions);
+            messagePageData.setRecentUnreadBlogs(recentUnreadBlogs);
+
+            log.info("成功获取消息页面数据，用户ID={}，总未读数={}，关注作者数={}，最近博客数={}",
+                    userId, totalUnreadCount, authorOptions.size(), recentUnreadBlogs.size());
+
+            return Result.success(messagePageData);
+
+        } catch (Exception e) {
+            log.error("获取消息页面数据失败，错误：{}", e.getMessage(), e);
+            return Result.fail("获取消息页面数据失败：" + e.getMessage());
         }
     }
 }
