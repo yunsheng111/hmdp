@@ -552,6 +552,12 @@ ALTER TABLE `tb_order_item` ADD INDEX `idx_product_id` (`product_id`) COMMENT '�
 ALTER TABLE `tb_product` ADD INDEX `idx_category_status` (`category_id`,`status`) COMMENT '分类和状态组合索引，用于筛选商品';
 
 -- ----------------------------
+-- 为商户表添加商户分类字段
+-- ----------------------------
+ALTER TABLE `tb_merchant` ADD COLUMN `type_id` bigint(0) UNSIGNED NULL DEFAULT NULL COMMENT '商户分类ID，关联tb_shop_type表' AFTER `description`;
+ALTER TABLE `tb_merchant` ADD INDEX `idx_merchant_type_id` (`type_id`) COMMENT '商户分类索引，用于筛选和关联查询';
+
+-- ----------------------------
 -- Records of tb_product_category
 -- ----------------------------
 INSERT INTO `tb_product_category` VALUES (1, 1, '热销套餐', '/imgs/categories/hot.png', 1, '2025-01-10 12:00:00', '2025-01-10 12:00:00');
@@ -585,9 +591,16 @@ INSERT INTO `tb_product_spec` VALUES (6, 7, '熟度', '[\"三分熟\",\"五分�
 -- ----------------------------
 -- Records of tb_merchant
 -- ----------------------------
-INSERT INTO `tb_merchant` VALUES (1, '美食快餐连锁店', 'merchant1', 'e10adc3949ba59abbe56e057f20f883e', '13800138001', '/imgs/merchants/m1.jpg', '提供各类美食快餐，满足您的味蕾需求', 1, NULL, '2025-01-10 12:00:00', '2025-01-10 12:00:00');
-INSERT INTO `tb_merchant` VALUES (2, '烤肉店', 'merchant2', 'e10adc3949ba59abbe56e057f20f883e', '13800138002', '/imgs/merchants/m2.jpg', '正宗韩式烤肉，味道纯正', 1, NULL, '2025-01-10 12:00:00', '2025-01-10 12:00:00');
-INSERT INTO `tb_merchant` VALUES (3, '咖啡甜品店', 'merchant3', 'e10adc3949ba59abbe56e057f20f883e', '13800138003', '/imgs/merchants/m3.jpg', '提供各类咖啡和甜品，温馨舒适的环境', 0, NULL, '2025-01-10 12:00:00', '2025-01-10 12:00:00');
+INSERT INTO `tb_merchant` VALUES (1, '美食快餐连锁店', 'merchant1', 'e10adc3949ba59abbe56e057f20f883e', '13800138001', '/imgs/merchants/m1.jpg', '提供各类美食快餐，满足您的味蕾需求', 1, 1, NULL, '2025-01-10 12:00:00', '2025-01-10 12:00:00');
+INSERT INTO `tb_merchant` VALUES (2, '烤肉店', 'merchant2', 'e10adc3949ba59abbe56e057f20f883e', '13800138002', '/imgs/merchants/m2.jpg', '正宗韩式烤肉，味道纯正', 1, 1, NULL, '2025-01-10 12:00:00', '2025-01-10 12:00:00');
+INSERT INTO `tb_merchant` VALUES (3, '咖啡甜品店', 'merchant3', 'e10adc3949ba59abbe56e057f20f883e', '13800138003', '/imgs/merchants/m3.jpg', '提供各类咖啡和甜品，温馨舒适的环境', 0, 2, NULL, '2025-01-10 12:00:00', '2025-01-10 12:00:00');
+
+-- ----------------------------
+-- 更新现有商户的分类信息
+-- ----------------------------
+UPDATE `tb_merchant` SET `type_id` = 1 WHERE `id` = 1; -- 美食快餐连锁店 -> 美食分类
+UPDATE `tb_merchant` SET `type_id` = 1 WHERE `id` = 2; -- 烤肉店 -> 美食分类
+UPDATE `tb_merchant` SET `type_id` = 2 WHERE `id` = 3; -- 咖啡甜品店 -> 休闲娱乐分类
 
 -- ----------------------------
 -- Records of tb_merchant_qualification

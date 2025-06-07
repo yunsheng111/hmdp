@@ -1,6 +1,7 @@
 package com.hmdp.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -61,6 +62,17 @@ public class Merchant implements Serializable {
      * 商家描述
      */
     private String description;
+
+    /**
+     * 商户分类ID
+     */
+    private Long typeId;
+
+    /**
+     * 商户分类名称（用于显示，不存储到数据库）
+     */
+    @TableField(exist = false)
+    private String typeName;
 
     /**
      * 商家状态：0-待审核，1-审核通过，2-审核拒绝

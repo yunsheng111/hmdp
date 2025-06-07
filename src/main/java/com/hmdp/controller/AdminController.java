@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -199,6 +200,42 @@ public class AdminController {
         } catch (Exception e) {
             log.error("修改用户状态失败，用户ID：{}，新状态：{}", userId, status, e);
             return Result.fail("修改用户状态失败");
+        }
+    }
+    
+    @ApiOperation("更新用户信息")
+    @PutMapping("/users/{userId}")
+    public Result updateUser(
+            @PathVariable("userId") Long userId,
+            @RequestBody User userForm) {
+        
+        log.info("更新用户信息，用户ID：{}，用户信息：{}", userId, userForm);
+        
+        try {
+            // 1. 获取用户信息
+            User user = userService.getById(userId);
+            if (user == null) {
+                return Result.fail("用户不存在");
+            }
+            
+            // 2. 更新用户信息
+            user.setNickName(userForm.getNickName());
+            user.setIcon(userForm.getIcon());
+            user.setPhone(userForm.getPhone());
+            user.setStatus(userForm.getStatus());
+            user.setUpdateTime(LocalDateTime.now());
+            
+            boolean updated = userService.updateById(user);
+            
+            if (!updated) {
+                return Result.fail("更新用户信息失败");
+            }
+            
+            // 3. 直接返回更新后的用户对象
+            return Result.success(user);
+        } catch (Exception e) {
+            log.error("更新用户信息失败，用户ID：{}", userId, e);
+            return Result.fail("更新用户信息失败");
         }
     }
 } 

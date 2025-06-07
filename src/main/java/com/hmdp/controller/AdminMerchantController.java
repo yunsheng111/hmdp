@@ -74,48 +74,155 @@ public class AdminMerchantController {
         try {
             // 创建查询条件
             LambdaQueryWrapper<Merchant> queryWrapper = new LambdaQueryWrapper<>();
-            
+
             // 关键词过滤（商户名称、电话）
             if (StringUtils.hasText(keyword)) {
                 queryWrapper.like(Merchant::getName, keyword)
                         .or()
                         .like(Merchant::getPhone, keyword);
             }
-            
+
             // 状态过滤
             if (status != null) {
                 queryWrapper.eq(Merchant::getStatus, status);
             }
-            
+
+            // 商户分类过滤
+            if (shopTypeId != null) {
+                queryWrapper.eq(Merchant::getTypeId, shopTypeId);
+            }
+
             // 创建分页对象
             Page<Merchant> merchantPage = new Page<>(page, size);
-            
+
             // 执行分页查询
             Page<Merchant> result = merchantService.page(merchantPage, queryWrapper);
-            
+
             // 获取所有商户分类
             List<ShopType> shopTypes = shopTypeService.list();
             Map<Long, String> shopTypeMap = new HashMap<>();
             for (ShopType shopType : shopTypes) {
                 shopTypeMap.put(shopType.getId(), shopType.getName());
             }
-            
+
+            // 为商户列表设置分类名称
+            List<Merchant> merchants = result.getRecords();
+            for (Merchant merchant : merchants) {
+                if (merchant.getTypeId() != null) {
+                    merchant.setTypeName(shopTypeMap.get(merchant.getTypeId()));
+                } else {
+                    merchant.setTypeName("未分类");
+                }
+            }
+
             // 构建返回数据
             Map<String, Object> data = new HashMap<>();
-            data.put("list", result.getRecords());
+            data.put("list", merchants);
             data.put("total", result.getTotal());
             data.put("pages", result.getPages());
             data.put("current", result.getCurrent());
             data.put("size", result.getSize());
             data.put("shopTypes", shopTypeMap);
-            
+
             return Result.success(data);
         } catch (Exception e) {
             log.error("获取商户列表失败", e);
             return Result.fail("获取商户列表失败");
         }
     }
-    
+
+    /**
+     * 获取商户详情
+     * @param merchantId 商户ID
+     * @return 商户详情信息
+     */
+    @GetMapping("/merchants/{merchantId}")
+    @ApiOperation("获取商户详情")
+    public Result getMerchantDetail(@PathVariable("merchantId") Long merchantId) {
+        log.info("管理员获取商户详情，商户ID：{}", merchantId);
+
+        try {
+            // 查询商户信息
+            Merchant merchant = merchantService.getById(merchantId);
+            if (merchant == null) {
+                return Result.fail("商户不存在");
+            }
+
+            // 获取商户分类信息
+            if (merchant.getTypeId() != null) {
+                ShopType shopType = shopTypeService.getById(merchant.getTypeId());
+                if (shopType != null) {
+                    merchant.setTypeName(shopType.getName());
+                }
+            } else {
+                merchant.setTypeName("未分类");
+            }
+
+            return Result.success(merchant);
+        } catch (Exception e) {
+            log.error("获取商户详情失败", e);
+            return Result.fail("获取商户详情失败");
+        }
+    }
+
+    /**
+     * 编辑商户信息
+     * @param merchantId 商户ID
+     * @param merchantData 商户信息
+     * @return 更新结果
+     */
+    @PutMapping("/merchants/{merchantId}")
+    @ApiOperation("编辑商户信息")
+    public Result updateMerchant(
+            @PathVariable("merchantId") Long merchantId,
+            @RequestBody Map<String, Object> merchantData) {
+
+        log.info("管理员编辑商户信息，商户ID：{}，商户信息：{}", merchantId, merchantData);
+
+        try {
+            // 查询商户是否存在
+            Merchant merchant = merchantService.getById(merchantId);
+            if (merchant == null) {
+                return Result.fail("商户不存在");
+            }
+
+            // 更新商户信息
+            if (merchantData.containsKey("name")) {
+                merchant.setName((String) merchantData.get("name"));
+            }
+            if (merchantData.containsKey("phone")) {
+                merchant.setPhone((String) merchantData.get("phone"));
+            }
+            if (merchantData.containsKey("avatar")) {
+                merchant.setAvatar((String) merchantData.get("avatar"));
+            }
+            if (merchantData.containsKey("description")) {
+                merchant.setDescription((String) merchantData.get("description"));
+            }
+            if (merchantData.containsKey("typeId")) {
+                Object typeIdObj = merchantData.get("typeId");
+                if (typeIdObj != null) {
+                    merchant.setTypeId(Long.valueOf(typeIdObj.toString()));
+                } else {
+                    merchant.setTypeId(null);
+                }
+            }
+
+            merchant.setUpdateTime(LocalDateTime.now());
+
+            boolean updated = merchantService.updateById(merchant);
+
+            if (!updated) {
+                return Result.fail("更新商户信息失败");
+            }
+
+            return Result.success("更新商户信息成功");
+        } catch (Exception e) {
+            log.error("编辑商户信息失败", e);
+            return Result.fail("编辑商户信息失败");
+        }
+    }
+
     /**
      * 获取商户资质信息
      * @param merchantId 商户ID

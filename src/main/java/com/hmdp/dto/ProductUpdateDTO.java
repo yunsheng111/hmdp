@@ -53,6 +53,17 @@ public class ProductUpdateDTO {
     private Long categoryId;
 
     /**
+     * 商品状态：0-下架，1-上架，可选
+     * {{CHENGQI:
+     * Action: Added
+     * Timestamp: [2024-07-31 10:15:00 +08:00]
+     * Reason: 添加status字段，支持在更新商品时同时更新商品状态，解决编辑商品时状态无法保存的问题
+     * Principle_Applied: KISS - 直接在DTO中添加必要字段，保持简单明了
+     * }}
+     */
+    private Integer status;
+
+    /**
      * 商品规格列表，可选
      * {{CHENGQI:
      * Action: Added

@@ -163,6 +163,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         if (updateDTO.getCategoryId() != null) {
             product.setCategoryId(updateDTO.getCategoryId());
         }
+        if (updateDTO.getStatus() != null) {
+            product.setStatus(updateDTO.getStatus());
+        }
         
         product.setUpdateTime(LocalDateTime.now());
         

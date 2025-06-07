@@ -1,6 +1,7 @@
 package com.hmdp.controller;
 
 import com.hmdp.common.Result;
+import com.hmdp.dto.ShopTypeDTO;
 import com.hmdp.entity.ShopType;
 import com.hmdp.service.IShopTypeService;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,4 +51,41 @@ public class AdminShopTypeController {
             return Result.fail("获取商户分类失败");
         }
     }
-} 
+
+    /**
+     * 新增商户分类
+     * @param dto 商户分类数据
+     * @return 新增结果
+     */
+    @PostMapping("/shop-types")
+    @ApiOperation("新增商户分类")
+    public Result createShopType(@Valid @RequestBody ShopTypeDTO dto) {
+        log.info("管理员新增商户分类: {}", dto);
+        return shopTypeService.createShopType(dto);
+    }
+
+    /**
+     * 更新商户分类
+     * @param id 分类ID
+     * @param dto 商户分类数据
+     * @return 更新结果
+     */
+    @PutMapping("/shop-types/{id}")
+    @ApiOperation("更新商户分类")
+    public Result updateShopType(@PathVariable("id") Long id, @Valid @RequestBody ShopTypeDTO dto) {
+        log.info("管理员更新商户分类: id={}, dto={}", id, dto);
+        return shopTypeService.updateShopType(id, dto);
+    }
+
+    /**
+     * 删除商户分类
+     * @param id 分类ID
+     * @return 删除结果
+     */
+    @DeleteMapping("/shop-types/{id}")
+    @ApiOperation("删除商户分类")
+    public Result deleteShopType(@PathVariable("id") Long id) {
+        log.info("管理员删除商户分类: id={}", id);
+        return shopTypeService.deleteShopType(id);
+    }
+}

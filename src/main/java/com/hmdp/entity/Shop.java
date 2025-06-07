@@ -116,4 +116,16 @@ public class Shop implements Serializable {
 
     @TableField(exist = false)
     private Double distance;
+
+    /**
+     * 商户名称（用于显示，不存储到数据库）
+     */
+    @TableField(exist = false)
+    private String merchantName;
+
+    /**
+     * 店铺分类名称（用于显示，不存储到数据库）
+     */
+    @TableField(exist = false)
+    private String typeName;
 }
