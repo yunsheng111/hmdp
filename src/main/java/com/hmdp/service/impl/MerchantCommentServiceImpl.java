@@ -266,18 +266,37 @@ public class MerchantCommentServiceImpl implements IMerchantCommentService {
     }
 
     /**
-     * 获取评论统计数据
+     * 获取评论统计数据 - 统计该商户所有店铺的评论
      */
     @Override
     public Result getStatistics() {
         try {
-            // 获取当前商家店铺ID
-            Long currentShopId = getCurrentShopId();
-            log.info("开始获取评论统计数据，店铺ID: {}", currentShopId);
+            // 获取当前商家信息
+            MerchantDTO merchant = MerchantHolder.getMerchant();
+            if (merchant == null) {
+                throw new CommentException("商家未登录");
+            }
 
-            // 查询总评论数
+            // 获取商家所有店铺ID列表
+            List<Long> shopIds = getMerchantShopIds(merchant.getId());
+            if (shopIds.isEmpty()) {
+                log.info("商家暂无店铺，返回空统计数据，商家ID: {}", merchant.getId());
+                // 返回空统计数据
+                MerchantCommentStatisticsDTO statistics = new MerchantCommentStatisticsDTO();
+                statistics.setTotalComments(0L);
+                statistics.setAverageRating(0.0);
+                statistics.setRatingDistribution(new MerchantCommentStatisticsDTO.RatingDistribution());
+                statistics.setPendingReplyCount(0L);
+                statistics.setReplyRate(0.0);
+                return Result.success(statistics);
+            }
+
+            log.info("开始获取评论统计数据，商家ID: {}, 店铺数量: {}, 店铺IDs: {}",
+                merchant.getId(), shopIds.size(), shopIds);
+
+            // 查询总评论数 - 所有店铺
             QueryWrapper<ShopComment> totalWrapper = new QueryWrapper<>();
-            totalWrapper.eq("shop_id", currentShopId);
+            totalWrapper.in("shop_id", shopIds);
             Long totalComments = shopCommentMapper.selectCount(totalWrapper).longValue();
             log.debug("总评论数: {}", totalComments);
 
@@ -285,7 +304,7 @@ public class MerchantCommentServiceImpl implements IMerchantCommentService {
             Double averageRating = 0.0;
             if (totalComments > 0) {
                 QueryWrapper<ShopComment> avgWrapper = new QueryWrapper<>();
-                avgWrapper.eq("shop_id", currentShopId);
+                avgWrapper.in("shop_id", shopIds);
                 avgWrapper.select("rating");
                 List<ShopComment> comments = shopCommentMapper.selectList(avgWrapper);
 
@@ -303,7 +322,7 @@ public class MerchantCommentServiceImpl implements IMerchantCommentService {
 
             for (int i = 1; i <= 5; i++) {
                 QueryWrapper<ShopComment> ratingWrapper = new QueryWrapper<>();
-                ratingWrapper.eq("shop_id", currentShopId);
+                ratingWrapper.in("shop_id", shopIds);
                 ratingWrapper.eq("rating", i);
                 Long count = shopCommentMapper.selectCount(ratingWrapper).longValue();
 
@@ -323,7 +342,7 @@ public class MerchantCommentServiceImpl implements IMerchantCommentService {
 
             // 查询未回复数量
             QueryWrapper<ShopComment> pendingWrapper = new QueryWrapper<>();
-            pendingWrapper.eq("shop_id", currentShopId);
+            pendingWrapper.in("shop_id", shopIds);
             pendingWrapper.and(wrapper -> wrapper.isNull("reply").or().eq("reply", ""));
             Long unrepliedCount = shopCommentMapper.selectCount(pendingWrapper).longValue();
             log.debug("未回复数量: {}", unrepliedCount);
@@ -342,11 +361,11 @@ public class MerchantCommentServiceImpl implements IMerchantCommentService {
             statistics.setTotalComments(totalComments);
             statistics.setAverageRating(averageRating);
             statistics.setRatingDistribution(ratingDistribution);
-            statistics.setUnrepliedCount(unrepliedCount);
+            statistics.setPendingReplyCount(unrepliedCount);
             statistics.setReplyRate(replyRate);
 
-            log.info("获取评论统计数据成功，店铺ID: {}, 总评论: {}, 平均评分: {}, 回复率: {}",
-                currentShopId, totalComments, averageRating, replyRate);
+            log.info("获取评论统计数据成功，商家ID: {}, 店铺数量: {}, 总评论: {}, 平均评分: {}, 回复率: {}",
+                merchant.getId(), shopIds.size(), totalComments, averageRating, replyRate);
             return Result.success(statistics);
 
         } catch (CommentException e) {

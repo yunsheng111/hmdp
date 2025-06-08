@@ -29,9 +29,9 @@ public class MerchantCommentStatisticsDTO {
     private RatingDistribution ratingDistribution;
 
     /**
-     * 未回复数量（与前端字段名匹配）
+     * 待回复数量（与前端字段名匹配）
      */
-    private Long unrepliedCount;
+    private Long pendingReplyCount;
 
     /**
      * 回复率（小数形式，前端会乘以100显示）
