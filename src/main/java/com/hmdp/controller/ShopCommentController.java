@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * @author yate
  * @since 2024-07-29
  */
-@Api(tags = "商店评论接口")
+@Api(tags = "商铺评论接口")
 @RestController
 @RequestMapping("/shop-comment")
 public class ShopCommentController {
@@ -133,4 +133,4 @@ public class ShopCommentController {
         }
         return shopCommentService.calculateShopAverageRating(shopId);
     }
-} 
+}
