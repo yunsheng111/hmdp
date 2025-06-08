@@ -4411,3 +4411,16 @@
 2025/05/30 07:51:38 [notice] 17512#12812: signal process started
 2025/06/05 08:29:25 [notice] 22720#15408: signal process started
 2025/06/05 08:32:42 [notice] 18272#18436: signal process started
+2025/06/08 18:50:50 [emerg] 9920#6512: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 18:51:36 [emerg] 2360#2112: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 18:52:32 [emerg] 22964#9168: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 18:53:05 [emerg] 23056#11696: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 18:54:09 [emerg] 23060#20660: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 18:55:28 [emerg] 21804#2180: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 18:56:40 [emerg] 11360#19384: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 18:57:16 [emerg] 11656#22284: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 18:59:30 [emerg] 13316#22432: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 19:01:55 [emerg] 4636#7044: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 19:02:23 [emerg] 12860#3060: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 19:05:28 [emerg] 1968#22344: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/08 19:06:13 [emerg] 4624#16484: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
