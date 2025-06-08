@@ -4,9 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hmdp.common.Result;
 import com.hmdp.dto.ProductCreateDTO;
 import com.hmdp.dto.ProductQueryDTO;
-import com.hmdp.dto.ProductResponseDTO;
 import com.hmdp.dto.ProductUpdateDTO;
-import com.hmdp.dto.ScrollResult;
+
 import com.hmdp.entity.Product;
 
 /**
