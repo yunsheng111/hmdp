@@ -35,11 +35,12 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addInterceptors(@NonNull InterceptorRegistry registry){
         // 注册登录拦截器 - 只拦截需要普通用户登录的路径
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/user/**", "/blog/**", "/follow/**", "/order/**")
+                .addPathPatterns("/user/**", "/blog/**", "/blog-comments/**", "/follow/**", "/order/**")
                 .excludePathPatterns(
                         "/user/code",
                         "/user/login",
-                        "/blog/hot"
+                        "/blog/hot",
+                        "/blog-comments/blog/**"  // 允许查看评论，不需要登录
                 ).order(1);
         // 注册商家登录拦截器
         registry.addInterceptor(new MerchantLoginInterceptor())

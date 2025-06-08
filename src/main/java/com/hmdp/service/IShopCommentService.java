@@ -60,4 +60,6 @@ public interface IShopCommentService extends IService<ShopComment> {
      * @return 结果
      */
     Result calculateShopAverageRating(Long shopId);
-} 
+
+   
+}

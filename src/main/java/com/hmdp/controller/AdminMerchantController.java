@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hmdp.common.Result;
 import com.hmdp.entity.Merchant;
 import com.hmdp.entity.MerchantQualification;
-import com.hmdp.entity.Shop;
 import com.hmdp.entity.ShopType;
 import com.hmdp.mapper.MerchantQualificationMapper;
 import com.hmdp.service.IMerchantService;

@@ -58,6 +58,11 @@ public class ShopComment implements Serializable {
     private String content;
 
     /**
+     * 商家回复内容
+     */
+    private String reply;
+
+    /**
      * 状态：0=正常，1=用户隐藏，2=管理员隐藏
      */
     private Integer status;

@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hmdp.common.Result;
 import com.hmdp.dto.UserDTO;
+import com.hmdp.entity.Blog;
 import com.hmdp.entity.BlogComments;
 import com.hmdp.entity.User;
 import com.hmdp.service.IBlogCommentsService;
+import com.hmdp.service.IBlogService;
 import com.hmdp.service.IUserService;
 import com.hmdp.utils.SystemConstants;
 import com.hmdp.utils.UserHolder;
@@ -40,6 +42,9 @@ public class BlogCommentsController {
 
     @Resource
     private IUserService userService;
+    
+    @Resource
+    private IBlogService blogService;
 
     /**
      * 获取博客的评论列表
@@ -171,6 +176,14 @@ public class BlogCommentsController {
             blogComments.setStatus(0);
             // 设置点赞数为0
             blogComments.setLiked(0);
+            // 设置父评论ID，如果未指定则默认为0（一级评论）
+            if (blogComments.getParentId() == null) {
+                blogComments.setParentId(0L);
+            }
+            // 如果是一级评论，确保answerId也有默认值
+            if (blogComments.getParentId() == 0L && blogComments.getAnswerId() == null) {
+                blogComments.setAnswerId(0L);
+            }
             // 设置创建时间
             blogComments.setCreateTime(LocalDateTime.now());
             // 设置更新时间
@@ -180,6 +193,17 @@ public class BlogCommentsController {
             boolean success = blogCommentsService.save(blogComments);
             
             if (success) {
+                // 更新博客评论数+1
+                Long blogId = blogComments.getBlogId();
+                boolean updateSuccess = blogService.update()
+                        .setSql("comments = comments + 1")
+                        .eq("id", blogId)
+                        .update();
+                
+                if (!updateSuccess) {
+                    log.warn("更新博客评论数失败，博客ID：{}", blogId);
+                }
+                
                 return Result.success(blogComments);
             } else {
                 return Result.fail("评论发布失败");
@@ -255,6 +279,9 @@ public class BlogCommentsController {
                 return Result.fail("无权限删除他人评论");
             }
             
+            // 获取博客ID用于后续更新评论数
+            Long blogId = comment.getBlogId();
+            
             // 删除评论（软删除，修改状态）
             comment.setStatus(1); // 设置为已删除状态
             comment.setUpdateTime(LocalDateTime.now());
@@ -262,6 +289,22 @@ public class BlogCommentsController {
             boolean success = blogCommentsService.updateById(comment);
             
             if (success) {
+                // 更新博客评论数-1
+                // 先查询当前博客评论数，确保不会减为负数
+                Blog blog = blogService.getById(blogId);
+                if (blog != null && blog.getComments() != null && blog.getComments() > 0) {
+                    boolean updateSuccess = blogService.update()
+                            .setSql("comments = comments - 1")
+                            .eq("id", blogId)
+                            .update();
+                    
+                    if (!updateSuccess) {
+                        log.warn("更新博客评论数失败，博客ID：{}", blogId);
+                    }
+                } else {
+                    log.warn("博客评论数已为0或博客不存在，跳过减法操作，博客ID：{}", blogId);
+                }
+                
                 return Result.success();
             } else {
                 return Result.fail("删除失败");

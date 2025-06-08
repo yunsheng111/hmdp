@@ -17,9 +17,9 @@ import javax.annotation.Resource;
 
 /**
  * <p>
- * 前端控制器
+ * 商铺控制器
  * </p>
- *
+ *  
  * @author yate
  * @since 2024-12-22
  */
