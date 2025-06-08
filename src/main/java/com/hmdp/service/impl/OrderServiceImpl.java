@@ -50,6 +50,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Resource
     private RedisIdWorker redisIdWorker;
 
+    @Resource
+    private OrderCommentMapper orderCommentMapper;
+
     @Override
     @Transactional
     public Result createOrderFromCart(CreateOrderDTO createOrderDTO) {
@@ -126,6 +129,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 3. 创建订单
         Order order = new Order();
         order.setId(orderId);
+        order.setOrderNo("ORDER" + orderId);
         order.setUserId(userId);
         order.setShopId(shopId);
         order.setTotalAmount(totalAmount);
@@ -480,5 +484,318 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             // 恢复库存（增加库存）
             productMapper.restoreStock(item.getProductId(), item.getQuantity());
         }
+    }
+
+    // ========== 用户端订单管理方法实现 ==========
+
+    @Override
+    public Result getUserOrderList(Long userId, UserOrderQueryDTO queryDTO) {
+        log.info("获取用户订单列表，用户ID：{}，查询参数：{}", userId, queryDTO);
+        
+        // 1. 构建查询条件
+        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+        // 强制使用传入的userId，忽略queryDTO中可能存在的userId
+        queryWrapper.eq("user_id", userId);
+        log.info("强制使用用户ID：{}", userId);
+
+        // 状态筛选
+        if (queryDTO.getStatus() != null) {
+            queryWrapper.eq("status", queryDTO.getStatus());
+        }
+
+        // 日期范围筛选
+        if (queryDTO.getStartDate() != null && !queryDTO.getStartDate().isEmpty()) {
+            queryWrapper.ge("create_time", queryDTO.getStartDate() + " 00:00:00");
+        }
+        if (queryDTO.getEndDate() != null && !queryDTO.getEndDate().isEmpty()) {
+            queryWrapper.le("create_time", queryDTO.getEndDate() + " 23:59:59");
+        }
+
+        queryWrapper.orderByDesc("create_time");
+
+        // 2. 分页查询
+        Page<Order> page = new Page<>(queryDTO.getCurrent(), queryDTO.getSize());
+        Page<Order> orderPage = page(page, queryWrapper);
+        
+        log.info("查询到订单数量：{}", orderPage.getRecords().size());
+
+        // 3. 构建用户订单列表DTO
+        List<UserOrderListDTO> orderListDTOs = orderPage.getRecords().stream()
+                .map(this::buildUserOrderListDTO)
+                .collect(Collectors.toList());
+
+        // 4. 构建分页结果
+        Map<String, Object> result = new HashMap<>();
+        result.put("records", orderListDTOs);
+        result.put("total", orderPage.getTotal());
+        result.put("current", orderPage.getCurrent());
+        result.put("size", orderPage.getSize());
+
+        return Result.success(result);
+    }
+
+    @Override
+    public Result getUserOrderDetail(Long userId, Long orderId) {
+        // 1. 查询订单
+        Order order = getById(orderId);
+        if (order == null) {
+            return Result.fail("订单不存在");
+        }
+
+        // 2. 验证订单所有权
+        if (!order.getUserId().equals(userId)) {
+            return Result.fail("无权限访问该订单");
+        }
+
+        // 3. 构建用户订单详情DTO
+        UserOrderDetailDTO detailDTO = buildUserOrderDetailDTO(order);
+
+        return Result.success(detailDTO);
+    }
+
+    @Override
+    @Transactional
+    public Result payUserOrder(Long userId, Long orderId) {
+        // 1. 查询订单
+        Order order = getById(orderId);
+        if (order == null) {
+            return Result.fail("订单不存在");
+        }
+
+        // 2. 验证订单所有权
+        if (!order.getUserId().equals(userId)) {
+            return Result.fail("无权限操作该订单");
+        }
+
+        // 3. 验证订单状态
+        if (order.getStatus() != 1) {
+            return Result.fail("订单状态不允许支付");
+        }
+
+        // 4. 更新订单状态为已支付
+        order.setStatus(2);
+        order.setPayTime(LocalDateTime.now());
+        order.setUpdateTime(LocalDateTime.now());
+
+        boolean success = updateById(order);
+        if (!success) {
+            return Result.fail("支付失败");
+        }
+
+        return Result.success("支付成功");
+    }
+
+    @Override
+    @Transactional
+    public Result cancelUserOrder(Long userId, Long orderId) {
+        // 1. 查询订单
+        Order order = getById(orderId);
+        if (order == null) {
+            return Result.fail("订单不存在");
+        }
+
+        // 2. 验证订单所有权
+        if (!order.getUserId().equals(userId)) {
+            return Result.fail("无权限操作该订单");
+        }
+
+        // 3. 验证订单状态
+        if (order.getStatus() != 1) {
+            return Result.fail("只能取消待支付订单");
+        }
+
+        // 4. 更新订单状态为已取消
+        order.setStatus(4);
+        order.setUpdateTime(LocalDateTime.now());
+
+        boolean success = updateById(order);
+        if (!success) {
+            return Result.fail("取消订单失败");
+        }
+
+        // 5. 恢复商品库存
+        restoreProductStock(orderId);
+
+        return Result.success("订单取消成功");
+    }
+
+    @Override
+    @Transactional
+    public Result confirmUserOrder(Long userId, Long orderId) {
+        // 1. 查询订单
+        Order order = getById(orderId);
+        if (order == null) {
+            return Result.fail("订单不存在");
+        }
+
+        // 2. 验证订单所有权
+        if (!order.getUserId().equals(userId)) {
+            return Result.fail("无权限操作该订单");
+        }
+
+        // 3. 验证订单状态
+        if (order.getStatus() != 2) {
+            return Result.fail("只能确认已支付订单");
+        }
+
+        // 4. 更新订单状态为已完成
+        order.setStatus(3);
+        order.setUpdateTime(LocalDateTime.now());
+
+        boolean success = updateById(order);
+        if (!success) {
+            return Result.fail("确认收货失败");
+        }
+
+        return Result.success("确认收货成功");
+    }
+
+    @Override
+    @Transactional
+    public Result commentUserOrder(Long userId, Long orderId, OrderCommentDTO commentDTO) {
+        // 1. 查询订单
+        Order order = getById(orderId);
+        if (order == null) {
+            return Result.fail("订单不存在");
+        }
+
+        // 2. 验证订单所有权
+        if (!order.getUserId().equals(userId)) {
+            return Result.fail("无权限操作该订单");
+        }
+
+        // 3. 验证订单状态
+        if (order.getStatus() != 3) {
+            return Result.fail("只能评价已完成订单");
+        }
+
+        // 4. 检查是否已经评价过
+        QueryWrapper<OrderComment> commentQueryWrapper = new QueryWrapper<>();
+        commentQueryWrapper.eq("order_id", orderId);
+        OrderComment existingComment = orderCommentMapper.selectOne(commentQueryWrapper);
+        if (existingComment != null) {
+            return Result.fail("该订单已评价过");
+        }
+
+        // 5. 创建订单评价
+        OrderComment orderComment = new OrderComment();
+        orderComment.setUserId(userId);
+        orderComment.setShopId(order.getShopId());
+        orderComment.setOrderId(orderId);
+        orderComment.setScore(commentDTO.getRating());
+        orderComment.setContent(commentDTO.getContent());
+
+        // 处理图片列表
+        if (commentDTO.getImages() != null && !commentDTO.getImages().isEmpty()) {
+            orderComment.setImages(String.join(",", commentDTO.getImages()));
+        }
+
+        orderComment.setStatus(0); // 未回复
+        orderComment.setCreateTime(LocalDateTime.now());
+
+        boolean success = orderCommentMapper.insert(orderComment) > 0;
+        if (!success) {
+            return Result.fail("评价失败");
+        }
+
+        return Result.success("评价成功");
+    }
+
+    /**
+     * 构建用户订单列表DTO
+     */
+    private UserOrderListDTO buildUserOrderListDTO(Order order) {
+        UserOrderListDTO listDTO = new UserOrderListDTO();
+        listDTO.setId(order.getId());
+
+        // 设置订单号
+        listDTO.setOrderNo(order.getOrderNo() != null ? order.getOrderNo() : "ORDER" + order.getId());
+
+        listDTO.setTotalAmount(order.getTotalAmount());
+        listDTO.setStatus(order.getStatus());
+        listDTO.setCreateTime(order.getCreateTime());
+
+        // 获取商铺名称
+        Shop shop = shopMapper.selectById(order.getShopId());
+        if (shop != null) {
+            listDTO.setShopName(shop.getName());
+        }
+
+        // 获取订单项信息，生成商品摘要和数量
+        QueryWrapper<OrderItem> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_id", order.getId());
+        List<OrderItem> orderItems = orderItemMapper.selectList(queryWrapper);
+
+        if (!orderItems.isEmpty()) {
+            // 生成商品摘要
+            if (orderItems.size() == 1) {
+                listDTO.setProductSummary(orderItems.get(0).getProductTitle());
+            } else {
+                listDTO.setProductSummary(orderItems.get(0).getProductTitle() + " 等" + orderItems.size() + "件商品");
+            }
+
+            // 计算商品总数量
+            int totalCount = orderItems.stream().mapToInt(OrderItem::getQuantity).sum();
+            listDTO.setItemCount(totalCount);
+        }
+
+        return listDTO;
+    }
+
+    /**
+     * 构建用户订单详情DTO
+     */
+    private UserOrderDetailDTO buildUserOrderDetailDTO(Order order) {
+        UserOrderDetailDTO detailDTO = new UserOrderDetailDTO();
+
+        // 订单基本信息
+        detailDTO.setId(order.getId());
+        detailDTO.setUserId(order.getUserId());
+        detailDTO.setShopId(order.getShopId());
+        detailDTO.setTotalAmount(order.getTotalAmount());
+        detailDTO.setStatus(order.getStatus());
+        detailDTO.setPayType(order.getPayType());
+        detailDTO.setAddress(order.getAddress());
+
+        // 时间信息
+        detailDTO.setCreateTime(order.getCreateTime());
+        detailDTO.setPayTime(order.getPayTime());
+
+        // 获取商铺名称
+        Shop shop = shopMapper.selectById(order.getShopId());
+        if (shop != null) {
+            detailDTO.setShopName(shop.getName());
+        }
+
+        // 获取订单项列表
+        QueryWrapper<OrderItem> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_id", order.getId());
+        List<OrderItem> orderItems = orderItemMapper.selectList(queryWrapper);
+
+        List<OrderItemDTO> itemDTOs = orderItems.stream().map(item -> {
+            OrderItemDTO itemDTO = new OrderItemDTO();
+            itemDTO.setId(item.getId());
+            itemDTO.setOrderId(item.getOrderId());
+            itemDTO.setProductId(item.getProductId());
+            itemDTO.setProductTitle(item.getProductTitle());
+            itemDTO.setProductImage(item.getProductImage());
+            itemDTO.setProductPrice(item.getProductPrice());
+            itemDTO.setQuantity(item.getQuantity());
+            itemDTO.setSpecifications(item.getSpecifications());
+            itemDTO.setSubtotalAmount(item.getSubtotalAmount());
+            itemDTO.setCreateTime(item.getCreateTime());
+            return itemDTO;
+        }).collect(Collectors.toList());
+
+        detailDTO.setItems(itemDTOs);
+
+        // 计算金额明细
+        long itemsAmount = orderItems.stream().mapToLong(OrderItem::getSubtotalAmount).sum();
+        detailDTO.setItemsAmount(itemsAmount);
+        detailDTO.setDiscountAmount(0L); // 暂时设为0，后续可扩展优惠功能
+        detailDTO.setDeliveryFee(0L); // 暂时设为0，后续可扩展运费功能
+        detailDTO.setActualAmount(order.getTotalAmount());
+
+        return detailDTO;
     }
 }

@@ -3,6 +3,8 @@ package com.hmdp.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hmdp.common.Result;
 import com.hmdp.dto.CreateOrderDTO;
+import com.hmdp.dto.OrderCommentDTO;
+import com.hmdp.dto.UserOrderQueryDTO;
 import com.hmdp.entity.Order;
 
 /**
@@ -76,4 +78,55 @@ public interface IOrderService extends IService<Order> {
      * @return 已完成订单列表
      */
     Result getUserCompletedOrdersByShop(Long shopId);
+
+    // ========== 用户端订单管理方法 ==========
+
+    /**
+     * 查询用户订单列表
+     * @param userId 用户ID
+     * @param queryDTO 查询参数
+     * @return 订单列表
+     */
+    Result getUserOrderList(Long userId, UserOrderQueryDTO queryDTO);
+
+    /**
+     * 查询用户订单详情
+     * @param userId 用户ID
+     * @param orderId 订单ID
+     * @return 订单详情
+     */
+    Result getUserOrderDetail(Long userId, Long orderId);
+
+    /**
+     * 用户订单支付
+     * @param userId 用户ID
+     * @param orderId 订单ID
+     * @return 操作结果
+     */
+    Result payUserOrder(Long userId, Long orderId);
+
+    /**
+     * 用户取消订单
+     * @param userId 用户ID
+     * @param orderId 订单ID
+     * @return 操作结果
+     */
+    Result cancelUserOrder(Long userId, Long orderId);
+
+    /**
+     * 用户确认收货
+     * @param userId 用户ID
+     * @param orderId 订单ID
+     * @return 操作结果
+     */
+    Result confirmUserOrder(Long userId, Long orderId);
+
+    /**
+     * 用户订单评价
+     * @param userId 用户ID
+     * @param orderId 订单ID
+     * @param commentDTO 评价内容
+     * @return 操作结果
+     */
+    Result commentUserOrder(Long userId, Long orderId, OrderCommentDTO commentDTO);
 }
