@@ -4424,3 +4424,8 @@
 2025/06/08 19:02:23 [emerg] 12860#3060: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
 2025/06/08 19:05:28 [emerg] 1968#22344: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
 2025/06/08 19:06:13 [emerg] 4624#16484: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:162
+2025/06/09 07:56:45 [emerg] 21424#18456: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:169
+2025/06/09 07:57:08 [emerg] 12076#17512: "error_log" directive is not allowed here in D:\workspace\hmdp\hmdp-front\nginx-1.18.0/conf/nginx.conf:169
+2025/06/09 08:02:21 [notice] 16700#9984: signal process started
+2025/06/09 08:10:05 [notice] 5072#19220: signal process started
+2025/06/09 09:00:45 [notice] 6032#11836: signal process started

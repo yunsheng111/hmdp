@@ -236,18 +236,28 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> i
         // 2. 将商家对象转为DTO并设置shopId
         MerchantDTO merchantDTO = BeanUtil.copyProperties(merchant, MerchantDTO.class);
 
-        // 3. 查询商家关联的店铺ID（这里简化处理，实际项目中可能需要查询tb_shop表）
-        // 为了演示，我们给每个商家分配一个默认的shopId
-        if (merchantDTO.getId() != null) {
-            merchantDTO.setShopId(merchantDTO.getId()); // 简化：使用商家ID作为shopId
+        // 3. 查询商家关联的店铺ID
+        // 修复：查询该商家的实际店铺，而不是使用硬编码或假设shopId与merchantId相同
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("merchant_id", merchant.getId())
+                   .orderByAsc("id")
+                   .last("LIMIT 1");
+
+        Shop shop = shopService.getOne(queryWrapper);
+        if (shop != null) {
+            // 如果找到了店铺，使用真实的店铺ID
+            merchantDTO.setShopId(shop.getId());
+            log.info("商家登录时设置店铺ID: {}, 店铺名称: {}", shop.getId(), shop.getName());
         } else {
-            merchantDTO.setShopId(1L); // 默认shopId
+            // 如果没有找到店铺，设置为null，前端需要处理这种情况
+            merchantDTO.setShopId(null);
+            log.info("商家 {} 暂无店铺信息", merchant.getId());
         }
 
         Map<String, Object> merchantMap = BeanUtil.beanToMap(merchantDTO, new HashMap<>(),
                 CopyOptions.create()
                         .setIgnoreNullValue(true)
-                        .setFieldValueEditor((fieldName, fieldValue) -> fieldValue.toString()));
+                        .setFieldValueEditor((fieldName, fieldValue) -> fieldValue != null ? fieldValue.toString() : ""));
 
         // 4. 存储到Redis
         String tokenKey = MERCHANT_LOGIN_TOKEN_KEY + token;
