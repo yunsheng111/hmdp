@@ -33,6 +33,11 @@ public class Order implements Serializable {
     private Long id;
 
     /**
+     * 订单号
+     */
+    private String orderNo;
+
+    /**
      * 用户ID
      */
     private Long userId;

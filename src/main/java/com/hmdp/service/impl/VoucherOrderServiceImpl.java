@@ -2,10 +2,12 @@ package com.hmdp.service.impl;
 
 import com.hmdp.common.Result;
 import com.hmdp.entity.SeckillVoucher;
+import com.hmdp.entity.Voucher;
 import com.hmdp.entity.VoucherOrder;
 import com.hmdp.mapper.VoucherOrderMapper;
 import com.hmdp.service.ISeckillVoucherService;
 import com.hmdp.service.IVoucherOrderService;
+import com.hmdp.service.IVoucherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmdp.utils.RedisIdWorker;
 import com.hmdp.utils.SimleRedisLock;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,6 +37,9 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
 
     @Resource
     private ISeckillVoucherService seckillVoucherService;
+
+    @Resource
+    private IVoucherService voucherService;
 
     @Resource
     private RedisIdWorker redisIdWorker;
@@ -119,5 +125,82 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
         }
         //9. 返回订单id
         return Result.success(orderId);
+    }
+
+    @Override
+    public Result claimVoucher(Long voucherId) {
+        // 1. 查询优惠券
+        Voucher voucher = voucherService.getById(voucherId);
+        if (voucher == null) {
+            return Result.fail("优惠券不存在");
+        }
+
+        // 2. 验证是否为普通优惠券
+        if (voucher.getType() != 0) {
+            return Result.fail("该优惠券不支持直接领取");
+        }
+
+        // 3. 验证优惠券状态
+        if (voucher.getStatus() != 1) {
+            return Result.fail("优惠券已下架或过期");
+        }
+
+        // 4. 检查用户登录状态
+        Long userId = UserHolder.getUser().getId();
+        if (userId == null) {
+            return Result.fail("请先登录");
+        }
+
+        // 5. 检查是否已经领取过该优惠券
+        int count = query().eq("user_id", userId).eq("voucher_id", voucherId).count();
+        if (count > 0) {
+            return Result.fail("您已领取过该优惠券");
+        }
+
+        // 6. 创建优惠券订单
+        VoucherOrder voucherOrder = new VoucherOrder();
+        // 6.1 订单id
+        long orderId = redisIdWorker.nextId("order");
+        voucherOrder.setId(orderId);
+        // 6.2 用户id
+        voucherOrder.setUserId(userId);
+        // 6.3 优惠券id
+        voucherOrder.setVoucherId(voucherId);
+        // 6.4 商铺id
+        voucherOrder.setShopId(voucher.getShopId());
+        // 6.5 支付方式（普通券直接设为已支付）
+        voucherOrder.setPayType(1);
+        // 6.6 订单状态（普通券直接设为已支付）
+        voucherOrder.setStatus(2);
+        // 6.7 创建时间和支付时间
+        LocalDateTime now = LocalDateTime.now();
+        voucherOrder.setCreateTime(now);
+        voucherOrder.setPayTime(now);
+
+        // 7. 保存订单
+        boolean save = this.save(voucherOrder);
+        if (!save) {
+            return Result.fail("领取失败，请重试");
+        }
+
+        // 8. 返回订单id
+        return Result.success(orderId);
+    }
+
+    @Override
+    public Result getClaimedVouchers(Long shopId) {
+        // 检查用户登录状态
+        Long userId = UserHolder.getUser().getId();
+        if (userId == null) {
+            return Result.fail("请先登录");
+        }
+
+        // 查询用户在该商店已领取的优惠券订单
+        List<VoucherOrder> claimedOrders = query()
+            .eq("user_id", userId)
+            .eq("shop_id", shopId)
+            .list();
+
+        return Result.success(claimedOrders);
     }
 }
