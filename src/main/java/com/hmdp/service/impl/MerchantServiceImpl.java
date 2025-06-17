@@ -96,25 +96,6 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> i
     }
 
     /**
-     * 处理特殊的测试账号和密码
-     * @param account 账号
-     * @param password 密码
-     * @return 是否是特殊的测试账号和密码
-     */
-    private boolean isSpecialTestAccount(String account, String password) {
-        // 特殊的测试账号和密码
-        if ((account.equals("merchant1") || 
-             account.equals("merchant2") || 
-             account.equals("merchant3") || 
-             account.equals("test")) && 
-            password.equals("123456")) {
-            log.info("检测到特殊的测试账号: {}", account);
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * 账号密码登录
      *
      * @param loginForm 登录表单
@@ -136,52 +117,25 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> i
         // 3. 查询商家
         Merchant merchant = query().eq("account", account).one();
         if (merchant == null) {
-            // 特殊处理：如果是特殊的测试账号，自动创建一个商家
-            if (isSpecialTestAccount(account, password)) {
-                log.info("为测试账号 {} 自动创建商家信息", account);
-                merchant = new Merchant();
-                merchant.setId(System.currentTimeMillis());
-                merchant.setAccount(account);
-                merchant.setPassword(DigestUtil.md5Hex(password));
-                merchant.setName("测试商家-" + account);
-                merchant.setPhone("13800138000");
-                merchant.setStatus(1);
-                merchant.setCreateTime(LocalDateTime.now());
-                merchant.setUpdateTime(LocalDateTime.now());
-                // 不实际保存到数据库，仅用于本次登录
-            } else {
-                return Result.fail("账号不存在");
-            }
+            // 账号不存在，直接返回错误信息
+            return Result.fail("商家账号不存在");
         }
 
-        // 4. 校验密码
-        // 对输入的密码进行MD5加密，然后与数据库中的密码比较
+        // 4. 校验密码 - 严格验证加密后的密码匹配
         String encryptPassword = DigestUtil.md5Hex(password);
         
         // 添加日志，输出密码信息用于调试
         log.info("账号: {}", account);
-        log.info("输入的原始密码: {}", password);
         log.info("输入密码加密后: {}", encryptPassword);
-        log.info("数据库中的密码: {}", merchant.getPassword());
         
-        // 常见的测试密码MD5值
-        String md5_123456 = "e10adc3949ba59abbe56e057f20f883e"; // 123456的MD5值
-        
-        // 验证密码 - 支持多种方式
-        boolean passwordMatch = merchant.getPassword().equals(encryptPassword) || 
-                               (password.equals("123456") && merchant.getPassword().equals(md5_123456)) ||
-                               isSpecialTestAccount(account, password);
-        
-        if (!passwordMatch) {
+        // 严格验证密码 - 只允许数据库中的商家账号密码匹配
+        if (!merchant.getPassword().equals(encryptPassword)) {
             return Result.fail("密码错误");
         }
 
         // 5. 校验商家状态
         if (merchant.getStatus() != 1) {
-            // 特殊处理：如果是特殊的测试账号，忽略状态检查
-            if (!isSpecialTestAccount(account, password)) {
-                return Result.fail("账号状态异常，请联系客服");
-            }
+            return Result.fail("账号状态异常，请联系客服");
         }
 
         // 6. 生成token
@@ -208,10 +162,10 @@ public class MerchantServiceImpl extends ServiceImpl<MerchantMapper, Merchant> i
             return Result.fail("验证码错误");
         }
 
-        // 3. 查询商家
+        // 3. 查询商家 - 确保是商家账号
         Merchant merchant = query().eq("phone", phone).one();
         if (merchant == null) {
-            return Result.fail("该手机号未注册");
+            return Result.fail("该手机号未注册为商家账号");
         }
 
         // 4. 校验商家状态

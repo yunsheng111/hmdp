@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.hmdp.utils.RedisConstants.DELETED_BLOG_HINTS_KEY;
 
@@ -80,13 +83,27 @@ public class BlogController {
                 .eq("user_id", userId).page(new Page<>(current, pageSize));
         // 获取当前页的数据
         List<Blog> records = page.getRecords();
-        // 遍历每个博客，查询对应的用户信息，并将用户昵称和头像设置到博客对象中
-        records.forEach(blog ->{
-            Long blogUserId = blog.getUserId();
-            User user = userService.getById(blogUserId);
-            blog.setName(user.getNickName());
-            blog.setIcon(user.getIcon());
-        });
+        // 批量查询用户信息，避免N+1查询问题
+        if (!records.isEmpty()) {
+            // 收集所有需要查询的用户ID
+            Set<Long> userIds = records.stream()
+                    .map(Blog::getUserId)
+                    .collect(Collectors.toSet());
+
+            // 批量查询用户信息
+            List<User> users = userService.listByIds(userIds);
+            Map<Long, User> userMap = users.stream()
+                    .collect(Collectors.toMap(User::getId, user -> user));
+
+            // 设置博客的用户信息
+            records.forEach(blog -> {
+                User user = userMap.get(blog.getUserId());
+                if (user != null) {
+                    blog.setName(user.getNickName());
+                    blog.setIcon(user.getIcon());
+                }
+            });
+        }
         // 返回包含用户信息的博客列表
         return Result.success(page);
     }

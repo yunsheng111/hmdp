@@ -137,11 +137,31 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
                 .page(new Page<>(current, SystemConstants.MAX_PAGE_SIZE));
         //2.获取当前页数据
         List<Blog> records = page.getRecords();
-        //3.查询用户
-        records.forEach(blog ->{
-            this.queryBlogUser(blog);
-            this.isBlogLike(blog);
-        });
+
+        //3.批量查询用户信息，避免N+1查询问题
+        if (!records.isEmpty()) {
+            // 收集所有需要查询的用户ID
+            Set<Long> userIds = records.stream()
+                    .map(Blog::getUserId)
+                    .collect(Collectors.toSet());
+
+            // 批量查询用户信息
+            List<User> users = userService.listByIds(userIds);
+            Map<Long, User> userMap = users.stream()
+                    .collect(Collectors.toMap(User::getId, user -> user));
+
+            // 设置博客的用户信息和点赞状态
+            records.forEach(blog -> {
+                // 设置用户信息
+                User user = userMap.get(blog.getUserId());
+                if (user != null) {
+                    blog.setIcon(user.getIcon());
+                    blog.setName(user.getNickName());
+                }
+                // 设置点赞状态
+                this.isBlogLike(blog);
+            });
+        }
 
         //4.返回查询结果
         return Result.success(records);
